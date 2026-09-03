@@ -3,85 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - RYAA Digital Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>RYAA Admin Panel</title>
+    <style>
+        :root {
+            --primary-green: #115e39;
+            --light-bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-light);
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: var(--accent-orange);
+            font-size: 1.8rem;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-orange);
+            font-size: 1.2rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+            font-size: 0.95rem;
+        }
+        textarea {
+            resize: vertical;
+            height: 90px;
+        }
+        button {
+            background: var(--accent-orange);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .btn-danger {
+            background: var(--accent-red);
+            width: auto;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        .item-list {
+            margin-top: 15px;
+        }
+        .item-row {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-info h4 {
+            font-size: 1rem;
+            color: white;
+        }
+        .item-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
+<body>
 
-    <!-- Login Section -->
-    <div id="login-section" class="flex items-center justify-center min-h-screen px-4">
-        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-md shadow-2xl">
-            <h2 class="text-2xl font-bold text-orange-500 mb-2 text-center">Admin Portal</h2>
-            <p class="text-slate-400 text-sm mb-6 text-center">Login to manage RYAA Digital Hub</p>
-            <form id="login-form" class="space-y-4">
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email</label>
-                    <input type="email" id="admin-email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-orange-500">
+    <div class="container">
+        <div class="header">
+            <h1>RYAA Admin Panel</h1>
+        </div>
+
+        <!-- Add New Work / Project -->
+        <div class="card">
+            <h3>Add New Work / Event</h3>
+            <form id="work-form">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="work-title" required placeholder="e.g. Community Engagement Program">
                 </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Password</label>
-                    <input type="password" id="admin-password" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-orange-500">
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="work-category" required placeholder="e.g. Social Work">
                 </div>
-                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-lg transition">Login</button>
-                <p id="login-error" class="text-red-500 text-xs text-center mt-2"></p>
+                <div class="form-group">
+                    <label>Image URLs (One URL per line for multiple images)</label>
+                    <textarea id="work-image" placeholder="Paste image links here (each on a new line)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="work-desc" placeholder="Write description..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>External Link (Optional)</label>
+                    <input type="url" id="work-link" placeholder="https://...">
+                </div>
+                <button type="submit">Publish Work</button>
             </form>
-            <div class="text-center mt-6">
-                <a href="index.html" class="text-xs text-slate-500 hover:text-slate-400">&larr; Back to Home</a>
-            </div>
         </div>
-    </div>
 
-    <!-- Dashboard Section (Hidden by Default) -->
-    <div id="dashboard-section" class="hidden min-h-screen flex flex-col">
-        <nav class="border-b border-slate-800 bg-slate-900/50 px-6 py-4 flex justify-between items-center">
-            <h1 class="font-bold text-orange-500 text-lg">RYAA Admin Panel</h1>
-            <div class="flex items-center gap-4">
-                <a href="index.html" target="_blank" class="text-xs text-slate-400 hover:text-white">Visit Site</a>
-                <button id="logout-btn" class="text-xs bg-red-600/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-600 hover:text-white transition">Logout</button>
-            </div>
-        </nav>
-
-        <div class="max-w-6xl mx-auto px-4 py-8 w-full space-y-12">
-            
-            <!-- Add / Edit Work Form -->
-            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 id="form-title" class="text-lg font-bold text-orange-400 mb-4">Add Work / Project</h3>
-                <form id="work-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input type="hidden" id="edit-work-id">
-                    <input type="text" id="work-title" placeholder="Project Title" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    <input type="text" id="work-category" placeholder="Category Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    
-                    <div class="flex flex-col sm:col-span-2">
-                        <label class="text-xs text-slate-400 mb-1">Project Image URLs (Multiple links separated by comma or new line)</label>
-                        <textarea id="work-image-url" placeholder="https://i.ibb.co/.../image1.jpg&#10;https://i.ibb.co/.../image2.jpg" rows="3" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-orange-500"></textarea>
-                    </div>
-
-                    <input type="text" id="work-link" placeholder="Project Link (Optional)" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    <textarea id="work-desc" placeholder="Short Description" rows="2" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500"></textarea>
-                    
-                    <div class="sm:col-span-2 flex gap-4">
-                        <button type="submit" id="work-submit-btn" class="flex-1 bg-orange-600 hover:bg-orange-500 text-white py-2.5 rounded-lg text-sm font-semibold transition">Publish Work</button>
-                        <button type="button" id="cancel-edit-btn" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-2.5 rounded-lg text-sm font-semibold transition">Cancel</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Manage Existing Works -->
-            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-orange-400 mb-4">Manage Existing Works</h3>
-                <div id="admin-works-list" class="space-y-4">
-                    <p class="text-slate-500 text-sm">Loading works...</p>
+        <!-- Add New Leadership Member -->
+        <div class="card">
+            <h3>Add Leadership Member</h3>
+            <form id="team-form">
+                <div class="form-group">
+                    <label>Member Name</label>
+                    <input type="text" id="team-name" required placeholder="Full Name">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label>Role / Position</label>
+                    <input type="text" id="team-role" required placeholder="e.g. President / Director">
+                </div>
+                <div class="form-group">
+                    <label>Short Bio (Optional)</label>
+                    <textarea id="team-bio" placeholder="Brief info about member..."></textarea>
+                </div>
+                <button type="submit">Add Member</button>
+            </form>
+        </div>
 
+        <!-- Manage Existing Team Members -->
+        <div class="card">
+            <h3>Manage Leadership Team</h3>
+            <div id="team-list" class="item-list">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading team members...</p>
+            </div>
         </div>
     </div>
 
-    <!-- Firebase Admin Logic Script -->
+    <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addCollection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
@@ -93,182 +197,105 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
 
-        const loginSection = document.getElementById('login-section');
-        const dashboardSection = document.getElementById('dashboard-section');
-        const loginForm = document.getElementById('login-form');
-        const loginError = document.getElementById('login-error');
-        const logoutBtn = document.getElementById('logout-btn');
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                loginSection.classList.add('hidden');
-                dashboardSection.classList.remove('hidden');
-                fetchAdminWorks();
-            } else {
-                loginSection.classList.remove('hidden');
-                dashboardSection.classList.add('hidden');
-            }
-        });
-
-        loginForm.addEventListener('submit', async (e) => {
+        // Handle Work Submission (Supports multiple image URLs separated by line breaks)
+        document.getElementById('work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('admin-email').value;
-            const password = document.getElementById('admin-password').value;
-            loginError.textContent = '';
+            const title = document.getElementById('work-title').value;
+            const category = document.getElementById('work-category').value;
+            const imageRaw = document.getElementById('work-image').value;
+            const description = document.getElementById('work-desc').value;
+            const link = document.getElementById('work-link').value;
+
+            // Convert textarea lines into an array of image URLs
+            const images = imageRaw.split('\n').map(url => url.trim()).filter(url => url.length > 0);
+
             try {
-                await signInWithEmailAndPassword(auth, email, password);
-            } catch (error) {
-                loginError.textContent = error.message;
+                await addDoc(collection(db, "works"), {
+                    title,
+                    category,
+                    image: images.length > 1 ? images : (images[0] || ''),
+                    description,
+                    link,
+                    createdAt: new Date()
+                });
+                alert('Work published successfully!');
+                document.getElementById('work-form').reset();
+            } catch (err) {
+                alert('Error: ' + err.message);
             }
         });
 
-        logoutBtn.addEventListener('click', () => {
-            signOut(auth);
+        // Handle Team Member Submission
+        document.getElementById('team-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('team-name').value;
+            const role = document.getElementById('team-role').value;
+            const bio = document.getElementById('team-bio').value;
+
+            try {
+                await addDoc(collection(db, "team"), {
+                    name,
+                    role,
+                    bio
+                });
+                alert('Team member added successfully!');
+                document.getElementById('team-form').reset();
+                loadTeamMembers();
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
         });
 
-        // Fetch Works in Admin Panel for Edit/Delete
-        async function fetchAdminWorks() {
-            const listContainer = document.getElementById('admin-works-list');
+        // Load & Manage Existing Team Members
+        async function loadTeamMembers() {
+            const teamListDiv = document.getElementById('team-list');
             try {
-                const querySnapshot = await getDocs(collection(db, "works"));
+                const querySnapshot = await getDocs(collection(db, "team"));
                 if (querySnapshot.empty) {
-                    listContainer.innerHTML = '<p class="text-slate-500 text-sm">No works found.</p>';
+                    teamListDiv.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No team members found.</p>';
                     return;
                 }
-                listContainer.innerHTML = '';
-                querySnapshot.forEach((documentSnapshot) => {
-                    const data = documentSnapshot.data();
-                    const id = documentSnapshot.id;
-                    
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'bg-slate-950 border border-slate-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4';
-                    itemDiv.innerHTML = `
-                        <div>
-                            <span class="text-xs text-orange-400 font-semibold">${data.category || ''}</span>
-                            <h4 class="font-bold text-slate-200">${data.title}</h4>
-                            <p class="text-xs text-slate-400 line-clamp-1">${data.description || ''}</p>
+                teamListDiv.innerHTML = '';
+                querySnapshot.forEach((documentSnap) => {
+                    const data = documentSnap.data();
+                    const memberId = documentSnap.id;
+
+                    const row = document.createElement('div');
+                    row.className = 'item-row';
+                    row.innerHTML = `
+                        <div class="item-info">
+                            <h4>${data.name}</h4>
+                            <p>${data.role}</p>
                         </div>
-                        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                            <button data-id="${id}" class="edit-btn bg-blue-600/20 text-blue-400 border border-blue-500/30 px-3 py-1 rounded text-xs hover:bg-blue-600 hover:text-white transition">Edit</button>
-                            <button data-id="${id}" class="delete-btn bg-red-600/20 text-red-400 border border-red-500/30 px-3 py-1 rounded text-xs hover:bg-red-600 hover:text-white transition">Delete</button>
-                        </div>
+                        <button class="btn-danger" data-id="${memberId}">Delete</button>
                     `;
-                    listContainer.appendChild(itemDiv);
+                    teamListDiv.appendChild(row);
                 });
 
-                // Attach Delete Event
-                document.querySelectorAll('.delete-btn').forEach(btn => {
+                // Attach delete event listeners
+                document.querySelectorAll('.btn-danger').forEach(btn => {
                     btn.addEventListener('click', async (e) => {
                         const id = e.target.getAttribute('data-id');
-                        if (confirm('Are you sure you want to delete this work?')) {
+                        if (confirm('Are you sure you want to delete this member?')) {
                             try {
-                                await deleteDoc(doc(db, "works", id));
-                                alert('Work deleted successfully!');
-                                fetchAdminWorks();
+                                await deleteDoc(doc(db, "team", id));
+                                alert('Member deleted successfully!');
+                                loadTeamMembers();
                             } catch (err) {
-                                alert('Error deleting: ' + err.message);
+                                alert('Failed to delete: ' + err.message);
                             }
                         }
                     });
                 });
 
-                // Attach Edit Event
-                document.querySelectorAll('.edit-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const id = e.target.getAttribute('data-id');
-                        const docSnap = querySnapshot.docs.find(d => d.id === id);
-                        if (docSnap) {
-                            const data = docSnap.data();
-                            document.getElementById('edit-work-id').value = id;
-                            document.getElementById('work-title').value = data.title || '';
-                            document.getElementById('work-category').value = data.category || '';
-                            
-                            // Handle image field whether it's an array or old string format
-                            document.getElementById('work-image-url').value = Array.isArray(data.image) ? data.image.join('\n') : (data.image || '');
-                            
-                            document.getElementById('work-link').value = data.link || '';
-                            document.getElementById('work-desc').value = data.description || '';
-                            
-                            document.getElementById('form-title').textContent = 'Edit Work / Project';
-                            document.getElementById('work-submit-btn').textContent = 'Update Work';
-                            document.getElementById('cancel-edit-btn').classList.remove('hidden');
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }
-                    });
-                });
-
             } catch (err) {
-                listContainer.innerHTML = '<p class="text-red-500 text-sm">Failed to load works.</p>';
+                teamListDiv.innerHTML = '<p style="color: var(--accent-red);">Failed to load team members.</p>';
             }
         }
 
-        // Cancel Edit Mode
-        document.getElementById('cancel-edit-btn').addEventListener('click', () => {
-            document.getElementById('work-form').reset();
-            document.getElementById('edit-work-id').value = '';
-            document.getElementById('form-title').textContent = 'Add Work / Project';
-            document.getElementById('work-submit-btn').textContent = 'Publish Work';
-            document.getElementById('cancel-edit-btn').classList.add('hidden');
-        });
-
-        // Add or Update Work Handler
-        document.getElementById('work-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const editId = document.getElementById('edit-work-id').value;
-            const title = document.getElementById('work-title').value;
-            const category = document.getElementById('work-category').value;
-            
-            // Get multiple image URLs from textarea and convert to Array
-            const imageUrlInput = document.getElementById('work-image-url').value;
-            const imageUrls = imageUrlInput.split(/[\n,]+/).map(url => url.trim()).filter(url => url.length > 0);
-
-            const link = document.getElementById('work-link').value;
-            const description = document.getElementById('work-desc').value;
-            const submitBtn = document.getElementById('work-submit-btn');
-
-            try {
-                submitBtn.textContent = editId ? 'Updating...' : 'Publishing...';
-                submitBtn.disabled = true;
-
-                if (editId) {
-                    // Update existing document with image array
-                    await updateDoc(doc(db, "works", editId), {
-                        title,
-                        category,
-                        image: imageUrls,
-                        link,
-                        description
-                    });
-                    alert('Work updated successfully!');
-                } else {
-                    // Add new document with image array
-                    await addDoc(collection(db, "works"), { 
-                        title, 
-                        category, 
-                        image: imageUrls, 
-                        link, 
-                        description,
-                        createdAt: Date.now()
-                    });
-                    alert('Work published successfully!');
-                }
-
-                document.getElementById('work-form').reset();
-                document.getElementById('edit-work-id').value = '';
-                document.getElementById('form-title').textContent = 'Add Work / Project';
-                document.getElementById('work-submit-btn').textContent = 'Publish Work';
-                document.getElementById('cancel-edit-btn').classList.add('hidden');
-                fetchAdminWorks();
-            } catch (err) {
-                alert('Error: ' + err.message);
-            } finally {
-                submitBtn.textContent = editId ? 'Update Work' : 'Publish Work';
-                submitBtn.disabled = false;
-            }
-        });
+        loadTeamMembers();
     </script>
 </body>
 </html>
