@@ -59,10 +59,10 @@
                     <input type="text" id="work-title" placeholder="Project Title" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
                     <input type="text" id="work-category" placeholder="Category Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
                     
-                    <!-- ফাইল আপলোড ইনপুট -->
+                    <!-- ইমেজ লিংক ইনপুট (ফ্রি সাইটের লিংক দেওয়ার জন্য) -->
                     <div class="flex flex-col sm:col-span-2">
-                        <label class="text-xs text-slate-400 mb-1">Upload Project Image</label>
-                        <input type="file" id="work-image-file" accept="image/*" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-400 file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-orange-600 file:text-white hover:file:bg-orange-500 focus:outline-none focus:border-orange-500">
+                        <label class="text-xs text-slate-400 mb-1">Project Image URL (ImgBB Direct Link)</label>
+                        <input type="url" id="work-image-url" placeholder="https://i.ibb.co/.../image.jpg" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-orange-500">
                     </div>
 
                     <input type="text" id="work-link" placeholder="Project Link (Optional)" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
@@ -92,7 +92,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
@@ -106,7 +105,6 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         const loginSection = document.getElementById('login-section');
         const dashboardSection = document.getElementById('dashboard-section');
@@ -156,35 +154,25 @@
             }
         });
 
-        // Add Work Handler with File Upload
+        // Add Work Handler with Image URL
         document.getElementById('work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const title = document.getElementById('work-title').value;
             const category = document.getElementById('work-category').value;
-            const imageFile = document.getElementById('work-image-file').files[0];
+            const imageUrl = document.getElementById('work-image-url').value;
             const link = document.getElementById('work-link').value;
             const description = document.getElementById('work-desc').value;
             const submitBtn = document.getElementById('work-submit-btn');
 
-            if (!imageFile) {
-                alert('Please select an image file!');
-                return;
-            }
-
             try {
-                submitBtn.textContent = 'Uploading Image...';
+                submitBtn.textContent = 'Publishing...';
                 submitBtn.disabled = true;
 
-                // Firebase Storage এ ইমেজ আপলোড
-                const storageRef = ref(storage, 'works/' + Date.now() + '_' + imageFile.name);
-                const snapshot = await uploadBytes(storageRef, imageFile);
-                const downloadURL = await getDownloadURL(snapshot.ref);
-
-                // Firestore এ ডেটা সেভ
+                // Firestore এ সরাসরি ডেটা ও ইমেজ লিংক সেভ হবে
                 await addDoc(collection(db, "works"), { 
                     title, 
                     category, 
-                    image: downloadURL, 
+                    image: imageUrl, 
                     link, 
                     description,
                     createdAt: Date.now()
@@ -210,7 +198,7 @@
             try {
                 await addDoc(collection(db, "team"), { name, role, image, bio });
                 alert('Team member added successfully!');
-                document.getElementById('team-form').reset();
+                document.getElementById('team-form'.reset());
             } catch (err) {
                 alert('Error: ' + err.message);
             }
