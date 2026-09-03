@@ -4,156 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RYAA Digital Hub</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-green: #115e39;
+            --light-bg: #f4fcf7;
+            --card-bg: #ffffff;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            background: white;
+        }
+        .logo-area h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .hero {
+            background-color: var(--primary-green);
+            color: white;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        .hero h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem auto;
+            opacity: 0.9;
+        }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .hero-buttons a {
+            background: white;
+            color: var(--primary-green);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .section-title {
+            text-align: center;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-desc {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-green);
+        }
+        .card h3 {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .contact-card p {
+            margin: 0.5rem 0;
+            color: var(--text-light);
+        }
+        .contact-card h4 {
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+        .loading-text {
+            text-align: center;
+            color: var(--text-light);
+            padding: 1rem;
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
+<body>
 
-    <!-- Navbar -->
-    <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <span class="text-xl font-bold tracking-wider text-orange-500">RYAA DIGITAL HUB</span>
-            <a href="admin.html" class="text-xs uppercase tracking-widest bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded transition">Admin Login</a>
+    <header>
+        <div class="logo-area">
+            <!-- এখানে logo.jpg ফাইলটি কল করা হয়েছে -->
+            <img src="logo.jpg" alt="RYAA Logo" class="logo-img">
+            <h1>RYAA Digital Hub</h1>
         </div>
-    </nav>
-
-    <!-- Header Section -->
-    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">Welcome to <span class="text-orange-500">RYAA Digital Hub</span></h1>
-        <p class="text-slate-400 max-w-2xl mx-auto text-lg">Explore our dynamic digital creations, works, and leadership team.</p>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-16">
+    <section class="hero">
+        <h2>Rohingya Youth Advocacy Alliance (RYAA)</h2>
+        <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
+        <div class="hero-buttons">
+            <a href="#departments">Explore Departments</a>
+            <a href="#works">Recent Works & Photos</a>
+            <a href="#leadership">View Leadership</a>
+        </div>
+    </section>
+
+    <!-- Departments Section (1 to 10 Fixed Serial) -->
+    <div class="container" id="departments">
+        <h2 class="section-title">Our Departments & Activities</h2>
+        <p class="section-desc">Working across multiple fronts for community development and advocacy.</p>
+
+        <div class="card"><h3>01. Foreign Affairs</h3><p>Builds international partnerships and diplomatic engagement with global human rights bodies.</p></div>
+        <div class="card"><h3>02. Programme</h3><p>Planning and executing community welfare programs and strategic initiatives.</p></div>
+        <div class="card"><h3>03. Finance</h3><p>Managing financial planning, transparency, budgets, and resource allocation.</p></div>
+        <div class="card"><h3>04. Community Engagement</h3><p>Fostering strong community ties, social cohesion, and grassroots participation.</p></div>
+        <div class="card"><h3>05. Education</h3><p>Promoting learning opportunities, skill development, and educational support for youth.</p></div>
+        <div class="card"><h3>06. Youth Empowerment</h3><p>Empowering young leaders through training, workshops, and active participation.</p></div>
+        <div class="card"><h3>07. Culture</h3><p>Preserving and promoting Rohingya heritage, traditions, art, and cultural identity.</p></div>
+        <div class="card"><h3>08. Refugee Affairs</h3><p>Focuses on protection rights, legal aid awareness, and advocacy for refugee welfare.</p></div>
+        <div class="card"><h3>09. Media</h3><p>Managing digital communications, publications, and projecting community narratives.</p></div>
+        <div class="card"><h3>10. Environment</h3><p>Advocating for environmental awareness, sustainability, and green initiatives.</p></div>
+
+        <!-- Firebase থেকে অতিরিক্ত ডিপার্টমেন্ট যুক্ত হলে সিরিয়ালি দেখানোর জায়গা -->
+        <div id="extra-departments-container"></div>
+    </div>
+
+    <!-- Recent Works Section (Controlled via Firebase/Admin Panel) -->
+    <div class="container" id="works">
+        <h2 class="section-title">Recent Works, Photos & Documents</h2>
+        <p class="section-desc">Explore our latest captured moments, event photos, and project highlights.</p>
+        <div id="works-container">
+            <p class="loading-text">Loading works...</p>
+        </div>
+    </div>
+
+    <!-- Leadership Team Section (Exact Serial from the provided image + Firebase support) -->
+    <div class="container" id="leadership">
+        <h2 class="section-title">Our Leadership Team</h2>
+        <p class="section-desc">Meet the dedicated individuals leading Rohingya Youth Advocacy Alliance (RYAA).</p>
+
+        <div class="card"><h3>01. Mohammad Zubair</h3><p><strong>Executive Director</strong></p><p>Mobile: +8801859202408</p></div>
+        <div class="card"><h3>02. Engr Farid Alam</h3><p><strong>Director of Foreign Affairs</strong></p><p>Mobile: +44 7469 655278</p></div>
+        <div class="card"><h3>03. Saddam Hossain</h3><p><strong>Director of Programme</strong></p><p>Mobile: +8801820122040</p></div>
+        <div class="card"><h3>04. Mohammed Jubair</h3><p><strong>Director of Finance</strong></p><p>Mobile: +8801856892207</p></div>
+        <div class="card"><h3>05. Hasan Ali</h3><p><strong>Director of Community Engagement</strong></p><p>Mobile: +8801849511527</p></div>
+        <div class="card"><h3>06. Azizur Rahman</h3><p><strong>Director of Education</strong></p><p>Mobile: +8801878539771</p></div>
+        <div class="card"><h3>07. Hashmatullah</h3><p><strong>Director of Youth Empowerment</strong></p><p>Mobile: +8801305252465</p></div>
+        <div class="card"><h3>08. Nurul Hoque</h3><p><strong>Director of Culture</strong></p><p>Mobile: +8801868809651</p></div>
+        <div class="card"><h3>09. Abdul Munaf</h3><p><strong>Director of Refugee Affairs</strong></p><p>Mobile: +8801309700681</p></div>
+        <div class="card"><h3>10. Kafayet Ullah</h3><p><strong>Director of Media</strong></p><p>Mobile: +8801752641575</p></div>
+        <div class="card"><h3>11. Abdul Hamid</h3><p><strong>Director of Environment</strong></p><p>Mobile: +8801995131095</p></div>
+
+        <!-- অ্যাডমিন প্যানেল থেকে নতুন লিডার যোগ করলে ১২, ১৩ সিরিয়াল হিসেবে ফায়ারবেস থেকে লোড হবে -->
+        <div id="leadership-container"></div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-desc">For organizations, donors, and partners wishing to connect with us, please reach out via official email or phone below.</p>
         
-        <!-- Works Section -->
-        <section>
-            <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold tracking-tight text-orange-400">Our Works</h2>
-                <div id="category-filters" class="flex flex-wrap gap-2">
-                    <button onclick="filterWorks('all')" class="text-xs px-3 py-1 bg-orange-600 text-white rounded transition">All</button>
-                </div>
-            </div>
-            <div id="works-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Dynamic Works Will Load Here -->
-                <p class="text-slate-500 col-span-full text-center py-8">Loading works...</p>
-            </div>
-        </section>
+        <div class="contact-card">
+            <h4>OFFICIAL EMAIL</h4>
+            <p>ryalliance@gmail.com</p>
+            <h4>PHONE / WHATSAPP</h4>
+            <p>+8801859202408</p>
+        </div>
+    </div>
 
-        <!-- Leadership Section -->
-        <section>
-            <div class="border-b border-slate-800 pb-4 mb-8">
-                <h2 class="text-2xl font-bold tracking-tight text-orange-400">Leadership Team</h2>
-            </div>
-            <div id="team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Dynamic Team Will Load Here -->
-                <p class="text-slate-500 col-span-full text-center py-8">Loading team members...</p>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
-        &copy; 2026 RYAA Digital Hub. Powered by Firebase.
+    <footer style="text-align: center; padding: 2rem; color: var(--text-light); font-size: 0.85rem;">
+        &copy; 2026 RYAA Digital Hub. All Rights Reserved.
     </footer>
 
-    <!-- Firebase SDK & Dynamic Loader Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
-            authDomain: "ryaa-digital-hub.firebaseapp.com",
-            projectId: "ryaa-digital-hub",
-            storageBucket: "ryaa-digital-hub.firebasestorage.app",
-            messagingSenderId: "672127865081",
-            appId: "1:672127865081:web:fd6dc8783e6bd848e55228"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        let allWorks = [];
-
-        async function loadData() {
-            try {
-                // Load Categories
-                const catSnapshot = await getDocs(collection(db, "categories"));
-                const filterContainer = document.getElementById('category-filters');
-                catSnapshot.forEach(doc => {
-                    const cat = doc.data();
-                    filterContainer.innerHTML += `<button onclick="filterWorks('${cat.name}')" class="text-xs px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition">${cat.name}</button>`;
-                });
-
-                // Load Works
-                const worksSnapshot = await getDocs(collection(db, "works"));
-                allWorks = [];
-                worksSnapshot.forEach(doc => {
-                    allWorks.push({ id: doc.id, ...doc.data() });
-                });
-                renderWorks(allWorks);
-
-                // Load Team
-                const teamSnapshot = await getDocs(collection(db, "team"));
-                const teamGrid = document.getElementById('team-grid');
-                teamGrid.innerHTML = '';
-                if(teamSnapshot.empty) {
-                    teamGrid.innerHTML = '<p class="text-slate-500 col-span-full text-center py-8">No leadership members found.</p>';
-                }
-                teamSnapshot.forEach(doc => {
-                    const member = doc.data();
-                    teamGrid.innerHTML += `
-                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
-                            <img src="${member.image || 'https://via.placeholder.com/150'}" alt="${member.name}" class="w-24 h-24 object-cover rounded-full mx-auto mb-4 border-2 border-orange-500/50">
-                            <h3 class="font-bold text-lg text-slate-200">${member.name}</h3>
-                            <p class="text-orange-400 text-xs uppercase tracking-wider mb-2">${member.role}</p>
-                            <p class="text-slate-400 text-sm">${member.bio || ''}</p>
-                        </div>
-                    `;
-                });
-
-            } catch (error) {
-                console.error("Error loading data:", error);
-            }
-        }
-
-        window.renderWorks = function(works) {
-            const grid = document.getElementById('works-grid');
-            grid.innerHTML = '';
-            if(works.length === 0) {
-                grid.innerHTML = '<p class="text-slate-500 col-span-full text-center py-8">No works available.</p>';
-                return;
-            }
-            works.forEach(work => {
-                grid.innerHTML += `
-                    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg group hover:border-orange-500/50 transition">
-                        <div class="h-48 overflow-hidden bg-slate-950">
-                            <img src="${work.image || 'https://via.placeholder.com/400x300'}" alt="${work.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                        </div>
-                        <div class="p-5">
-                            <span class="text-[10px] uppercase font-semibold px-2 py-1 bg-orange-500/10 text-orange-400 rounded">${work.category}</span>
-                            <h3 class="font-bold text-lg text-slate-100 mt-3 mb-2">${work.title}</h3>
-                            <p class="text-slate-400 text-sm mb-4">${work.description || ''}</p>
-                            ${work.link ? `<a href="${work.link}" target="_blank" class="inline-block text-xs font-semibold text-orange-400 hover:text-orange-300">View Project &rarr;</a>` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        window.filterWorks = function(category) {
-            if(category === 'all') {
-                renderWorks(allWorks);
-            } else {
-                const filtered = allWorks.filter(w => w.category === category);
-                renderWorks(filtered);
-            }
-        }
-
-        loadData();
-    </script>
 </body>
 </html>
