@@ -117,20 +117,15 @@
         .card p {
             color: var(--text-light);
             font-size: 0.95rem;
+            margin-bottom: 0.5rem;
         }
-        /* Gallery Styles for Multiple Images */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .image-gallery img {
+        .card img {
             width: 100%;
-            height: 100px;
+            max-height: 300px;
             object-fit: cover;
             border-radius: 8px;
-            border: 1px solid #ddd;
+            margin-top: 10px;
+            border: 1px solid #e5e7eb;
         }
         .contact-card {
             background: white;
@@ -147,6 +142,11 @@
             color: var(--primary-green);
             font-size: 1.1rem;
             margin-top: 1rem;
+        }
+        .loading-text {
+            text-align: center;
+            color: var(--text-light);
+            padding: 1rem;
         }
     </style>
 </head>
@@ -186,32 +186,12 @@
         <div class="card"><h3>10. Environment</h3><p>Advocating for environmental awareness, sustainability, and green initiatives.</p></div>
     </div>
 
-    <!-- Recent Works & Photos Section (Manual Gallery) -->
+    <!-- Recent Works Section (Dynamic from Firebase) -->
     <div class="container" id="works">
         <h2 class="section-title">Recent Works, Photos & Documents</h2>
         <p class="section-desc">Explore our latest captured moments, event photos, and project highlights.</p>
-        
-        <!-- আপনার প্রোগ্রাম বা ইভেন্টের ছবি এখানে বসাবেন -->
-        <div class="card">
-            <h3>Youth Leadership Training Program 2026</h3>
-            <p>Successfully completed our annual youth development workshop with active community participation.</p>
-            
-            <!-- এখানে ৫-৬টি ছবির ডিরেক্ট লিংক বসাতে পারবেন -->
-            <div class="image-gallery">
-                <img src="https://i.ibb.co.com/placeholder1.jpg" alt="Event Photo 1">
-                <img src="https://i.ibb.co.com/placeholder2.jpg" alt="Event Photo 2">
-                <img src="https://i.ibb.co.com/placeholder3.jpg" alt="Event Photo 3">
-                <img src="https://i.ibb.co.com/placeholder4.jpg" alt="Event Photo 4">
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>Community Awareness Campaign</h3>
-            <p>Spreading awareness and educational support across different local regions.</p>
-            <div class="image-gallery">
-                <img src="https://i.ibb.co.com/placeholder5.jpg" alt="Event Photo">
-                <img src="https://i.ibb.co.com/placeholder6.jpg" alt="Event Photo">
-            </div>
+        <div id="works-container">
+            <p class="loading-text">Loading works...</p>
         </div>
     </div>
 
@@ -219,18 +199,7 @@
     <div class="container" id="leadership">
         <h2 class="section-title">Our Leadership Team</h2>
         <p class="section-desc">Meet the dedicated individuals leading Rohingya Youth Advocacy Alliance (RYAA).</p>
-
-        <div class="card"><h3>01. Mohammad Zubair</h3><p><strong>Executive Director</strong></p><p>Mobile: +8801859202408</p></div>
-        <div class="card"><h3>02. Engr Farid Alam</h3><p><strong>Director of Foreign Affairs</strong></p><p>Mobile: +44 7469 655278</p></div>
-        <div class="card"><h3>03. Saddam Hossain</h3><p><strong>Director of Programme</strong></p><p>Mobile: +8801820122040</p></div>
-        <div class="card"><h3>04. Mohammed Jubair</h3><p><strong>Director of Finance</strong></p><p>Mobile: +8801856892207</p></div>
-        <div class="card"><h3>05. Hasan Ali</h3><p><strong>Director of Community Engagement</strong></p><p>Mobile: +8801849511527</p></div>
-        <div class="card"><h3>06. Azizur Rahman</h3><p><strong>Director of Education</strong></p><p>Mobile: +8801878539771</p></div>
-        <div class="card"><h3>07. Hashmatullah</h3><p><strong>Director of Youth Empowerment</strong></p><p>Mobile: +8801305252465</p></div>
-        <div class="card"><h3>08. Nurul Hoque</h3><p><strong>Director of Culture</strong></p><p>Mobile: +8801868809651</p></div>
-        <div class="card"><h3>09. Abdul Munaf</h3><p><strong>Director of Refugee Affairs</strong></p><p>Mobile: +8801309700681</p></div>
-        <div class="card"><h3>10. Kafayet Ullah</h3><p><strong>Director of Media</strong></p><p>Mobile: +8801752641575</p></div>
-        <div class="card"><h3>11. Abdul Hamid</h3><p><strong>Director of Environment</strong></p><p>Mobile: +8801995131095</p></div>
+        <div id="leadership-container"></div>
     </div>
 
     <!-- Contact Section -->
@@ -250,5 +219,76 @@
         &copy; 2026 RYAA Digital Hub. All Rights Reserved.
     </footer>
 
+    <!-- Firebase Display Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
+            authDomain: "ryaa-digital-hub.firebaseapp.com",
+            projectId: "ryaa-digital-hub",
+            storageBucket: "ryaa-digital-hub.firebasestorage.app",
+            messagingSenderId: "672127865081",
+            appId: "1:672127865081:web:fd6dc8783e6bd848e55228"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadWorks() {
+            const container = document.getElementById('works-container');
+            try {
+                const querySnapshot = await getDocs(collection(db, "works"));
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p class="loading-text">No works found.</p>';
+                    return;
+                }
+                container.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    let html = `
+                        <div class="card">
+                            <span style="font-size: 0.8rem; background: var(--light-bg); color: var(--primary-green); padding: 2px 8px; border-radius: 4px; font-weight: bold;">${data.category || ''}</span>
+                            <h3 style="margin-top: 5px;">${data.title}</h3>
+                            <p>${data.description || ''}</p>
+                    `;
+                    if (data.image) {
+                        html += `<img src="${data.image}" alt="${data.title}">`;
+                    }
+                    if (data.link) {
+                        html += `<br><a href="${data.link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary-green); font-weight:600; text-decoration:none;">View Link &rarr;</a>`;
+                    }
+                    html += `</div>`;
+                    container.innerHTML += html;
+                });
+            } catch (err) {
+                container.innerHTML = '<p class="loading-text">Failed to load works.</p>';
+            }
+        }
+
+        async function loadTeam() {
+            const container = document.getElementById('leadership-container');
+            try {
+                const querySnapshot = await getDocs(collection(db, "team"));
+                if (querySnapshot.empty) return;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    container.innerHTML += `
+                        <div class="card">
+                            <h3>${data.name}</h3>
+                            <p><strong>${data.role}</strong></p>
+                            <p>${data.bio || ''}</p>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        loadWorks();
+        loadTeam();
+    </script>
 </body>
 </html>
