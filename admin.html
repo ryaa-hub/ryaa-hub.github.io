@@ -89,12 +89,6 @@
         button:hover {
             opacity: 0.9;
         }
-        .btn-danger {
-            background: var(--accent-red);
-            width: auto;
-            padding: 5px 10px;
-            font-size: 0.8rem;
-        }
         .item-list {
             margin-top: 15px;
         }
@@ -124,7 +118,7 @@
             <h1>RYAA Admin Panel</h1>
         </div>
 
-        <!-- Add New Work / Project -->
+        <!-- Add / Edit Work -->
         <div class="card">
             <h3 id="form-heading">Add New Work / Event</h3>
             <form id="work-form">
@@ -161,7 +155,7 @@
             </div>
         </div>
 
-        <!-- Add New Leadership Member -->
+        <!-- Add Leadership Member -->
         <div class="card">
             <h3>Add Leadership Member</h3>
             <form id="team-form">
@@ -181,7 +175,7 @@
             </form>
         </div>
 
-        <!-- Manage Existing Team Members -->
+        <!-- Manage Leadership Team -->
         <div class="card">
             <h3>Manage Leadership Team</h3>
             <div id="team-list" class="item-list">
@@ -193,7 +187,7 @@
     <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteData, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
@@ -207,7 +201,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Load Existing Works for Management
+        // Load Existing Works
         async function loadExistingWorks() {
             const worksListDiv = document.getElementById('works-list');
             try {
@@ -229,14 +223,14 @@
                             <h4 style="margin-top: 4px;">${data.title}</h4>
                         </div>
                         <div style="display: flex; gap: 6px;">
-                            <button class="btn-edit-work" data-id="${workId}" style="background: #3b82f6; color: white; border: none; padding: 5px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Edit</button>
-                            <button class="btn-delete-work" data-id="${workId}" style="background: #ef4444; color: white; border: none; padding: 5px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Delete</button>
+                            <button class="btn-edit-work" data-id="${workId}" style="background: #3b82f6; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Edit</button>
+                            <button class="btn-delete-work" data-id="${workId}" style="background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Delete</button>
                         </div>
                     `;
                     worksListDiv.appendChild(row);
                 });
 
-                // Delete Work Event
+                // Delete Work
                 document.querySelectorAll('.btn-delete-work').forEach(btn => {
                     btn.addEventListener('click', async (e) => {
                         const id = e.target.getAttribute('data-id');
@@ -252,7 +246,7 @@
                     });
                 });
 
-                // Edit Work Event (Loads data into form)
+                // Edit Work
                 document.querySelectorAll('.btn-edit-work').forEach(btn => {
                     btn.addEventListener('click', async (e) => {
                         const id = e.target.getAttribute('data-id');
@@ -286,7 +280,7 @@
             }
         }
 
-        // Handle Work Form Submission (Add or Update)
+        // Handle Work Form Submit (Add / Update)
         document.getElementById('work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const editId = document.getElementById('edit-work-id').value;
@@ -330,7 +324,7 @@
             }
         });
 
-        // Handle Team Member Submission
+        // Add Leadership Member
         document.getElementById('team-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('team-name').value;
@@ -351,7 +345,7 @@
             }
         });
 
-        // Load & Manage Existing Team Members
+        // Load Leadership Members
         async function loadTeamMembers() {
             const teamListDiv = document.getElementById('team-list');
             try {
@@ -372,12 +366,12 @@
                             <h4>${data.name}</h4>
                             <p>${data.role}</p>
                         </div>
-                        <button class="btn-danger btn-delete-team" data-id="${memberId}">Delete</button>
+                        <button class="btn-delete-team" data-id="${memberId}" style="background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Delete</button>
                     `;
                     teamListDiv.appendChild(row);
                 });
 
-                // Attach delete event listeners for team
+                // Delete Team Member
                 document.querySelectorAll('.btn-delete-team').forEach(btn => {
                     btn.addEventListener('click', async (e) => {
                         const id = e.target.getAttribute('data-id');
@@ -398,7 +392,7 @@
             }
         }
 
-        // Initial Load
+        // Initialize
         loadExistingWorks();
         loadTeamMembers();
     </script>
