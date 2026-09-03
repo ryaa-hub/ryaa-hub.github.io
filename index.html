@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYAA Digital Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <span class="text-xl font-bold tracking-wider text-orange-500">RYAA DIGITAL HUB</span>
+            <a href="admin.html" class="text-xs uppercase tracking-widest bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded transition">Admin Login</a>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">Welcome to <span class="text-orange-500">RYAA Digital Hub</span></h1>
+        <p class="text-slate-400 max-w-2xl mx-auto text-lg">Explore our dynamic digital creations, works, and leadership team.</p>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-16">
+        
+        <!-- Works Section -->
+        <section>
+            <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+                <h2 class="text-2xl font-bold tracking-tight text-orange-400">Our Works</h2>
+                <div id="category-filters" class="flex flex-wrap gap-2">
+                    <button onclick="filterWorks('all')" class="text-xs px-3 py-1 bg-orange-600 text-white rounded transition">All</button>
+                </div>
+            </div>
+            <div id="works-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Works Will Load Here -->
+                <p class="text-slate-500 col-span-full text-center py-8">Loading works...</p>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <section>
+            <div class="border-b border-slate-800 pb-4 mb-8">
+                <h2 class="text-2xl font-bold tracking-tight text-orange-400">Leadership Team</h2>
+            </div>
+            <div id="team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Dynamic Team Will Load Here -->
+                <p class="text-slate-500 col-span-full text-center py-8">Loading team members...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        &copy; 2026 RYAA Digital Hub. Powered by Firebase.
+    </footer>
+
+    <!-- Firebase SDK & Dynamic Loader Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
+            authDomain: "ryaa-digital-hub.firebaseapp.com",
+            projectId: "ryaa-digital-hub",
+            storageBucket: "ryaa-digital-hub.firebasestorage.app",
+            messagingSenderId: "672127865081",
+            appId: "1:672127865081:web:fd6dc8783e6bd848e55228"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let allWorks = [];
+
+        async function loadData() {
+            try {
+                // Load Categories
+                const catSnapshot = await getDocs(collection(db, "categories"));
+                const filterContainer = document.getElementById('category-filters');
+                catSnapshot.forEach(doc => {
+                    const cat = doc.data();
+                    filterContainer.innerHTML += `<button onclick="filterWorks('${cat.name}')" class="text-xs px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded transition">${cat.name}</button>`;
+                });
+
+                // Load Works
+                const worksSnapshot = await getDocs(collection(db, "works"));
+                allWorks = [];
+                worksSnapshot.forEach(doc => {
+                    allWorks.push({ id: doc.id, ...doc.data() });
+                });
+                renderWorks(allWorks);
+
+                // Load Team
+                const teamSnapshot = await getDocs(collection(db, "team"));
+                const teamGrid = document.getElementById('team-grid');
+                teamGrid.innerHTML = '';
+                if(teamSnapshot.empty) {
+                    teamGrid.innerHTML = '<p class="text-slate-500 col-span-full text-center py-8">No leadership members found.</p>';
+                }
+                teamSnapshot.forEach(doc => {
+                    const member = doc.data();
+                    teamGrid.innerHTML += `
+                        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
+                            <img src="${member.image || 'https://via.placeholder.com/150'}" alt="${member.name}" class="w-24 h-24 object-cover rounded-full mx-auto mb-4 border-2 border-orange-500/50">
+                            <h3 class="font-bold text-lg text-slate-200">${member.name}</h3>
+                            <p class="text-orange-400 text-xs uppercase tracking-wider mb-2">${member.role}</p>
+                            <p class="text-slate-400 text-sm">${member.bio || ''}</p>
+                        </div>
+                    `;
+                });
+
+            } catch (error) {
+                console.error("Error loading data:", error);
+            }
+        }
+
+        window.renderWorks = function(works) {
+            const grid = document.getElementById('works-grid');
+            grid.innerHTML = '';
+            if(works.length === 0) {
+                grid.innerHTML = '<p class="text-slate-500 col-span-full text-center py-8">No works available.</p>';
+                return;
+            }
+            works.forEach(work => {
+                grid.innerHTML += `
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg group hover:border-orange-500/50 transition">
+                        <div class="h-48 overflow-hidden bg-slate-950">
+                            <img src="${work.image || 'https://via.placeholder.com/400x300'}" alt="${work.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        </div>
+                        <div class="p-5">
+                            <span class="text-[10px] uppercase font-semibold px-2 py-1 bg-orange-500/10 text-orange-400 rounded">${work.category}</span>
+                            <h3 class="font-bold text-lg text-slate-100 mt-3 mb-2">${work.title}</h3>
+                            <p class="text-slate-400 text-sm mb-4">${work.description || ''}</p>
+                            ${work.link ? `<a href="${work.link}" target="_blank" class="inline-block text-xs font-semibold text-orange-400 hover:text-orange-300">View Project &rarr;</a>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.filterWorks = function(category) {
+            if(category === 'all') {
+                renderWorks(allWorks);
+            } else {
+                const filtered = allWorks.filter(w => w.category === category);
+                renderWorks(filtered);
+            }
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
