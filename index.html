@@ -119,12 +119,18 @@
             font-size: 0.95rem;
             margin-bottom: 0.5rem;
         }
-        .card img {
+        /* Multiple Images Grid Layout */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .image-grid img {
             width: 100%;
-            max-height: 300px;
+            height: 140px;
             object-fit: cover;
             border-radius: 8px;
-            margin-top: 10px;
             border: 1px solid #e5e7eb;
         }
         .contact-card {
@@ -253,9 +259,21 @@
                             <h3 style="margin-top: 5px;">${data.title}</h3>
                             <p>${data.description || ''}</p>
                     `;
+
+                    // Handle multiple images (Array or old String format)
                     if (data.image) {
-                        html += `<img src="${data.image}" alt="${data.title}">`;
+                        if (Array.isArray(data.image) && data.image.length > 0) {
+                            html += `<div class="image-grid">`;
+                            data.image.forEach(imgUrl => {
+                                html += `<img src="${imgUrl}" alt="${data.title}">`;
+                            });
+                            html += `</div>`;
+                        } else if (typeof data.image === 'string') {
+                            // Fallback for old single image format
+                            html += `<div class="image-grid"><img src="${data.image}" alt="${data.title}"></div>`;
+                        }
                     }
+
                     if (data.link) {
                         html += `<br><a href="${data.link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary-green); font-weight:600; text-decoration:none;">View Link &rarr;</a>`;
                     }
