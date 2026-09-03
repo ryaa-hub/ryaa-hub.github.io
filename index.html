@@ -119,7 +119,7 @@
             font-size: 0.95rem;
             margin-bottom: 0.5rem;
         }
-        /* Multiple Images Grid Layout */
+        /* Multiple Images Grid Layout with Zoom Cursor */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -132,7 +132,49 @@
             object-fit: cover;
             border-radius: 8px;
             border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
+        .image-grid img:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+        /* Lightbox Modal Styles for Full-Screen View */
+        #lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #lightbox-modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+        #lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #lightbox-close:hover {
+            color: #ff5c5c;
+        }
+
         .contact-card {
             background: white;
             border-radius: 12px;
@@ -221,6 +263,12 @@
         </div>
     </div>
 
+    <!-- Lightbox Modal for Full-Screen Image Viewing -->
+    <div id="lightbox-modal">
+        <span id="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoomed Image">
+    </div>
+
     <footer style="text-align: center; padding: 2rem; color: var(--text-light); font-size: 0.85rem;">
         &copy; 2026 RYAA Digital Hub. All Rights Reserved.
     </footer>
@@ -260,17 +308,16 @@
                             <p>${data.description || ''}</p>
                     `;
 
-                    // Handle multiple images (Array or old String format)
+                    // Handle multiple images with click zoom feature
                     if (data.image) {
                         if (Array.isArray(data.image) && data.image.length > 0) {
                             html += `<div class="image-grid">`;
                             data.image.forEach(imgUrl => {
-                                html += `<img src="${imgUrl}" alt="${data.title}">`;
+                                html += `<img src="${imgUrl}" alt="${data.title}" class="zoomable-img">`;
                             });
                             html += `</div>`;
                         } else if (typeof data.image === 'string') {
-                            // Fallback for old single image format
-                            html += `<div class="image-grid"><img src="${data.image}" alt="${data.title}"></div>`;
+                            html += `<div class="image-grid"><img src="${data.image}" alt="${data.title}" class="zoomable-img"></div>`;
                         }
                     }
 
@@ -280,6 +327,29 @@
                     html += `</div>`;
                     container.innerHTML += html;
                 });
+
+                // Lightbox Image Zoom Functionality
+                const modal = document.getElementById('lightbox-modal');
+                const modalImg = document.getElementById('lightbox-img');
+                const closeBtn = document.getElementById('lightbox-close');
+
+                document.querySelectorAll('.zoomable-img').forEach(img => {
+                    img.addEventListener('click', () => {
+                        modal.style.display = 'flex';
+                        modalImg.src = img.src;
+                    });
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+
             } catch (err) {
                 container.innerHTML = '<p class="loading-text">Failed to load works.</p>';
             }
