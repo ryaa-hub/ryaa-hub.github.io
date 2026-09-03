@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - RYAA Digital Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen">
+
+    <!-- Login Section -->
+    <div id="login-section" class="flex items-center justify-center min-h-screen px-4">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl w-full max-w-md shadow-2xl">
+            <h2 class="text-2xl font-bold text-orange-500 mb-2 text-center">Admin Portal</h2>
+            <p class="text-slate-400 text-sm mb-6 text-center">Login to manage RYAA Digital Hub</p>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email</label>
+                    <input type="email" id="admin-email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-orange-500">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Password</label>
+                    <input type="password" id="admin-password" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-slate-100 focus:outline-none focus:border-orange-500">
+                </div>
+                <button type="submit" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-lg transition">Login</button>
+                <p id="login-error" class="text-red-500 text-xs text-center mt-2"></p>
+            </form>
+            <div class="text-center mt-6">
+                <a href="index.html" class="text-xs text-slate-500 hover:text-slate-400">&larr; Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section (Hidden by Default) -->
+    <div id="dashboard-section" class="hidden min-h-screen flex flex-col">
+        <nav class="border-b border-slate-800 bg-slate-900/50 px-6 py-4 flex justify-between items-center">
+            <h1 class="font-bold text-orange-500 text-lg">RYAA Admin Panel</h1>
+            <div class="flex items-center gap-4">
+                <a href="index.html" target="_blank" class="text-xs text-slate-400 hover:text-white">Visit Site</a>
+                <button id="logout-btn" class="text-xs bg-red-600/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-600 hover:text-white transition">Logout</button>
+            </div>
+        </nav>
+
+        <div class="max-w-6xl mx-auto px-4 py-8 w-full space-y-12">
+            
+            <!-- Add Category -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-orange-400 mb-4">Add Category</h3>
+                <form id="category-form" class="flex gap-4">
+                    <input type="text" id="cat-name" placeholder="Category Name (e.g., Video Editing)" required class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <button type="submit" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-2 rounded-lg text-sm font-semibold transition">Add</button>
+                </form>
+            </div>
+
+            <!-- Add Work -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-orange-400 mb-4">Add Work / Project</h3>
+                <form id="work-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" id="work-title" placeholder="Project Title" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <input type="text" id="work-category" placeholder="Category Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <input type="text" id="work-image" placeholder="Image URL (Direct link)" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <input type="text" id="work-link" placeholder="Project Link (Optional)" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <textarea id="work-desc" placeholder="Short Description" rows="2" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500"></textarea>
+                    <button type="submit" class="sm:col-span-2 bg-orange-600 hover:bg-orange-500 text-white py-2.5 rounded-lg text-sm font-semibold transition">Publish Work</button>
+                </form>
+            </div>
+
+            <!-- Add Team Member -->
+            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-orange-400 mb-4">Add Leadership Member</h3>
+                <form id="team-form" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <input type="text" id="team-name" placeholder="Member Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <input type="text" id="team-role" placeholder="Role (e.g., Founder)" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <input type="text" id="team-image" placeholder="Profile Image URL" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
+                    <textarea id="team-bio" placeholder="Short Bio" rows="2" class="sm:col-span-3 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500"></textarea>
+                    <button type="submit" class="sm:col-span-3 bg-orange-600 hover:bg-orange-500 text-white py-2.5 rounded-lg text-sm font-semibold transition">Add Member</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Firebase Admin Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
+            authDomain: "ryaa-digital-hub.firebaseapp.com",
+            projectId: "ryaa-digital-hub",
+            storageBucket: "ryaa-digital-hub.firebasestorage.app",
+            messagingSenderId: "672127865081",
+            appId: "1:672127865081:web:fd6dc8783e6bd848e55228"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const loginSection = document.getElementById('login-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        // Auth State Check
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+            } else {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+            }
+        });
+
+        // Login Handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            loginError.textContent = '';
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                loginError.textContent = error.message;
+            }
+        });
+
+        // Logout Handler
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        // Add Category Handler
+        document.getElementById('category-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('cat-name').value;
+            try {
+                await addDoc(collection(db, "categories"), { name });
+                alert('Category added successfully!');
+                document.getElementById('cat-name').value = '';
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        });
+
+        // Add Work Handler
+        document.getElementById('work-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('work-title').value;
+            const category = document.getElementById('work-category').value;
+            const image = document.getElementById('work-image').value;
+            const link = document.getElementById('work-link').value;
+            const description = document.getElementById('work-desc').value;
+            try {
+                await addDoc(collection(db, "works"), { title, category, image, link, description });
+                alert('Work published successfully!');
+                document.getElementById('work-form').reset();
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        });
+
+        // Add Team Member Handler
+        document.getElementById('team-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('team-name').value;
+            const role = document.getElementById('team-role').value;
+            const image = document.getElementById('team-image').value;
+            const bio = document.getElementById('team-bio').value;
+            try {
+                await addDoc(collection(db, "team"), { name, role, image, bio });
+                alert('Team member added successfully!');
+                document.getElementById('team-form').reset();
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
