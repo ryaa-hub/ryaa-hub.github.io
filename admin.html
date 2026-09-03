@@ -52,8 +52,8 @@
                     <input type="text" id="work-category" placeholder="Category Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
                     
                     <div class="flex flex-col sm:col-span-2">
-                        <label class="text-xs text-slate-400 mb-1">Project Image URL (ImgBB Direct Link)</label>
-                        <input type="url" id="work-image-url" placeholder="https://i.ibb.co/.../image.jpg" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-orange-500">
+                        <label class="text-xs text-slate-400 mb-1">Project Image URLs (Multiple links separated by comma or new line)</label>
+                        <textarea id="work-image-url" placeholder="https://i.ibb.co/.../image1.jpg&#10;https://i.ibb.co/.../image2.jpg" rows="3" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-orange-500"></textarea>
                     </div>
 
                     <input type="text" id="work-link" placeholder="Project Link (Optional)" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
@@ -185,7 +185,10 @@
                             document.getElementById('edit-work-id').value = id;
                             document.getElementById('work-title').value = data.title || '';
                             document.getElementById('work-category').value = data.category || '';
-                            document.getElementById('work-image-url').value = data.image || '';
+                            
+                            // Handle image field whether it's an array or old string format
+                            document.getElementById('work-image-url').value = Array.isArray(data.image) ? data.image.join('\n') : (data.image || '');
+                            
                             document.getElementById('work-link').value = data.link || '';
                             document.getElementById('work-desc').value = data.description || '';
                             
@@ -217,7 +220,11 @@
             const editId = document.getElementById('edit-work-id').value;
             const title = document.getElementById('work-title').value;
             const category = document.getElementById('work-category').value;
-            const imageUrl = document.getElementById('work-image-url').value;
+            
+            // Get multiple image URLs from textarea and convert to Array
+            const imageUrlInput = document.getElementById('work-image-url').value;
+            const imageUrls = imageUrlInput.split(/[\n,]+/).map(url => url.trim()).filter(url => url.length > 0);
+
             const link = document.getElementById('work-link').value;
             const description = document.getElementById('work-desc').value;
             const submitBtn = document.getElementById('work-submit-btn');
@@ -227,21 +234,21 @@
                 submitBtn.disabled = true;
 
                 if (editId) {
-                    // Update existing document
+                    // Update existing document with image array
                     await updateDoc(doc(db, "works", editId), {
                         title,
                         category,
-                        image: imageUrl,
+                        image: imageUrls,
                         link,
                         description
                     });
                     alert('Work updated successfully!');
                 } else {
-                    // Add new document
+                    // Add new document with image array
                     await addDoc(collection(db, "works"), { 
                         title, 
                         category, 
-                        image: imageUrl, 
+                        image: imageUrls, 
                         link, 
                         description,
                         createdAt: Date.now()
