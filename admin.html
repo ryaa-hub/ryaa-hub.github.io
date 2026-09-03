@@ -43,23 +43,14 @@
 
         <div class="max-w-6xl mx-auto px-4 py-8 w-full space-y-12">
             
-            <!-- Add Category -->
+            <!-- Add / Edit Work Form -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-orange-400 mb-4">Add Category</h3>
-                <form id="category-form" class="flex gap-4">
-                    <input type="text" id="cat-name" placeholder="Category Name (e.g., Video Editing)" required class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    <button type="submit" class="bg-orange-600 hover:bg-orange-500 text-white px-6 py-2 rounded-lg text-sm font-semibold transition">Add</button>
-                </form>
-            </div>
-
-            <!-- Add Work -->
-            <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-orange-400 mb-4">Add Work / Project</h3>
+                <h3 id="form-title" class="text-lg font-bold text-orange-400 mb-4">Add Work / Project</h3>
                 <form id="work-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="hidden" id="edit-work-id">
                     <input type="text" id="work-title" placeholder="Project Title" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
                     <input type="text" id="work-category" placeholder="Category Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
                     
-                    <!-- ইমেজ লিংক ইনপুট (ফ্রি সাইটের লিংক দেওয়ার জন্য) -->
                     <div class="flex flex-col sm:col-span-2">
                         <label class="text-xs text-slate-400 mb-1">Project Image URL (ImgBB Direct Link)</label>
                         <input type="url" id="work-image-url" placeholder="https://i.ibb.co/.../image.jpg" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-orange-500">
@@ -68,20 +59,19 @@
                     <input type="text" id="work-link" placeholder="Project Link (Optional)" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
                     <textarea id="work-desc" placeholder="Short Description" rows="2" class="sm:col-span-2 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500"></textarea>
                     
-                    <button type="submit" id="work-submit-btn" class="sm:col-span-2 bg-orange-600 hover:bg-orange-500 text-white py-2.5 rounded-lg text-sm font-semibold transition">Publish Work</button>
+                    <div class="sm:col-span-2 flex gap-4">
+                        <button type="submit" id="work-submit-btn" class="flex-1 bg-orange-600 hover:bg-orange-500 text-white py-2.5 rounded-lg text-sm font-semibold transition">Publish Work</button>
+                        <button type="button" id="cancel-edit-btn" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-2.5 rounded-lg text-sm font-semibold transition">Cancel</button>
+                    </div>
                 </form>
             </div>
 
-            <!-- Add Team Member -->
+            <!-- Manage Existing Works -->
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-orange-400 mb-4">Add Leadership Member</h3>
-                <form id="team-form" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <input type="text" id="team-name" placeholder="Member Name" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    <input type="text" id="team-role" placeholder="Role (e.g., Founder)" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    <input type="text" id="team-image" placeholder="Profile Image URL" required class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500">
-                    <textarea id="team-bio" placeholder="Short Bio" rows="2" class="sm:col-span-3 bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-orange-500"></textarea>
-                    <button type="submit" class="sm:col-span-3 bg-orange-600 hover:bg-orange-500 text-white py-2.5 rounded-lg text-sm font-semibold transition">Add Member</button>
-                </form>
+                <h3 class="text-lg font-bold text-orange-400 mb-4">Manage Existing Works</h3>
+                <div id="admin-works-list" class="space-y-4">
+                    <p class="text-slate-500 text-sm">Loading works...</p>
+                </div>
             </div>
 
         </div>
@@ -91,7 +81,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
@@ -112,18 +102,17 @@
         const loginError = document.getElementById('login-error');
         const logoutBtn = document.getElementById('logout-btn');
 
-        // Auth State Check
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 loginSection.classList.add('hidden');
                 dashboardSection.classList.remove('hidden');
+                fetchAdminWorks();
             } else {
                 loginSection.classList.remove('hidden');
                 dashboardSection.classList.add('hidden');
             }
         });
 
-        // Login Handler
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('admin-email').value;
@@ -136,27 +125,96 @@
             }
         });
 
-        // Logout Handler
         logoutBtn.addEventListener('click', () => {
             signOut(auth);
         });
 
-        // Add Category Handler
-        document.getElementById('category-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('cat-name').value;
+        // Fetch Works in Admin Panel for Edit/Delete
+        async function fetchAdminWorks() {
+            const listContainer = document.getElementById('admin-works-list');
             try {
-                await addDoc(collection(db, "categories"), { name });
-                alert('Category added successfully!');
-                document.getElementById('cat-name').value = '';
+                const querySnapshot = await getDocs(collection(db, "works"));
+                if (querySnapshot.empty) {
+                    listContainer.innerHTML = '<p class="text-slate-500 text-sm">No works found.</p>';
+                    return;
+                }
+                listContainer.innerHTML = '';
+                querySnapshot.forEach((documentSnapshot) => {
+                    const data = documentSnapshot.data();
+                    const id = documentSnapshot.id;
+                    
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'bg-slate-950 border border-slate-800 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4';
+                    itemDiv.innerHTML = `
+                        <div>
+                            <span class="text-xs text-orange-400 font-semibold">${data.category || ''}</span>
+                            <h4 class="font-bold text-slate-200">${data.title}</h4>
+                            <p class="text-xs text-slate-400 line-clamp-1">${data.description || ''}</p>
+                        </div>
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                            <button data-id="${id}" class="edit-btn bg-blue-600/20 text-blue-400 border border-blue-500/30 px-3 py-1 rounded text-xs hover:bg-blue-600 hover:text-white transition">Edit</button>
+                            <button data-id="${id}" class="delete-btn bg-red-600/20 text-red-400 border border-red-500/30 px-3 py-1 rounded text-xs hover:bg-red-600 hover:text-white transition">Delete</button>
+                        </div>
+                    `;
+                    listContainer.appendChild(itemDiv);
+                });
+
+                // Attach Delete Event
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const id = e.target.getAttribute('data-id');
+                        if (confirm('Are you sure you want to delete this work?')) {
+                            try {
+                                await deleteDoc(doc(db, "works", id));
+                                alert('Work deleted successfully!');
+                                fetchAdminWorks();
+                            } catch (err) {
+                                alert('Error deleting: ' + err.message);
+                            }
+                        }
+                    });
+                });
+
+                // Attach Edit Event
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.getAttribute('data-id');
+                        const docSnap = querySnapshot.docs.find(d => d.id === id);
+                        if (docSnap) {
+                            const data = docSnap.data();
+                            document.getElementById('edit-work-id').value = id;
+                            document.getElementById('work-title').value = data.title || '';
+                            document.getElementById('work-category').value = data.category || '';
+                            document.getElementById('work-image-url').value = data.image || '';
+                            document.getElementById('work-link').value = data.link || '';
+                            document.getElementById('work-desc').value = data.description || '';
+                            
+                            document.getElementById('form-title').textContent = 'Edit Work / Project';
+                            document.getElementById('work-submit-btn').textContent = 'Update Work';
+                            document.getElementById('cancel-edit-btn').classList.remove('hidden');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    });
+                });
+
             } catch (err) {
-                alert('Error: ' + err.message);
+                listContainer.innerHTML = '<p class="text-red-500 text-sm">Failed to load works.</p>';
             }
+        }
+
+        // Cancel Edit Mode
+        document.getElementById('cancel-edit-btn').addEventListener('click', () => {
+            document.getElementById('work-form').reset();
+            document.getElementById('edit-work-id').value = '';
+            document.getElementById('form-title').textContent = 'Add Work / Project';
+            document.getElementById('work-submit-btn').textContent = 'Publish Work';
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
         });
 
-        // Add Work Handler with Image URL
+        // Add or Update Work Handler
         document.getElementById('work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const editId = document.getElementById('edit-work-id').value;
             const title = document.getElementById('work-title').value;
             const category = document.getElementById('work-category').value;
             const imageUrl = document.getElementById('work-image-url').value;
@@ -165,42 +223,43 @@
             const submitBtn = document.getElementById('work-submit-btn');
 
             try {
-                submitBtn.textContent = 'Publishing...';
+                submitBtn.textContent = editId ? 'Updating...' : 'Publishing...';
                 submitBtn.disabled = true;
 
-                // Firestore এ সরাসরি ডেটা ও ইমেজ লিংক সেভ হবে
-                await addDoc(collection(db, "works"), { 
-                    title, 
-                    category, 
-                    image: imageUrl, 
-                    link, 
-                    description,
-                    createdAt: Date.now()
-                });
+                if (editId) {
+                    // Update existing document
+                    await updateDoc(doc(db, "works", editId), {
+                        title,
+                        category,
+                        image: imageUrl,
+                        link,
+                        description
+                    });
+                    alert('Work updated successfully!');
+                } else {
+                    // Add new document
+                    await addDoc(collection(db, "works"), { 
+                        title, 
+                        category, 
+                        image: imageUrl, 
+                        link, 
+                        description,
+                        createdAt: Date.now()
+                    });
+                    alert('Work published successfully!');
+                }
 
-                alert('Work published successfully!');
                 document.getElementById('work-form').reset();
+                document.getElementById('edit-work-id').value = '';
+                document.getElementById('form-title').textContent = 'Add Work / Project';
+                document.getElementById('work-submit-btn').textContent = 'Publish Work';
+                document.getElementById('cancel-edit-btn').classList.add('hidden');
+                fetchAdminWorks();
             } catch (err) {
                 alert('Error: ' + err.message);
             } finally {
-                submitBtn.textContent = 'Publish Work';
+                submitBtn.textContent = editId ? 'Update Work' : 'Publish Work';
                 submitBtn.disabled = false;
-            }
-        });
-
-        // Add Team Member Handler
-        document.getElementById('team-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('team-name').value;
-            const role = document.getElementById('team-role').value;
-            const image = document.getElementById('team-image').value;
-            const bio = document.getElementById('team-bio').value;
-            try {
-                await addDoc(collection(db, "team"), { name, role, image, bio });
-                alert('Team member added successfully!');
-                document.getElementById('team-form'.reset());
-            } catch (err) {
-                alert('Error: ' + err.message);
             }
         });
     </script>
