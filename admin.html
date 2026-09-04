@@ -109,6 +109,19 @@
             font-size: 0.85rem;
             color: var(--text-muted);
         }
+        #logout-btn {
+            background: var(--accent-red);
+            width: auto;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            float: right;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -118,76 +131,103 @@
             <h1>RYAA Admin Panel</h1>
         </div>
 
-        <!-- Add / Edit Work -->
-        <div class="card">
-            <h3 id="form-heading">Add New Work / Event</h3>
-            <form id="work-form">
-                <input type="hidden" id="edit-work-id">
+        <!-- Login Card (Shown when logged out) -->
+        <div id="login-section" class="card" style="display: none;">
+            <h3>Admin Login</h3>
+            <form id="login-form">
                 <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="work-title" required placeholder="e.g. Community Engagement Program">
+                    <label>Admin Email</label>
+                    <input type="email" id="login-email" required placeholder="admin@example.com">
                 </div>
                 <div class="form-group">
-                    <label>Category</label>
-                    <input type="text" id="work-category" required placeholder="e.g. Social Work">
+                    <label>Password</label>
+                    <input type="password" id="login-password" required placeholder="********">
                 </div>
-                <div class="form-group">
-                    <label>Image URLs (One URL per line for multiple images)</label>
-                    <textarea id="work-image" placeholder="Paste image links here (each on a new line)"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="work-desc" placeholder="Write description..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>External Link (Optional)</label>
-                    <input type="url" id="work-link" placeholder="https://...">
-                </div>
-                <button type="submit" id="work-submit-btn">Publish Work</button>
+                <button type="submit">Login to Panel</button>
             </form>
         </div>
 
-        <!-- Manage Existing Works -->
-        <div class="card">
-            <h3>Manage Existing Works</h3>
-            <div id="works-list" class="item-list">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading works...</p>
+        <!-- Main Admin Content (Hidden until logged in) -->
+        <div id="admin-content" style="display: none;">
+            
+            <div class="top-bar">
+                <span id="user-email-display" style="color: var(--text-muted); font-size: 0.9rem;"></span>
+                <button id="logout-btn">Logout</button>
             </div>
-        </div>
 
-        <!-- Add Leadership Member -->
-        <div class="card">
-            <h3>Add Leadership Member</h3>
-            <form id="team-form">
-                <div class="form-group">
-                    <label>Member Name</label>
-                    <input type="text" id="team-name" required placeholder="Full Name">
-                </div>
-                <div class="form-group">
-                    <label>Role / Position</label>
-                    <input type="text" id="team-role" required placeholder="e.g. President / Director">
-                </div>
-                <div class="form-group">
-                    <label>Short Bio (Optional)</label>
-                    <textarea id="team-bio" placeholder="Brief info about member..."></textarea>
-                </div>
-                <button type="submit">Add Member</button>
-            </form>
-        </div>
-
-        <!-- Manage Leadership Team -->
-        <div class="card">
-            <h3>Manage Leadership Team</h3>
-            <div id="team-list" class="item-list">
-                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading team members...</p>
+            <!-- Add / Edit Work -->
+            <div class="card">
+                <h3 id="form-heading">Add New Work / Event</h3>
+                <form id="work-form">
+                    <input type="hidden" id="edit-work-id">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="work-title" required placeholder="e.g. Community Engagement Program">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" id="work-category" required placeholder="e.g. Social Work">
+                    </div>
+                    <div class="form-group">
+                        <label>Image URLs (One URL per line for multiple images)</label>
+                        <textarea id="work-image" placeholder="Paste image links here (each on a new line)"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="work-desc" placeholder="Write description..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>External Link (Optional)</label>
+                        <input type="url" id="work-link" placeholder="https://...">
+                    </div>
+                    <button type="submit" id="work-submit-btn">Publish Work</button>
+                </form>
             </div>
+
+            <!-- Manage Existing Works -->
+            <div class="card">
+                <h3>Manage Existing Works</h3>
+                <div id="works-list" class="item-list">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Loading works...</p>
+                </div>
+            </div>
+
+            <!-- Add Leadership Member -->
+            <div class="card">
+                <h3>Add Leadership Member</h3>
+                <form id="team-form">
+                    <div class="form-group">
+                        <label>Member Name</label>
+                        <input type="text" id="team-name" required placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Role / Position</label>
+                        <input type="text" id="team-role" required placeholder="e.g. President / Director">
+                    </div>
+                    <div class="form-group">
+                        <label>Short Bio (Optional)</label>
+                        <textarea id="team-bio" placeholder="Brief info about member..."></textarea>
+                    </div>
+                    <button type="submit">Add Member</button>
+                </form>
+            </div>
+
+            <!-- Manage Leadership Team -->
+            <div class="card">
+                <h3>Manage Leadership Team</h3>
+                <div id="team-list" class="item-list">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Loading team members...</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Firebase Script -->
+    <!-- Firebase Script with Authentication -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
@@ -200,6 +240,52 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        const loginSection = document.getElementById('login-section');
+        const adminContent = document.getElementById('admin-content');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userEmailDisplay = document.getElementById('user-email-display');
+
+        // Check Auth State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                loginSection.style.display = 'none';
+                adminContent.style.display = 'block';
+                userEmailDisplay.innerText = `Logged in as: ${user.email}`;
+                loadExistingWorks();
+                loadTeamMembers();
+            } else {
+                // User is signed out
+                loginSection.style.display = 'block';
+                adminContent.style.display = 'none';
+            }
+        });
+
+        // Handle Login Form Submit
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginForm.reset();
+            } catch (err) {
+                alert('Login Failed: ' + err.message);
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+            } catch (err) {
+                alert('Logout Failed: ' + err.message);
+            }
+        });
 
         // Load Existing Works
         async function loadExistingWorks() {
@@ -391,10 +477,6 @@
                 teamListDiv.innerHTML = '<p style="color: var(--accent-red);">Failed to load team members.</p>';
             }
         }
-
-        // Initialize
-        loadExistingWorks();
-        loadTeamMembers();
     </script>
 </body>
 </html>
