@@ -40,6 +40,7 @@
             margin-bottom: 15px;
             object-fit: cover;
             border: 2px solid white;
+            background: white;
         }
         .hero h1 {
             font-size: 1.5rem;
@@ -109,6 +110,47 @@
         .card p {
             color: var(--text-muted);
             font-size: 0.9rem;
+        }
+        /* Image Zoom Modal Styling */
+        .work-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .work-img:hover {
+            opacity: 0.9;
+        }
+        #imageModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #imageModal img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+        #imageModal span {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
         }
         /* Contact Section */
         .contact-box {
@@ -190,7 +232,7 @@
 
     <div class="container">
         
-        <!-- Departments Section (All restored) -->
+        <!-- Departments Section -->
         <section id="departments">
             <div class="section-title">
                 <h2>Our Departments & Activities</h2>
@@ -251,7 +293,7 @@
             </div>
         </section>
 
-        <!-- Leadership Section -->
+        <!-- Leadership Section (Dynamic with Auto Serial Numbers) -->
         <section id="leadership">
             <div class="section-title">
                 <h2>Our Leadership Team</h2>
@@ -288,11 +330,17 @@
 
     </div>
 
+    <!-- Image Modal Popup for Big View -->
+    <div id="imageModal">
+        <span id="closeModal">&times;</span>
+        <img id="modalImg" src="" alt="Zoomed Work Image">
+    </div>
+
     <footer>
         <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase Script -->
+    <!-- Firebase Script for Recent Works & Dynamic Leadership with Auto Serial -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -308,6 +356,20 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Modal Elements
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const closeModal = document.getElementById('closeModal');
+
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        }
+        modal.onclick = function(e) {
+            if(e.target === modal) {
+                modal.style.display = "none";
+            }
+        }
 
         // Load Works
         async function loadWorks() {
@@ -325,10 +387,10 @@
                     if (data.image) {
                         if (Array.isArray(data.image)) {
                             data.image.forEach(imgUrl => {
-                                imageHtml += `<img src="${imgUrl}" style="width:100%; max-height:250px; object-fit:cover; border-radius:6px; margin-top:10px;" alt="Work Image">`;
+                                imageHtml += `<img src="${imgUrl}" class="work-img" alt="Work Image">`;
                             });
                         } else {
-                            imageHtml = `<img src="${data.image}" style="width:100%; max-height:250px; object-fit:cover; border-radius:6px; margin-top:10px;" alt="Work Image">`;
+                            imageHtml = `<img src="${data.image}" class="work-img" alt="Work Image">`;
                         }
                     }
 
@@ -343,12 +405,21 @@
                     `;
                     container.appendChild(card);
                 });
+
+                // Attach click event to all dynamically loaded work images for big view
+                document.querySelectorAll('.work-img').forEach(img => {
+                    img.onclick = function() {
+                        modal.style.display = "flex";
+                        modalImg.src = this.src;
+                    }
+                });
+
             } catch (err) {
                 container.innerHTML = '<p style="text-align: center; color: red;">Failed to load works.</p>';
             }
         }
 
-        // Load Team Members
+        // Load Leadership Team with Automatic Serial Numbering (01, 02, 03...)
         async function loadTeam() {
             const container = document.getElementById('team-container');
             try {
@@ -358,19 +429,23 @@
                     return;
                 }
                 container.innerHTML = '';
+                let index = 1;
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
+                    let serialNum = index < 10 ? '0' + index : index;
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
-                        <h3>${data.name}</h3>
-                        <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">${data.role}</p>
+                        <h3>${serialNum}. ${data.name}</h3>
+                        <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">${data.role || data.designation || ''}</p>
+                        ${data.mobile ? `<p style="margin-top:5px;">Mobile: ${data.mobile}</p>` : ''}
                         ${data.bio ? `<p style="margin-top:5px;">${data.bio}</p>` : ''}
                     `;
                     container.appendChild(card);
+                    index++;
                 });
             } catch (err) {
-                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load team members.</p>';
+                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load leadership team.</p>';
             }
         }
 
