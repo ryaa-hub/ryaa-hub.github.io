@@ -111,6 +111,22 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
+        /* About Us Specific Styles */
+        .about-content p {
+            color: var(--text-main);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            text-align: justify;
+        }
+        .about-list {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .about-list li {
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
         /* Image Zoom Modal Styling */
         .work-img {
             width: 100%;
@@ -223,6 +239,7 @@
         
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
+            <a href="#about" class="nav-btn">About Us</a>
             <a href="#departments" class="nav-btn">Explore Departments</a>
             <a href="#works" class="nav-btn">Recent Works & Photos</a>
             <a href="#leadership" class="nav-btn">View Leadership</a>
@@ -232,6 +249,57 @@
 
     <div class="container">
         
+        <!-- About Us Section Added Here -->
+        <section id="about">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Learn more about our mission, vision, and core objectives.</p>
+            </div>
+
+            <!-- Introduction Card -->
+            <div class="card about-content">
+                <h3>Introduction</h3>
+                <p>The Rohingya Youth Advocacy Alliance (RYAA) is a youth-led, non-profit, non-political, community-based organisation operating in the Rohingya refugee camps of Cox’s Bazar, Bangladesh. RYAA is committed to empowering Rohingya youth and vulnerable community members through advocacy, education, humanitarian assistance, leadership development and community-centred initiatives.</p>
+                <p>RYAA seeks to strengthen community resilience, promote human dignity and social justice, advance the protection of human rights and create meaningful opportunities for youth participation and sustainable community development. Its programmes are implemented through participatory and volunteer-driven approaches in collaboration with community members, leaders, volunteers, and partner organisations.</p>
+            </div>
+
+            <!-- Vision Card -->
+            <div class="card about-content">
+                <h3>Vision</h3>
+                <p>To contribute to a dignified, peaceful, and sustainable future in which the Rohingya community enjoys fundamental human rights, equitable access to education, and meaningful opportunities for sustainable social and economic development.</p>
+            </div>
+
+            <!-- Mission Card -->
+            <div class="card about-content">
+                <h3>Mission</h3>
+                <p>To empower Rohingya youth and vulnerable populations through advocacy, education, leadership development, humanitarian assistance and community-based initiatives that promote dignity, resilience and social justice.</p>
+            </div>
+
+            <!-- Objectives Card -->
+            <div class="card">
+                <h3>Objectives</h3>
+                <p style="margin-bottom: 10px; color: var(--text-muted); font-size: 0.85rem;">The objectives of the Rohingya Youth Advocacy Alliance are to:</p>
+                <ol class="about-list">
+                    <li>Promote and protect human rights and uphold the dignity and fundamental rights of the Rohingya community.</li>
+                    <li>Empower Rohingya youth by strengthening their leadership, skills, capacity, participation and contribution to community development.</li>
+                    <li>Promote access to education and support learning opportunities, mentorship and educational initiatives for Rohingya children and youth.</li>
+                    <li>Provide humanitarian assistance to vulnerable individuals and families through relief, essential supplies, emergency assistance, and other community-based support.</li>
+                    <li>Strengthen community participation by promoting inclusive dialogue, volunteerism, collaboration and meaningful participation in community initiatives.</li>
+                    <li>Advance youth-led advocacy by creating platforms through which Rohingya youth can raise awareness and advocate for their rights, dignity, and aspirations.</li>
+                    <li>Preserve Rohingya culture and identity by promoting cultural heritage, traditions, storytelling and social cohesion.</li>
+                    <li>Promote environmental protection and sustainability through environmental awareness, tree planting, community clean-up, waste management and sanitation initiatives.</li>
+                    <li>Develop strategic partnerships with humanitarian and development organisations, donor agencies, youth networks and community-based organisations to strengthen programme effectiveness and sustainability.</li>
+                    <li>Ensure transparency and accountability through proper documentation, responsible financial management, monitoring, reporting and evaluation of organisational activities.</li>
+                </ol>
+            </div>
+
+            <!-- Strategic Areas Card -->
+            <div class="card">
+                <h3>Strategic Areas</h3>
+                <p style="margin-top: 5px; font-weight: 600; color: var(--primary-green);">Refugee Affairs | Foreign Affairs | Programme | Finance | Community Engagement | Youth Empowerment | Education | Culture | Media | Environment</p>
+            </div>
+        </section>
+
         <!-- Departments Section -->
         <section id="departments">
             <div class="section-title">
@@ -300,7 +368,6 @@
                 <p>Dedicated individuals driving our mission forward.</p>
             </div>
             <div id="team-container">
-                <!-- Static Fallback Team List matching your official sheet -->
                 <div class="card">
                     <h3>01. Mohammad Zubair</h3>
                     <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Executive Director</p>
