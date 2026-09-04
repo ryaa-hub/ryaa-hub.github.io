@@ -107,11 +107,17 @@
             font-size: 1.1rem;
             margin-bottom: 5px;
         }
-        .card p {
+        .card p, .card ul {
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        
+        .card ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        .card li {
+            margin-bottom: 5px;
+        }
         /* Contact Section */
         .contact-section {
             background: var(--card-bg);
@@ -164,15 +170,155 @@
 </head>
 <body>
 
+    <!-- Hero Section -->
     <div class="hero">
+        <div class="logo-container">
+            <img src="logo.png" alt="RYAA Logo" onerror="this.style.display='none'">
+        </div>
         <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
-        <p>Dedicated individuals driving our mission forward.</p>
+        <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
+        
+        <div class="nav-buttons">
+            <a href="#about" class="nav-btn">About Us</a>
+            <a href="#departments" class="nav-btn">Explore Departments</a>
+            <a href="#works" class="nav-btn">Recent Works & Photos</a>
+            <a href="#leadership" class="nav-btn">View Leadership</a>
+            <a href="#contact" class="nav-btn">Contact Us</a>
+        </div>
     </div>
 
     <div class="container">
         
-        <div class="section-title">
-            <h2>Leadership Team</h2>
+        <!-- About Us Section -->
+        <div id="about" class="section-title">
+            <h2>About Us</h2>
+            <p>Learn more about our mission, vision, and core objectives</p>
+        </div>
+
+        <div class="card">
+            <h3>Introduction</h3>
+            <p>The Rohingya Youth Advocacy Alliance (RYAA) is a youth-led, non-profit, non-political, community-based organization operating in the Rohingya refugee camps of Cox's Bazar, Bangladesh. RYAA is committed to empowering Rohingya youth and vulnerable community members through advocacy, education, humanitarian assistance, leadership development and community-centred initiatives.</p>
+            <p style="margin-top: 10px;">RYAA seeks to strengthen community resilience, promote human dignity and social justice, advance the protection of human rights and create meaningful opportunities for youth participation and sustainable community development. Its programmes are implemented through participatory and volunteer-driven approaches in collaboration with community members, leaders, volunteers, and partner organisations.</p>
+        </div>
+
+        <div class="card">
+            <h3>Vision</h3>
+            <p>To contribute to a dignified, peaceful, and sustainable future in which the Rohingya community enjoys fundamental human rights, equitable access to education, and meaningful opportunities for sustainable social and economic development.</p>
+        </div>
+
+        <div class="card">
+            <h3>Mission</h3>
+            <p>To empower Rohingya youth and vulnerable populations through advocacy, education, leadership development, humanitarian assistance and community-based initiatives that promote dignity, resilience and social justice.</p>
+        </div>
+
+        <div class="card">
+            <h3>Objectives</h3>
+            <p>The objectives of the Rohingya Youth Advocacy Alliance are to:</p>
+            <ul>
+                <li>Promote and protect human rights and uphold the dignity and fundamental rights of the Rohingya community.</li>
+                <li>Empower Rohingya youth by strengthening their leadership, skills, capacity, participation and contribution to community development.</li>
+                <li>Promote access to education and support learning opportunities, mentorship and educational initiatives for Rohingya children and youth.</li>
+                <li>Provide humanitarian assistance to vulnerable individuals and families through relief, essential supplies, emergency assistance, and other community-based support.</li>
+                <li>Strengthen community participation by promoting inclusive dialogue, volunteerism, collaboration and meaningful participation in community initiatives.</li>
+                <li>Advance youth-led advocacy by creating platforms through which Rohingya youth can raise awareness and advocate for their rights, dignity, and aspirations.</li>
+                <li>Preserve Rohingya culture and identity by promoting cultural heritage, traditions, storytelling and social cohesion.</li>
+                <li>Promote environmental protection and sustainability through environmental awareness, tree planting, community cleanup, waste management and sanitation initiatives.</li>
+                <li>Develop strategic partnerships with humanitarian and development organisations, donor agencies, youth networks and community-based organisations to strengthen programme effectiveness and sustainability.</li>
+                <li>Ensure transparency and accountability through proper documentation, responsible financial management, monitoring, reporting and evaluation of organisational activities.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Strategic Areas</h3>
+            <p>Refugee Affairs | Foreign Affairs | Programme | Finance | Community Engagement | Youth Empowerment | Education | Culture | Media | Environment</p>
+        </div>
+
+
+        <!-- Departments & Activities Section -->
+        <div id="departments" class="section-title">
+            <h2>Our Departments & Activities</h2>
+            <p>Working across multiple fronts for community development and advocacy</p>
+        </div>
+
+        <div class="card">
+            <h3>01. Foreign Affairs</h3>
+            <p>Building international partnerships and diplomatic engagement with global human rights bodies.</p>
+        </div>
+
+        <div class="card">
+            <h3>02. Programme</h3>
+            <p>Designing and executing community welfare programs and strategic initiatives.</p>
+        </div>
+
+        <div class="card">
+            <h3>03. Finance</h3>
+            <p>Managing financial planning, transparency, budgets, and resource allocation.</p>
+        </div>
+
+        <div class="card">
+            <h3>04. Community Engagement</h3>
+            <p>Fostering strong community ties, social cohesion, and grassroots participation.</p>
+        </div>
+
+        <div class="card">
+            <h3>05. Education</h3>
+            <p>Promoting learning opportunities, skill development, and educational support for youth.</p>
+        </div>
+
+        <div class="card">
+            <h3>06. Youth Empowerment</h3>
+            <p>Empowering young minds through leadership training, advocacy platforms, and capacity building.</p>
+        </div>
+
+        <div class="card">
+            <h3>07. Culture</h3>
+            <p>Preserving and promoting Rohingya heritage, arts, literature, and cultural identity.</p>
+        </div>
+
+        <div class="card">
+            <h3>08. Refugee Affairs</h3>
+            <p>Addressing core protection issues, human rights monitoring, and welfare support for refugees.</p>
+        </div>
+
+        <div class="card">
+            <h3>09. Media</h3>
+            <p>Amplifying community stories, handling public relations, and managing digital advocacy content.</p>
+        </div>
+
+        <div class="card">
+            <h3>10. Environment</h3>
+            <p>Advocating for environmental sustainability, green initiatives, and climate awareness in camps.</p>
+        </div>
+
+
+        <!-- Recent Works & Events Section -->
+        <div id="works" class="section-title">
+            <h2>Recent Works & Events</h2>
+            <p>A glimpse into our recent community initiatives and programs</p>
+        </div>
+
+        <div class="card">
+            <p style="font-size: 0.75rem; color: var(--accent-orange); font-weight: bold; margin-bottom: 5px;">Commemoration | Event | Human Rights</p>
+            <h3>Rohingya Genocide Remembrance Day 2026 Observed by RYAA and Partners</h3>
+            <p>The Rohingya Youth Advocacy Alliance (RYAA) solemnly observed Rohingya Genocide Remembrance Day 2026 in partnership with the Rohingya Association UK (RAUK). The commemorative event began with a Khatam-ul-Qur'an dedicated to the souls of the Rohingya martyrs who lost their lives due to decades of persecution, systemic violence and genocide. The program featured important speeches by respected community leaders, reflecting on the history and suffering of the Rohingya people, ongoing challenges faced by Rohingya refugees and the urgent need for a lasting solution. As part of the observance, organizers held various competitions to promote community involvement and youth participation. Prizes were awarded to the winners in recognition of their achievements and contributions. The event ended with a dua for the souls of the martyrs, the health and unity of the Rohingya community and the hope for a peaceful, dignified and sustainable future for the Rohingya people. RYAA sincerely thanks all community leaders, participants, volunteers, partners, and supporters whose dedication and efforts made this meaningful event a success. We remember the victims. We honor the survivors. We stay committed to justice, accountability and a lasting solution for the Rohingya people. #RohingyaGenocideRemembranceDay2026 #JusticeForRohingya #RohingyaYouth #DurableSolution #NeverForget</p>
+        </div>
+
+        <div class="card">
+            <p style="font-size: 0.75rem; color: var(--accent-orange); font-weight: bold; margin-bottom: 5px;">Event Management | Social Work</p>
+            <h3>Community Engagement & Iftar Program 2026</h3>
+            <p>On 04 March 2026, the Rohingya Youth Advocacy Alliance (RYAA) successfully organized a Community Engagement & Iftar Program at the Community Centre in Nayapara RC with the participation of around 100 community leaders, youth leaders and students. The programme aimed to strengthen community unity, encourage youth participation in social development and address the opportunities and challenges facing the Rohingya community. Participants emphasized the importance of education, leadership and collective responsibility in fostering the community's progress. During the discussion, the participants collectively resolved to work together for community development, social harmony and educational progress within the Rohingya camps. The meeting concluded with a shared commitment to continue diverse efforts under the leadership and initiatives of the Rohingya Youth Advocacy Alliance (RYAA) for the welfare and advancement of the Rohingya community.</p>
+        </div>
+
+        <div class="card">
+            <p style="font-size: 0.75rem; color: var(--accent-orange); font-weight: bold; margin-bottom: 5px;">Advocacy | International Day | World Refugee Day</p>
+            <h3>RYAA Observes World Refugee Day 2026 for Dignity, Justice and Durable Solutions</h3>
+            <p>On the occasion of World Refugee Day 2026, the 1.902 Rohingya registered refugees residing in Nayapara Refugee Camp solemnly observed the day to raise awareness of the challenges and prolonged hardships faced by refugees and to reaffirm their aspiration for a safe, dignified, and sustainable future, just as, and fundamental human rights. The Rohingya Youth Advocacy Alliance (RYAA) stood alongside the Rohingya registered refugees of Nayapara in observing this significant day and supporting their effective and meaningful and sustainable solution to their protracted displacement. We call upon all relevant stakeholders to strengthen efforts toward a safe, voluntary, dignified, and sustainable repatriation solution, ensuring effective protection, justice, inclusion and the full enjoyment of human rights, No More Refugee Life.</p>
+        </div>
+
+
+        <!-- Leadership Team Section -->
+        <div id="leadership" class="section-title">
+            <h2>Our Leadership Team</h2>
             <p>Our Executive Members</p>
         </div>
 
@@ -242,7 +388,9 @@
             <p>Mobile: +8801995131095</p>
         </div>
 
-        <div class="contact-section">
+
+        <!-- Contact Us Section -->
+        <div id="contact" class="contact-section">
             <h3>Contact Us</h3>
             <p>If organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below:</p>
             
@@ -253,9 +401,12 @@
             <p><a href="tel:+8801859202408" style="color: var(--primary-green); text-decoration: none;">+8801859202408</a></p>
 
             <div class="social-links">
+                <!-- Facebook Link -->
                 <a href="https://www.facebook.com/ryaalliance" target="_blank" class="social-btn" title="Facebook">f</a>
+                <!-- Instagram Link -->
                 <a href="https://www.instagram.com/ryaalliance" target="_blank" class="social-btn" title="Instagram">in</a>
-                <a href="https://www.x.com/ryaalliance" target="_blank" class="social-btn" title="Twitter">x</a>
+                <!-- Twitter / X Link -->
+                <a href="https://www.x.com/ryaalliance" target="_blank" class="social-btn" title="Twitter/X">x</a>
             </div>
         </div>
 
