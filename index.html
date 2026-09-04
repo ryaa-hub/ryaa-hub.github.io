@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RYAA Digital Hub</title>
-    <!-- FontAwesome for Social Media Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>RYAA Digital Hub - Rohingya Youth Advocacy Alliance</title>
     <style>
         :root {
             --primary-green: #115e39;
-            --light-bg: #f4fcf7;
+            --light-bg: #f8fafc;
             --card-bg: #ffffff;
-            --text-dark: #1f2937;
-            --text-light: #4b5563;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent-orange: #f97316;
+            --border-color: #e2e8f0;
         }
         * {
             margin: 0;
@@ -22,327 +22,260 @@
         }
         body {
             background-color: var(--light-bg);
-            color: var(--text-dark);
+            color: var(--text-main);
             line-height: 1.6;
         }
-        header {
-            background-color: var(--primary-green);
-            color: white;
-            padding: 1.2rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .logo-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid white;
-            background: white;
-        }
-        .logo-area h1 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+        /* Hero Section */
         .hero {
             background-color: var(--primary-green);
             color: white;
             text-align: center;
-            padding: 3rem 1.5rem;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
+            padding: 40px 20px;
         }
-        .hero h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        .logo-container img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+        .hero h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
         .hero p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             max-width: 600px;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto 20px auto;
             opacity: 0.9;
         }
-        .hero-buttons {
+        /* Quick Nav Buttons */
+        .nav-buttons {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
-        .hero-buttons a {
+        .nav-btn {
             background: white;
             color: var(--primary-green);
-            padding: 0.6rem 1.2rem;
+            padding: 8px 14px;
             border-radius: 20px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: bold;
+            font-size: 0.85rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            transition: all 0.2s;
         }
-        .hero-buttons a:hover {
-            transform: translateY(-2px);
+        .nav-btn:hover {
+            background: var(--accent-orange);
+            color: white;
         }
+        /* Container Layout */
         .container {
             max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 0 auto;
+            padding: 20px;
         }
         .section-title {
             text-align: center;
+            margin: 30px 0 20px 0;
+        }
+        .section-title h2 {
             color: var(--primary-green);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
         }
-        .section-desc {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
+        /* Cards */
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             border-left: 4px solid var(--primary-green);
         }
         .card h3 {
             color: var(--primary-green);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
         }
         .card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-        .card a.phone-link {
-            color: var(--primary-green);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .card a.phone-link:hover {
-            text-decoration: underline;
-        }
-        /* Multiple Images Grid Layout with Zoom Cursor */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .image-grid img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
+        /* Contact Section */
+        .contact-box {
+            background: var(--card-bg);
             border-radius: 8px;
-            border: 1px solid #e5e7eb;
-            cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-        .image-grid img:hover {
-            transform: scale(1.02);
-            opacity: 0.9;
-        }
-
-        /* Lightbox Modal Styles for Full-Screen View */
-        #lightbox-modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        #lightbox-modal img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-        }
-        #lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        #lightbox-close:hover {
-            color: #ff5c5c;
-        }
-
-        .contact-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-top: 30px;
+            border-top: 4px solid var(--accent-orange);
         }
-        .contact-card p {
-            margin: 0.5rem 0;
-            color: var(--text-light);
-        }
-        .contact-card h4 {
+        .contact-box h3 {
             color: var(--primary-green);
-            font-size: 1.1rem;
-            margin-top: 1rem;
+            margin-bottom: 10px;
         }
-        .contact-card a.main-phone {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 600;
+        .contact-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
         }
-        .contact-card a.main-phone:hover {
+        .contact-info {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .contact-info strong {
             color: var(--primary-green);
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
         }
-        /* Professional Social Media Icons Style */
-        .social-links {
+        .social-icons {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
         }
-        .social-links a {
+        .social-icons a {
             background: var(--primary-green);
             color: white;
-            width: 42px;
-            height: 42px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             text-decoration: none;
-            font-size: 1.1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.2s, opacity 0.2s;
+            font-size: 0.85rem;
         }
-        .social-links a:hover {
-            transform: translateY(-3px);
-            opacity: 0.9;
-        }
-        .loading-text {
+        footer {
             text-align: center;
-            color: var(--text-light);
-            padding: 1rem;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-area">
-            <img src="logo.jpg" alt="RYAA Logo" class="logo-img">
-            <h1>RYAA Digital Hub</h1>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="logo-container">
+            <!-- আপনার লোগো ইমেজ পাথ এখানে থাকবে -->
+            <img src="logo.png" alt="RYAA Logo" onerror="this.src='https://via.placeholder.com/70/115e39/ffffff?text=RYAA'">
+        </div>
+        <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
+        <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
+        
+        <!-- Navigation Buttons including Contact Us -->
+        <div class="nav-buttons">
+            <a href="#departments" class="nav-btn">Explore Departments</a>
+            <a href="#works" class="nav-btn">Recent Works & Photos</a>
+            <a href="#leadership" class="nav-btn">View Leadership</a>
+            <a href="#contact" class="nav-btn" style="background: var(--accent-orange); color: white;">Contact Us</a>
         </div>
     </header>
 
-    <section class="hero">
-        <h2>Rohingya Youth Advocacy Alliance (RYAA)</h2>
-        <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
-        <div class="hero-buttons">
-            <a href="#departments">Explore Departments</a>
-            <a href="#works">Recent Works & Photos</a>
-            <a href="#leadership">View Leadership</a>
-        </div>
-    </section>
-
-    <!-- Departments Section -->
-    <div class="container" id="departments">
-        <h2 class="section-title">Our Departments & Activities</h2>
-        <p class="section-desc">Working across multiple fronts for community development and advocacy.</p>
-
-        <div class="card"><h3>🌍 01. Foreign Affairs</h3><p>Builds international partnerships and diplomatic engagement with global human rights bodies.</p></div>
-        <div class="card"><h3>📋 02. Programme</h3><p>Planning and executing community welfare programs and strategic initiatives.</p></div>
-        <div class="card"><h3>💰 03. Finance</h3><p>Managing financial planning, transparency, budgets, and resource allocation.</p></div>
-        <div class="card"><h3>🤝 04. Community Engagement</h3><p>Fostering strong community ties, social cohesion, and grassroots participation.</p></div>
-        <div class="card"><h3>📚 05. Education</h3><p>Promoting learning opportunities, skill development, and educational support for youth.</p></div>
-        <div class="card"><h3>🚀 06. Youth Empowerment</h3><p>Empowering young leaders through training, workshops, and active participation.</p></div>
-        <div class="card"><h3>🎨 07. Culture</h3><p>Preserving and promoting Rohingya heritage, traditions, art, and cultural identity.</p></div>
-        <div class="card"><h3>🛡️ 08. Refugee Affairs</h3><p>Focuses on protection rights, legal aid awareness, and advocacy for refugee welfare.</p></div>
-        <div class="card"><h3>📢 09. Media</h3><p>Managing digital communications, publications, and projecting community narratives.</p></div>
-        <div class="card"><h3>🌱 10. Environment</h3><p>Advocating for environmental awareness, sustainability, and green initiatives.</p></div>
-    </div>
-
-    <!-- Recent Works Section (Dynamic from Firebase) -->
-    <div class="container" id="works">
-        <h2 class="section-title">Recent Works, Photos & Documents</h2>
-        <p class="section-desc">Explore our latest captured moments, event photos, and project highlights.</p>
-        <div id="works-container">
-            <p class="loading-text">Loading works...</p>
-        </div>
-    </div>
-
-    <!-- Leadership Team Section -->
-    <div class="container" id="leadership">
-        <h2 class="section-title">Our Leadership Team</h2>
-        <p class="section-desc">Meet the dedicated individuals leading Rohingya Youth Advocacy Alliance (RYAA).</p>
-        
-        <div class="card"><h3>01. Mohammad Zubair</h3><p><strong>Executive Director</strong></p><p>Mobile: <a href="tel:+8801859202408" class="phone-link">+8801859202408</a></p></div>
-        <div class="card"><h3>02. Engr Farid Alam</h3><p><strong>Director of Foreign Affairs</strong></p><p>Mobile: <a href="tel:+447469655278" class="phone-link">+44 7469 655278</a></p></div>
-        <div class="card"><h3>03. Saddam Hossain</h3><p><strong>Director of Programme</strong></p><p>Mobile: <a href="tel:+8801820122040" class="phone-link">+8801820122040</a></p></div>
-        <div class="card"><h3>04. Mohammed Jubair</h3><p><strong>Director of Finance</strong></p><p>Mobile: <a href="tel:+8801856892207" class="phone-link">+8801856892207</a></p></div>
-        <div class="card"><h3>05. Hasan Ali</h3><p><strong>Director of Community Engagement</strong></p><p>Mobile: <a href="tel:+8801849511527" class="phone-link">+8801849511527</a></p></div>
-        <div class="card"><h3>06. Azizur Rahman</h3><p><strong>Director of Education</strong></p><p>Mobile: <a href="tel:+8801878539771" class="phone-link">+8801878539771</a></p></div>
-        <div class="card"><h3>07. Hashmatullah</h3><p><strong>Director of Youth Empowerment</strong></p><p>Mobile: <a href="tel:+8801305252465" class="phone-link">+8801305252465</a></p></div>
-        <div class="card"><h3>08. Nurul Hoque</h3><p><strong>Director of Culture</strong></p><p>Mobile: <a href="tel:+8801868809651" class="phone-link">+8801868809651</a></p></div>
-        <div class="card"><h3>09. Abdul Munaf</h3><p><strong>Director of Refugee Affairs</strong></p><p>Mobile: <a href="tel:+8801309700681" class="phone-link">+8801309700681</a></p></div>
-        <div class="card"><h3>10. Kafayet Ullah</h3><p><strong>Director of Media</strong></p><p>Mobile: <a href="tel:+8801752641575" class="phone-link">+8801752641575</a></p></div>
-        <div class="card"><h3>11. Abdul Hamid</h3><p><strong>Director of Environment</strong></p><p>Mobile: <a href="tel:+8801995131095" class="phone-link">+8801995131095</a></p></div>
-    </div>
-
-    <!-- Contact & Social Links Section with Professional Icons -->
     <div class="container">
-        <h2 class="section-title">Contact Us</h2>
-        <p class="section-desc">For organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below.</p>
         
-        <div class="contact-card">
-            <h4>OFFICIAL EMAIL</h4>
-            <p><a href="mailto:ryalliance@gmail.com" style="color: var(--text-light); text-decoration: none;">ryalliance@gmail.com</a></p>
-            <h4>PHONE / WHATSAPP</h4>
-            <p><a href="tel:+8801859202408" class="main-phone">+8801859202408</a></p>
-
-            <!-- Social Media Icon Buttons -->
-            <div class="social-links">
-                <a href="https://www.facebook.com/ryaalliance" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/ryaalliance" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.x.com/ryaalliance" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+        <!-- Departments Section -->
+        <section id="departments">
+            <div class="section-title">
+                <h2>Our Departments & Activities</h2>
+                <p>Working across multiple fronts for community development and advocacy.</p>
             </div>
-        </div>
+            <div id="departments-list">
+                <!-- Data will load dynamically from Firebase if needed, or static fallback -->
+                <div class="card">
+                    <h3>01. Foreign Affairs</h3>
+                    <p>Building international partnerships and diplomatic engagement with global human rights bodies.</p>
+                </div>
+                <div class="card">
+                    <h3>02. Programme</h3>
+                    <p>Designing and executing community welfare programs and strategic initiatives.</p>
+                </div>
+                <div class="card">
+                    <h3>03. Finance</h3>
+                    <p>Managing financial planning, transparency, budgets, and resource allocation.</p>
+                </div>
+                <div class="card">
+                    <h3>04. Community Engagement</h3>
+                    <p>Fostering strong community ties, social cohesion, and grassroots participation.</p>
+                </div>
+                <div class="card">
+                    <h3>05. Education</h3>
+                    <p>Promoting learning opportunities, skill development, and educational support for youth.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Works Section -->
+        <section id="works">
+            <div class="section-title">
+                <h2>Recent Works & Events</h2>
+                <p>A glimpse into our recent community initiatives and programs.</p>
+            </div>
+            <div id="works-container">
+                <!-- Dynamic works from Firebase will appear here -->
+                <p style="text-align: center; color: var(--text-muted);">Loading recent works...</p>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <section id="leadership">
+            <div class="section-title">
+                <h2>Our Leadership Team</h2>
+                <p>Dedicated individuals driving our mission forward.</p>
+            </div>
+            <div id="team-container">
+                <!-- Dynamic team from Firebase will appear here -->
+                <p style="text-align: center; color: var(--text-muted);">Loading leadership team...</p>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact">
+            <div class="contact-box">
+                <h3>Contact Us</h3>
+                <p>If organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below:</p>
+                
+                <div class="contact-info" style="margin-bottom: 15px;">
+                    <strong>Official Email</strong>
+                    <a href="mailto:ryalliance@gmail.com" style="color: var(--primary-green); text-decoration: none; font-weight: bold;">ryalliance@gmail.com</a>
+                </div>
+
+                <div class="contact-info">
+                    <strong>Phone / WhatsApp</strong>
+                    <span>+8801859202408</span>
+                </div>
+
+                <div class="social-icons">
+                    <a href="#" target="_blank">f</a>
+                    <a href="#" target="_blank">in</a>
+                    <a href="#" target="_blank">x</a>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <!-- Lightbox Modal for Full-Screen Image Viewing -->
-    <div id="lightbox-modal">
-        <span id="lightbox-close">&times;</span>
-        <img id="lightbox-img" src="" alt="Zoomed Image">
-    </div>
-
-    <footer style="text-align: center; padding: 2rem; color: var(--text-light); font-size: 0.85rem;">
-        &copy; 2026 RYAA Digital Hub. All Rights Reserved.
+    <footer>
+        <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase Works Display Script -->
+    <!-- Firebase Integration to Load Dynamic Works and Team -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -359,72 +292,75 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Load Works from Firestore
         async function loadWorks() {
             const container = document.getElementById('works-container');
             try {
                 const querySnapshot = await getDocs(collection(db, "works"));
                 if (querySnapshot.empty) {
-                    container.innerHTML = '<p class="loading-text">No works found.</p>';
+                    container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No works published yet.</p>';
                     return;
                 }
                 container.innerHTML = '';
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    let html = `
-                        <div class="card">
-                            <span style="font-size: 0.8rem; background: var(--light-bg); color: var(--primary-green); padding: 2px 8px; border-radius: 4px; font-weight: bold;">${data.category || ''}</span>
-                            <h3 style="margin-top: 5px;">${data.title}</h3>
-                            <p>${data.description || ''}</p>
-                    `;
-
-                    // Handle multiple images with click zoom feature
+                    
+                    // Handle single or multiple images
+                    let imageHtml = '';
                     if (data.image) {
-                        if (Array.isArray(data.image) && data.image.length > 0) {
-                            html += `<div class="image-grid">`;
+                        if (Array.isArray(data.image)) {
                             data.image.forEach(imgUrl => {
-                                html += `<img src="${imgUrl}" alt="${data.title}" class="zoomable-img">`;
+                                imageHtml += `<img src="${imgUrl}" style="width:100%; max-height:250px; object-fit:cover; border-radius:6px; margin-top:10px;" alt="Work Image">`;
                             });
-                            html += `</div>`;
-                        } else if (typeof data.image === 'string') {
-                            html += `<div class="image-grid"><img src="${data.image}" alt="${data.title}" class="zoomable-img"></div>`;
+                        } else {
+                            imageHtml = `<img src="${data.image}" style="width:100%; max-height:250px; object-fit:cover; border-radius:6px; margin-top:10px;" alt="Work Image">`;
                         }
                     }
 
-                    if (data.link) {
-                        html += `<br><a href="${data.link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--primary-green); font-weight:600; text-decoration:none;">View Link &rarr;</a>`;
-                    }
-                    html += `</div>`;
-                    container.innerHTML += html;
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <span style="font-size:0.75rem; background:#e2e8f0; padding:2px 6px; border-radius:4px; color:var(--primary-green); font-weight:bold;">${data.category || ''}</span>
+                        <h3 style="margin-top:6px;">${data.title}</h3>
+                        <p>${data.description || ''}</p>
+                        ${imageHtml}
+                        ${data.link ? `<a href="${data.link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--accent-orange); font-size:0.9rem; text-decoration:none; font-weight:bold;">Learn More &rarr;</a>` : ''}
+                    `;
+                    container.appendChild(card);
                 });
-
-                // Lightbox Image Zoom Functionality
-                const modal = document.getElementById('lightbox-modal');
-                const modalImg = document.getElementById('lightbox-img');
-                const closeBtn = document.getElementById('lightbox-close');
-
-                document.querySelectorAll('.zoomable-img').forEach(img => {
-                    img.addEventListener('click', () => {
-                        modal.style.display = 'flex';
-                        modalImg.src = img.src;
-                    });
-                });
-
-                closeBtn.addEventListener('click', () => {
-                    modal.style.display = 'none';
-                });
-
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                });
-
             } catch (err) {
-                container.innerHTML = '<p class="loading-text">Failed to load works.</p>';
+                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load works.</p>';
+            }
+        }
+
+        // Load Team Members from Firestore
+        async function loadTeam() {
+            const container = document.getElementById('team-container');
+            try {
+                const querySnapshot = await getDocs(collection(db, "team"));
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No team members added yet.</p>';
+                    return;
+                }
+                container.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>${data.name}</h3>
+                        <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">${data.role}</p>
+                        ${data.bio ? `<p style="margin-top:5px;">${data.bio}</p>` : ''}
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load team members.</p>';
             }
         }
 
         loadWorks();
+        loadTeam();
     </script>
 </body>
 </html>
