@@ -107,30 +107,58 @@
             font-size: 1.1rem;
             margin-bottom: 5px;
         }
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
         
-        /* Social Media Icons Styling */
-        .social-icons {
+        /* Contact Section */
+        .contact-section {
+            background: var(--card-bg);
+            border-top: 3px solid var(--accent-orange);
+            border-radius: 8px;
+            padding: 25px 20px;
+            margin-top: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .contact-section h3 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        .contact-section p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        .social-links {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin-top: 15px;
         }
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .social-btn {
             width: 35px;
             height: 35px;
             background-color: var(--primary-green);
             color: white;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
             font-weight: bold;
             font-size: 0.9rem;
-            transition: background-color 0.2s;
+            transition: background 0.2s;
         }
-        .social-icon:hover {
+        .social-btn:hover {
             background-color: var(--accent-orange);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -138,30 +166,104 @@
 
     <div class="hero">
         <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
-        <p>Stay Connected with RYAA. Follow our official social media handles and stay updated with our latest activities, campaigns, initiatives and advocacy efforts.</p>
-        <p>Follow • Engage • Support • Advocate</p>
-        <p><strong>Together for Justice, Dignity & Equality.</strong></p>
+        <p>Dedicated individuals driving our mission forward.</p>
     </div>
 
     <div class="container">
+        
         <div class="section-title">
-            <h2>Official Social Media Handles</h2>
-            <p>Connect with us on our official channels</p>
+            <h2>Leadership Team</h2>
+            <p>Our Executive Members</p>
         </div>
 
-        <div class="card" style="text-align: center;">
-            <h3>Our Social Links</h3>
-            <p style="margin-bottom: 10px; color: var(--text-muted);">Click the icons below to visit our official pages:</p>
+        <div class="card">
+            <h3>01. Mohammad Zubair</h3>
+            <p><strong>Executive Director</strong></p>
+            <p>Mobile: +8801859202408</p>
+        </div>
+
+        <div class="card">
+            <h3>02. Engr Farid Alam</h3>
+            <p><strong>Director of Foreign Affairs</strong></p>
+            <p>Mobile: +44 7469 655278</p>
+        </div>
+
+        <div class="card">
+            <h3>03. Seddam Hossain</h3>
+            <p><strong>Director of Programme</strong></p>
+            <p>Mobile: +8801820122040</p>
+        </div>
+
+        <div class="card">
+            <h3>04. Mohammad Jubair</h3>
+            <p><strong>Director of Finance</strong></p>
+            <p>Mobile: +8801896892207</p>
+        </div>
+
+        <div class="card">
+            <h3>05. Hasan Ali</h3>
+            <p><strong>Director of Community Engagement</strong></p>
+            <p>Mobile: +8801840511527</p>
+        </div>
+
+        <div class="card">
+            <h3>06. Azizur Rahman</h3>
+            <p><strong>Director of Education</strong></p>
+            <p>Mobile: +8801878539771</p>
+        </div>
+
+        <div class="card">
+            <h3>07. Hashmatullah</h3>
+            <p><strong>Director of Youth Empowerment</strong></p>
+            <p>Mobile: +8801305252465</p>
+        </div>
+
+        <div class="card">
+            <h3>08. Nurul Hoque</h3>
+            <p><strong>Director of Culture</strong></p>
+            <p>Mobile: +8801898809651</p>
+        </div>
+
+        <div class="card">
+            <h3>09. Abdul Munaf</h3>
+            <p><strong>Director of Refugee Affairs</strong></p>
+            <p>Mobile: +8801309700681</p>
+        </div>
+
+        <div class="card">
+            <h3>10. Kafayet Ullah</h3>
+            <p><strong>Director of Media</strong></p>
+            <p>Mobile: +8801752511575</p>
+        </div>
+
+        <div class="card">
+            <h3>11. Abdul Hamid</h3>
+            <p><strong>Director of Environment</strong></p>
+            <p>Mobile: +8801995131095</p>
+        </div>
+
+        <div class="contact-section">
+            <h3>Contact Us</h3>
+            <p>If organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below:</p>
             
-            <div class="social-icons">
-                <a href="https://www.facebook.com/ryaalliance" target="_blank" class="social-icon" title="Facebook">f</a>
-                
-                <a href="https://www.instagram.com/ryaalliance" target="_blank" class="social-icon" title="Instagram">in</a>
-                
-                <a href="https://www.x.com/ryaalliance" target="_blank" class="social-icon" title="Twitter/X">x</a>
+            <p style="margin-bottom: 5px;"><strong>OFFICIAL EMAIL</strong></p>
+            <p><a href="mailto:ryaalliance@gmail.com" style="color: var(--primary-green); text-decoration: none;">ryaalliance@gmail.com</a></p>
+            
+            <p style="margin-top: 15px; margin-bottom: 5px;"><strong>PHONE / WHATSAPP</strong></p>
+            <p><a href="tel:+8801859202408" style="color: var(--primary-green); text-decoration: none;">+8801859202408</a></p>
+
+            <div class="social-links">
+                <a href="https://www.facebook.com/ryaalliance" target="_blank" class="social-btn" title="Facebook">f</a>
+                <a href="https://www.instagram.com/ryaalliance" target="_blank" class="social-btn" title="Instagram">in</a>
+                <a href="https://www.x.com/ryaalliance" target="_blank" class="social-btn" title="Twitter">x</a>
             </div>
         </div>
+
     </div>
+
+    <footer>
+        <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
+    </footer>
 
 </body>
 </html>
