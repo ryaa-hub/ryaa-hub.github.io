@@ -24,6 +24,7 @@
             background-color: var(--light-bg);
             color: var(--text-main);
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
         /* Hero Section */
         .hero {
@@ -173,13 +174,12 @@
     <!-- Hero Section -->
     <header class="hero">
         <div class="logo-container">
-            <!-- আপনার লোগো ইমেজ পাথ এখানে থাকবে -->
             <img src="logo.png" alt="RYAA Logo" onerror="this.src='https://via.placeholder.com/70/115e39/ffffff?text=RYAA'">
         </div>
         <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
         <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
         
-        <!-- Navigation Buttons including Contact Us -->
+        <!-- Navigation Buttons -->
         <div class="nav-buttons">
             <a href="#departments" class="nav-btn">Explore Departments</a>
             <a href="#works" class="nav-btn">Recent Works & Photos</a>
@@ -190,14 +190,13 @@
 
     <div class="container">
         
-        <!-- Departments Section -->
+        <!-- Departments Section (All restored) -->
         <section id="departments">
             <div class="section-title">
                 <h2>Our Departments & Activities</h2>
                 <p>Working across multiple fronts for community development and advocacy.</p>
             </div>
             <div id="departments-list">
-                <!-- Data will load dynamically from Firebase if needed, or static fallback -->
                 <div class="card">
                     <h3>01. Foreign Affairs</h3>
                     <p>Building international partnerships and diplomatic engagement with global human rights bodies.</p>
@@ -218,6 +217,26 @@
                     <h3>05. Education</h3>
                     <p>Promoting learning opportunities, skill development, and educational support for youth.</p>
                 </div>
+                <div class="card">
+                    <h3>06. Youth Empowerment</h3>
+                    <p>Empowering young minds through leadership training, advocacy platforms, and capacity building.</p>
+                </div>
+                <div class="card">
+                    <h3>07. Culture</h3>
+                    <p>Preserving and promoting Rohingya heritage, arts, literature, and cultural identity.</p>
+                </div>
+                <div class="card">
+                    <h3>08. Refugee Affairs</h3>
+                    <p>Addressing core protection issues, human rights monitoring, and welfare support for refugees.</p>
+                </div>
+                <div class="card">
+                    <h3>09. Media</h3>
+                    <p>Amplifying community stories, handling public relations, and managing digital advocacy content.</p>
+                </div>
+                <div class="card">
+                    <h3>10. Environment</h3>
+                    <p>Advocating for environmental sustainability, green initiatives, and climate awareness in camps.</p>
+                </div>
             </div>
         </section>
 
@@ -228,7 +247,6 @@
                 <p>A glimpse into our recent community initiatives and programs.</p>
             </div>
             <div id="works-container">
-                <!-- Dynamic works from Firebase will appear here -->
                 <p style="text-align: center; color: var(--text-muted);">Loading recent works...</p>
             </div>
         </section>
@@ -240,7 +258,6 @@
                 <p>Dedicated individuals driving our mission forward.</p>
             </div>
             <div id="team-container">
-                <!-- Dynamic team from Firebase will appear here -->
                 <p style="text-align: center; color: var(--text-muted);">Loading leadership team...</p>
             </div>
         </section>
@@ -275,7 +292,7 @@
         <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase Integration to Load Dynamic Works and Team -->
+    <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -292,7 +309,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Load Works from Firestore
+        // Load Works
         async function loadWorks() {
             const container = document.getElementById('works-container');
             try {
@@ -304,8 +321,6 @@
                 container.innerHTML = '';
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    
-                    // Handle single or multiple images
                     let imageHtml = '';
                     if (data.image) {
                         if (Array.isArray(data.image)) {
@@ -333,7 +348,7 @@
             }
         }
 
-        // Load Team Members from Firestore
+        // Load Team Members
         async function loadTeam() {
             const container = document.getElementById('team-container');
             try {
