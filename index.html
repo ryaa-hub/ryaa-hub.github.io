@@ -216,7 +216,7 @@
     <!-- Hero Section -->
     <header class="hero">
         <div class="logo-container">
-            <img src="logo.png" alt="RYAA Logo" onerror="this.src='https://via.placeholder.com/70/115e39/ffffff?text=RYAA'">
+            <img src="logo.jpg" alt="RYAA Logo" onerror="this.src='https://via.placeholder.com/70/115e39/ffffff?text=RYAA'">
         </div>
         <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
         <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
@@ -293,14 +293,69 @@
             </div>
         </section>
 
-        <!-- Leadership Section (Dynamic with Auto Serial Numbers) -->
+        <!-- Leadership Section -->
         <section id="leadership">
             <div class="section-title">
                 <h2>Our Leadership Team</h2>
                 <p>Dedicated individuals driving our mission forward.</p>
             </div>
             <div id="team-container">
-                <p style="text-align: center; color: var(--text-muted);">Loading leadership team...</p>
+                <!-- Static Fallback Team List matching your official sheet -->
+                <div class="card">
+                    <h3>01. Mohammad Zubair</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Executive Director</p>
+                    <p style="margin-top:5px;">Mobile: +8801859202408</p>
+                </div>
+                <div class="card">
+                    <h3>02. Engr Farid Alam</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Foreign Affairs</p>
+                    <p style="margin-top:5px;">Mobile: +44 7469 655278</p>
+                </div>
+                <div class="card">
+                    <h3>03. Saddam Hossain</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Programme</p>
+                    <p style="margin-top:5px;">Mobile: +8801820122040</p>
+                </div>
+                <div class="card">
+                    <h3>04. Mohammed Jubair</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Finance</p>
+                    <p style="margin-top:5px;">Mobile: +8801856892207</p>
+                </div>
+                <div class="card">
+                    <h3>05. Hasan Ali</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Community Engagement</p>
+                    <p style="margin-top:5px;">Mobile: +8801849511527</p>
+                </div>
+                <div class="card">
+                    <h3>06. Azizur Rahman</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Education</p>
+                    <p style="margin-top:5px;">Mobile: +8801878539771</p>
+                </div>
+                <div class="card">
+                    <h3>07. Hashmatullah</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Youth Empowerment</p>
+                    <p style="margin-top:5px;">Mobile: +8801305252465</p>
+                </div>
+                <div class="card">
+                    <h3>08. Nurul Hoque</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Culture</p>
+                    <p style="margin-top:5px;">Mobile: +8801868809651</p>
+                </div>
+                <div class="card">
+                    <h3>09. Abdul Munaf</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Refugee Affairs</p>
+                    <p style="margin-top:5px;">Mobile: +8801309700681</p>
+                </div>
+                <div class="card">
+                    <h3>10. Kafayet Ullah</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Media</p>
+                    <p style="margin-top:5px;">Mobile: +8801752641575</p>
+                </div>
+                <div class="card">
+                    <h3>11. Abdul Hamid</h3>
+                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Environment</p>
+                    <p style="margin-top:5px;">Mobile: +8801995131095</p>
+                </div>
             </div>
         </section>
 
@@ -340,7 +395,7 @@
         <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
     </footer>
 
-    <!-- Firebase Script for Recent Works & Dynamic Leadership with Auto Serial -->
+    <!-- Firebase Script for Recent Works -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -419,38 +474,7 @@
             }
         }
 
-        // Load Leadership Team with Automatic Serial Numbering (01, 02, 03...)
-        async function loadTeam() {
-            const container = document.getElementById('team-container');
-            try {
-                const querySnapshot = await getDocs(collection(db, "team"));
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No team members added yet.</p>';
-                    return;
-                }
-                container.innerHTML = '';
-                let index = 1;
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    let serialNum = index < 10 ? '0' + index : index;
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <h3>${serialNum}. ${data.name}</h3>
-                        <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">${data.role || data.designation || ''}</p>
-                        ${data.mobile ? `<p style="margin-top:5px;">Mobile: ${data.mobile}</p>` : ''}
-                        ${data.bio ? `<p style="margin-top:5px;">${data.bio}</p>` : ''}
-                    `;
-                    container.appendChild(card);
-                    index++;
-                });
-            } catch (err) {
-                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load leadership team.</p>';
-            }
-        }
-
         loadWorks();
-        loadTeam();
     </script>
 </body>
 </html>
