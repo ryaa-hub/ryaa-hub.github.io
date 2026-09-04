@@ -107,441 +107,61 @@
             font-size: 1.1rem;
             margin-bottom: 5px;
         }
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        /* About Us Specific Styles */
-        .about-content p {
-            color: var(--text-main);
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            text-align: justify;
-        }
-        .about-list {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-        .about-list li {
-            margin-bottom: 8px;
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
-        /* Image Zoom Modal Styling */
-        .work-img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .work-img:hover {
-            opacity: 0.9;
-        }
-        #imageModal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        #imageModal img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-        #imageModal span {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            color: white;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        /* Contact Section */
-        .contact-box {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-top: 30px;
-            border-top: 4px solid var(--accent-orange);
-        }
-        .contact-box h3 {
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-        .contact-box p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-        .contact-info {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        .contact-info strong {
-            color: var(--primary-green);
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
+        
+        /* Social Media Icons Styling */
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 15px;
         }
-        .social-icons a {
-            background: var(--primary-green);
-            color: white;
-            width: 32px;
-            height: 32px;
-            display: flex;
+        .social-icon {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: var(--primary-green);
+            color: white;
             border-radius: 50%;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
         }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 40px;
+        .social-icon:hover {
+            background-color: var(--accent-orange);
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="logo-container">
-            <img src="logo.jpg" alt="RYAA Logo" onerror="this.src='https://via.placeholder.com/70/115e39/ffffff?text=RYAA'">
-        </div>
+    <div class="hero">
         <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
-        <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
-        
-        <!-- Navigation Buttons -->
-        <div class="nav-buttons">
-            <a href="#about" class="nav-btn">About Us</a>
-            <a href="#departments" class="nav-btn">Explore Departments</a>
-            <a href="#works" class="nav-btn">Recent Works & Photos</a>
-            <a href="#leadership" class="nav-btn">View Leadership</a>
-            <a href="#contact" class="nav-btn" style="background: var(--accent-orange); color: white;">Contact Us</a>
-        </div>
-    </header>
+        <p>Stay Connected with RYAA. Follow our official social media handles and stay updated with our latest activities, campaigns, initiatives and advocacy efforts.</p>
+        <p>Follow • Engage • Support • Advocate</p>
+        <p><strong>Together for Justice, Dignity & Equality.</strong></p>
+    </div>
 
     <div class="container">
-        
-        <!-- About Us Section Added Here -->
-        <section id="about">
-            <div class="section-title">
-                <h2>About Us</h2>
-                <p>Learn more about our mission, vision, and core objectives.</p>
-            </div>
+        <div class="section-title">
+            <h2>Official Social Media Handles</h2>
+            <p>Connect with us on our official channels</p>
+        </div>
 
-            <!-- Introduction Card -->
-            <div class="card about-content">
-                <h3>Introduction</h3>
-                <p>The Rohingya Youth Advocacy Alliance (RYAA) is a youth-led, non-profit, non-political, community-based organisation operating in the Rohingya refugee camps of Cox’s Bazar, Bangladesh. RYAA is committed to empowering Rohingya youth and vulnerable community members through advocacy, education, humanitarian assistance, leadership development and community-centred initiatives.</p>
-                <p>RYAA seeks to strengthen community resilience, promote human dignity and social justice, advance the protection of human rights and create meaningful opportunities for youth participation and sustainable community development. Its programmes are implemented through participatory and volunteer-driven approaches in collaboration with community members, leaders, volunteers, and partner organisations.</p>
-            </div>
-
-            <!-- Vision Card -->
-            <div class="card about-content">
-                <h3>Vision</h3>
-                <p>To contribute to a dignified, peaceful, and sustainable future in which the Rohingya community enjoys fundamental human rights, equitable access to education, and meaningful opportunities for sustainable social and economic development.</p>
-            </div>
-
-            <!-- Mission Card -->
-            <div class="card about-content">
-                <h3>Mission</h3>
-                <p>To empower Rohingya youth and vulnerable populations through advocacy, education, leadership development, humanitarian assistance and community-based initiatives that promote dignity, resilience and social justice.</p>
-            </div>
-
-            <!-- Objectives Card -->
-            <div class="card">
-                <h3>Objectives</h3>
-                <p style="margin-bottom: 10px; color: var(--text-muted); font-size: 0.85rem;">The objectives of the Rohingya Youth Advocacy Alliance are to:</p>
-                <ol class="about-list">
-                    <li>Promote and protect human rights and uphold the dignity and fundamental rights of the Rohingya community.</li>
-                    <li>Empower Rohingya youth by strengthening their leadership, skills, capacity, participation and contribution to community development.</li>
-                    <li>Promote access to education and support learning opportunities, mentorship and educational initiatives for Rohingya children and youth.</li>
-                    <li>Provide humanitarian assistance to vulnerable individuals and families through relief, essential supplies, emergency assistance, and other community-based support.</li>
-                    <li>Strengthen community participation by promoting inclusive dialogue, volunteerism, collaboration and meaningful participation in community initiatives.</li>
-                    <li>Advance youth-led advocacy by creating platforms through which Rohingya youth can raise awareness and advocate for their rights, dignity, and aspirations.</li>
-                    <li>Preserve Rohingya culture and identity by promoting cultural heritage, traditions, storytelling and social cohesion.</li>
-                    <li>Promote environmental protection and sustainability through environmental awareness, tree planting, community clean-up, waste management and sanitation initiatives.</li>
-                    <li>Develop strategic partnerships with humanitarian and development organisations, donor agencies, youth networks and community-based organisations to strengthen programme effectiveness and sustainability.</li>
-                    <li>Ensure transparency and accountability through proper documentation, responsible financial management, monitoring, reporting and evaluation of organisational activities.</li>
-                </ol>
-            </div>
-
-            <!-- Strategic Areas Card -->
-            <div class="card">
-                <h3>Strategic Areas</h3>
-                <p style="margin-top: 5px; font-weight: 600; color: var(--primary-green);">Refugee Affairs | Foreign Affairs | Programme | Finance | Community Engagement | Youth Empowerment | Education | Culture | Media | Environment</p>
-            </div>
-        </section>
-
-        <!-- Departments Section -->
-        <section id="departments">
-            <div class="section-title">
-                <h2>Our Departments & Activities</h2>
-                <p>Working across multiple fronts for community development and advocacy.</p>
-            </div>
-            <div id="departments-list">
-                <div class="card">
-                    <h3>01. Foreign Affairs</h3>
-                    <p>Building international partnerships and diplomatic engagement with global human rights bodies.</p>
-                </div>
-                <div class="card">
-                    <h3>02. Programme</h3>
-                    <p>Designing and executing community welfare programs and strategic initiatives.</p>
-                </div>
-                <div class="card">
-                    <h3>03. Finance</h3>
-                    <p>Managing financial planning, transparency, budgets, and resource allocation.</p>
-                </div>
-                <div class="card">
-                    <h3>04. Community Engagement</h3>
-                    <p>Fostering strong community ties, social cohesion, and grassroots participation.</p>
-                </div>
-                <div class="card">
-                    <h3>05. Education</h3>
-                    <p>Promoting learning opportunities, skill development, and educational support for youth.</p>
-                </div>
-                <div class="card">
-                    <h3>06. Youth Empowerment</h3>
-                    <p>Empowering young minds through leadership training, advocacy platforms, and capacity building.</p>
-                </div>
-                <div class="card">
-                    <h3>07. Culture</h3>
-                    <p>Preserving and promoting Rohingya heritage, arts, literature, and cultural identity.</p>
-                </div>
-                <div class="card">
-                    <h3>08. Refugee Affairs</h3>
-                    <p>Addressing core protection issues, human rights monitoring, and welfare support for refugees.</p>
-                </div>
-                <div class="card">
-                    <h3>09. Media</h3>
-                    <p>Amplifying community stories, handling public relations, and managing digital advocacy content.</p>
-                </div>
-                <div class="card">
-                    <h3>10. Environment</h3>
-                    <p>Advocating for environmental sustainability, green initiatives, and climate awareness in camps.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Recent Works Section -->
-        <section id="works">
-            <div class="section-title">
-                <h2>Recent Works & Events</h2>
-                <p>A glimpse into our recent community initiatives and programs.</p>
-            </div>
-            <div id="works-container">
-                <p style="text-align: center; color: var(--text-muted);">Loading recent works...</p>
-            </div>
-        </section>
-
-        <!-- Leadership Section -->
-        <section id="leadership">
-            <div class="section-title">
-                <h2>Our Leadership Team</h2>
-                <p>Dedicated individuals driving our mission forward.</p>
-            </div>
-            <div id="team-container">
-                <div class="card">
-                    <h3>01. Mohammad Zubair</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Executive Director</p>
-                    <p style="margin-top:5px;">Mobile: +8801859202408</p>
-                </div>
-                <div class="card">
-                    <h3>02. Engr Farid Alam</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Foreign Affairs</p>
-                    <p style="margin-top:5px;">Mobile: +44 7469 655278</p>
-                </div>
-                <div class="card">
-                    <h3>03. Saddam Hossain</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Programme</p>
-                    <p style="margin-top:5px;">Mobile: +8801820122040</p>
-                </div>
-                <div class="card">
-                    <h3>04. Mohammed Jubair</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Finance</p>
-                    <p style="margin-top:5px;">Mobile: +8801856892207</p>
-                </div>
-                <div class="card">
-                    <h3>05. Hasan Ali</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Community Engagement</p>
-                    <p style="margin-top:5px;">Mobile: +8801849511527</p>
-                </div>
-                <div class="card">
-                    <h3>06. Azizur Rahman</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Education</p>
-                    <p style="margin-top:5px;">Mobile: +8801878539771</p>
-                </div>
-                <div class="card">
-                    <h3>07. Hashmatullah</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Youth Empowerment</p>
-                    <p style="margin-top:5px;">Mobile: +8801305252465</p>
-                </div>
-                <div class="card">
-                    <h3>08. Nurul Hoque</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Culture</p>
-                    <p style="margin-top:5px;">Mobile: +8801868809651</p>
-                </div>
-                <div class="card">
-                    <h3>09. Abdul Munaf</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Refugee Affairs</p>
-                    <p style="margin-top:5px;">Mobile: +8801309700681</p>
-                </div>
-                <div class="card">
-                    <h3>10. Kafayet Ullah</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Media</p>
-                    <p style="margin-top:5px;">Mobile: +8801752641575</p>
-                </div>
-                <div class="card">
-                    <h3>11. Abdul Hamid</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Environment</p>
-                    <p style="margin-top:5px;">Mobile: +8801995131095</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Us Section -->
-        <section id="contact">
-            <div class="contact-box">
-                <h3>Contact Us</h3>
-                <p>If organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below:</p>
+        <div class="card" style="text-align: center;">
+            <h3>Our Social Links</h3>
+            <p style="margin-bottom: 10px; color: var(--text-muted);">Click the icons below to visit our official pages:</p>
+            
+            <div class="social-icons">
+                <a href="https://www.facebook.com/ryaalliance" target="_blank" class="social-icon" title="Facebook">f</a>
                 
-                <div class="contact-info" style="margin-bottom: 15px;">
-                    <strong>Official Email</strong>
-                    <a href="mailto:ryaalliance@gmail.com" style="color: var(--primary-green); text-decoration: none; font-weight: bold;">ryaalliance@gmail.com</a>
-                </div>
-
-                <div class="contact-info">
-                    <strong>Phone / WhatsApp</strong>
-                    <span>+8801859202408</span>
-                </div>
-
-                <div class="social-icons">
-                    <a href="#" target="_blank">f</a>
-                    <a href="#" target="_blank">in</a>
-                    <a href="#" target="_blank">x</a>
-                </div>
+                <a href="https://www.instagram.com/ryaalliance" target="_blank" class="social-icon" title="Instagram">in</a>
+                
+                <a href="https://www.x.com/ryaalliance" target="_blank" class="social-icon" title="Twitter/X">x</a>
             </div>
-        </section>
-
+        </div>
     </div>
 
-    <!-- Image Modal Popup for Big View -->
-    <div id="imageModal">
-        <span id="closeModal">&times;</span>
-        <img id="modalImg" src="" alt="Zoomed Work Image">
-    </div>
-
-    <footer>
-        <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
-    </footer>
-
-    <!-- Firebase Script for Recent Works -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
-            authDomain: "ryaa-digital-hub.firebaseapp.com",
-            projectId: "ryaa-digital-hub",
-            storageBucket: "ryaa-digital-hub.firebasestorage.app",
-            messagingSenderId: "672127865081",
-            appId: "1:672127865081:web:fd6dc8783e6bd848e55228"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Modal Elements
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImg');
-        const closeModal = document.getElementById('closeModal');
-
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        }
-        modal.onclick = function(e) {
-            if(e.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        // Load Works
-        async function loadWorks() {
-            const container = document.getElementById('works-container');
-            try {
-                const querySnapshot = await getDocs(collection(db, "works"));
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No works published yet.</p>';
-                    return;
-                }
-                container.innerHTML = '';
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    let imageHtml = '';
-                    if (data.image) {
-                        if (Array.isArray(data.image)) {
-                            data.image.forEach(imgUrl => {
-                                imageHtml += `<img src="${imgUrl}" class="work-img" alt="Work Image">`;
-                            });
-                        } else {
-                            imageHtml = `<img src="${data.image}" class="work-img" alt="Work Image">`;
-                        }
-                    }
-
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <span style="font-size:0.75rem; background:#e2e8f0; padding:2px 6px; border-radius:4px; color:var(--primary-green); font-weight:bold;">${data.category || ''}</span>
-                        <h3 style="margin-top:6px;">${data.title}</h3>
-                        <p>${data.description || ''}</p>
-                        ${imageHtml}
-                        ${data.link ? `<a href="${data.link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--accent-orange); font-size:0.9rem; text-decoration:none; font-weight:bold;">Learn More &rarr;</a>` : ''}
-                    `;
-                    container.appendChild(card);
-                });
-
-                // Attach click event to all dynamically loaded work images for big view
-                document.querySelectorAll('.work-img').forEach(img => {
-                    img.onclick = function() {
-                        modal.style.display = "flex";
-                        modalImg.src = this.src;
-                    }
-                });
-
-            } catch (err) {
-                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load works.</p>';
-            }
-        }
-
-        loadWorks();
-    </script>
 </body>
 </html>
