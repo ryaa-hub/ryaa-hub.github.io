@@ -191,6 +191,26 @@
             font-size: 1.1rem;
             margin-top: 1rem;
         }
+        /* Social Media Icons Style */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        .social-links a {
+            background: var(--primary-green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .social-links a:hover {
+            opacity: 0.85;
+        }
         .loading-text {
             text-align: center;
             color: var(--text-light);
@@ -217,7 +237,6 @@
         </div>
     </section>
 
-    <!-- Departments Section -->
     <div class="container" id="departments">
         <h2 class="section-title">Our Departments & Activities</h2>
         <p class="section-desc">Working across multiple fronts for community development and advocacy.</p>
@@ -234,7 +253,6 @@
         <div class="card"><h3>10. Environment</h3><p>Advocating for environmental awareness, sustainability, and green initiatives.</p></div>
     </div>
 
-    <!-- Recent Works Section (Dynamic from Firebase) -->
     <div class="container" id="works">
         <h2 class="section-title">Recent Works, Photos & Documents</h2>
         <p class="section-desc">Explore our latest captured moments, event photos, and project highlights.</p>
@@ -243,27 +261,41 @@
         </div>
     </div>
 
-    <!-- Leadership Team Section -->
     <div class="container" id="leadership">
         <h2 class="section-title">Our Leadership Team</h2>
         <p class="section-desc">Meet the dedicated individuals leading Rohingya Youth Advocacy Alliance (RYAA).</p>
-        <div id="leadership-container"></div>
+        
+        <div class="card"><h3>01. Mohammad Zubair</h3><p><strong>Executive Director</strong></p><p>Mobile: +8801859202408</p></div>
+        <div class="card"><h3>02. Engr Farid Alam</h3><p><strong>Director of Foreign Affairs</strong></p><p>Mobile: +44 7469 655278</p></div>
+        <div class="card"><h3>03. Saddam Hossain</h3><p><strong>Director of Programme</strong></p><p>Mobile: +8801820122040</p></div>
+        <div class="card"><h3>04. Mohammed Jubair</h3><p><strong>Director of Finance</strong></p><p>Mobile: +8801856892207</p></div>
+        <div class="card"><h3>05. Hasan Ali</h3><p><strong>Director of Community Engagement</strong></p><p>Mobile: +8801849511527</p></div>
+        <div class="card"><h3>06. Azizur Rahman</h3><p><strong>Director of Education</strong></p><p>Mobile: +8801878539771</p></div>
+        <div class="card"><h3>07. Hashmatullah</h3><p><strong>Director of Youth Empowerment</strong></p><p>Mobile: +8801305252465</p></div>
+        <div class="card"><h3>08. Nurul Hoque</h3><p><strong>Director of Culture</strong></p><p>Mobile: +8801868809651</p></div>
+        <div class="card"><h3>09. Abdul Munaf</h3><p><strong>Director of Refugee Affairs</strong></p><p>Mobile: +8801309700681</p></div>
+        <div class="card"><h3>10. Kafayet Ullah</h3><p><strong>Director of Media</strong></p><p>Mobile: +8801752641575</p></div>
+        <div class="card"><h3>11. Abdul Hamid</h3><p><strong>Director of Environment</strong></p><p>Mobile: +8801995131095</p></div>
     </div>
 
-    <!-- Contact Section -->
     <div class="container">
         <h2 class="section-title">Contact Us</h2>
-        <p class="section-desc">For organizations, donors, and partners wishing to connect with us, please reach out via official email or phone below.</p>
+        <p class="section-desc">For organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below.</p>
         
         <div class="contact-card">
             <h4>OFFICIAL EMAIL</h4>
             <p>ryalliance@gmail.com</p>
             <h4>PHONE / WHATSAPP</h4>
             <p>+8801859202408</p>
+
+            <div class="social-links">
+                <a href="https://www.facebook.com/ryaalliance" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/ryaalliance" target="_blank">Instagram</a>
+                <a href="https://www.x.com/ryaalliance" target="_blank">Twitter / X</a>
+            </div>
         </div>
     </div>
 
-    <!-- Lightbox Modal for Full-Screen Image Viewing -->
     <div id="lightbox-modal">
         <span id="lightbox-close">&times;</span>
         <img id="lightbox-img" src="" alt="Zoomed Image">
@@ -273,7 +305,6 @@
         &copy; 2026 RYAA Digital Hub. All Rights Reserved.
     </footer>
 
-    <!-- Firebase Display Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -355,28 +386,7 @@
             }
         }
 
-        async function loadTeam() {
-            const container = document.getElementById('leadership-container');
-            try {
-                const querySnapshot = await getDocs(collection(db, "team"));
-                if (querySnapshot.empty) return;
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    container.innerHTML += `
-                        <div class="card">
-                            <h3>${data.name}</h3>
-                            <p><strong>${data.role}</strong></p>
-                            <p>${data.bio || ''}</p>
-                        </div>
-                    `;
-                });
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
         loadWorks();
-        loadTeam();
     </script>
 </body>
 </html>
