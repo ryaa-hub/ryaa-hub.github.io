@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RYAA Digital Hub</title>
+    <!-- FontAwesome for Social Media Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --primary-green: #115e39;
@@ -214,7 +216,7 @@
         .contact-card a.main-phone:hover {
             color: var(--primary-green);
         }
-        /* Social Media Links Style */
+        /* Professional Social Media Icons Style */
         .social-links {
             display: flex;
             justify-content: center;
@@ -225,16 +227,20 @@
         .social-links a {
             background: var(--primary-green);
             color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: opacity 0.2s, transform 0.2s;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s, opacity 0.2s;
         }
         .social-links a:hover {
+            transform: translateY(-3px);
             opacity: 0.9;
-            transform: translateY(-2px);
         }
         .loading-text {
             text-align: center;
@@ -288,7 +294,7 @@
         </div>
     </div>
 
-    <!-- Leadership Team Section (Ordered as requested with click-to-call/whatsapp) -->
+    <!-- Leadership Team Section -->
     <div class="container" id="leadership">
         <h2 class="section-title">Our Leadership Team</h2>
         <p class="section-desc">Meet the dedicated individuals leading Rohingya Youth Advocacy Alliance (RYAA).</p>
@@ -306,7 +312,7 @@
         <div class="card"><h3>11. Abdul Hamid</h3><p><strong>Director of Environment</strong></p><p>Mobile: <a href="tel:+8801995131095" class="phone-link">+8801995131095</a></p></div>
     </div>
 
-    <!-- Contact & Social Links Section -->
+    <!-- Contact & Social Links Section with Professional Icons -->
     <div class="container">
         <h2 class="section-title">Contact Us</h2>
         <p class="section-desc">For organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below.</p>
@@ -317,11 +323,11 @@
             <h4>PHONE / WHATSAPP</h4>
             <p><a href="tel:+8801859202408" class="main-phone">+8801859202408</a></p>
 
-            <!-- Social Media Handles -->
+            <!-- Social Media Icon Buttons -->
             <div class="social-links">
-                <a href="https://www.facebook.com/ryaalliance" target="_blank">Facebook</a>
-                <a href="https://www.instagram.com/ryaalliance" target="_blank">Instagram</a>
-                <a href="https://www.x.com/ryaalliance" target="_blank">Twitter / X</a>
+                <a href="https://www.facebook.com/ryaalliance" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/ryaalliance" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.x.com/ryaalliance" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
             </div>
         </div>
     </div>
