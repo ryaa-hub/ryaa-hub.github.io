@@ -3,470 +3,536 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RYAA Digital Hub - Rohingya Youth Advocacy Alliance</title>
+    <title>Rohingya Youth Advocacy Alliance (RYAA)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-green: #115e39;
-            --light-bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --accent-orange: #f97316;
-            --border-color: #e2e8f0;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-        /* Hero Section */
-        .hero {
-            background-color: var(--primary-green);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .logo-container img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            object-fit: cover;
-            border: 2px solid white;
-            background: white;
-        }
-        .hero h1 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        .hero p {
-            font-size: 0.9rem;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-            opacity: 0.9;
-        }
-        /* Quick Nav Buttons */
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-        .nav-btn {
-            background: white;
-            color: var(--primary-green);
-            padding: 8px 14px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-        .nav-btn:hover {
-            background: var(--accent-orange);
-            color: white;
-        }
-        /* Container Layout */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .section-title {
-            text-align: center;
-            margin: 30px 0 20px 0;
-        }
-        .section-title h2 {
-            color: var(--primary-green);
-            font-size: 1.4rem;
-        }
-        .section-title p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary-green);
-        }
-        .card h3 {
-            color: var(--primary-green);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        /* About Us Specific Styles */
-        .about-content p {
-            color: var(--text-main);
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            text-align: justify;
-        }
-        .about-list {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-        .about-list li {
-            margin-bottom: 8px;
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
-        /* Image Zoom Modal Styling */
-        .work-img {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .work-img:hover {
-            opacity: 0.9;
-        }
-        #imageModal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        #imageModal img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-        #imageModal span {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            color: white;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        /* Contact Section */
-        .contact-box {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-top: 30px;
-            border-top: 4px solid var(--accent-orange);
-        }
-        .contact-box h3 {
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-        .contact-box p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-        .contact-info {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        .contact-info strong {
-            color: var(--primary-green);
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .social-icons a {
-            background: var(--primary-green);
-            color: white;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 40px;
-        }
+        .bg-custom-dark { background-color: #115e39; }
+        .text-custom-dark { color: #115e39; }
+        .border-custom-dark { border-color: #115e39; }
     </style>
 </head>
-<body>
+<body class="bg-white text-gray-800 font-sans pb-16">
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="logo-container">
-            <img src="logo.jpg" alt="RYAA Logo" onerror="this.src='https://via.placeholder.com/70/115e39/ffffff?text=RYAA'">
+    <!-- Navigation Header -->
+    <header class="bg-amber-400 py-3 px-4 sticky top-0 z-40 shadow-sm relative">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-3">
+                <img src="logo.jpg" alt="RYAA Logo" class="h-10 w-10 rounded-full object-cover border border-gray-800" onerror="this.src='https://via.placeholder.com/40/115e39/ffffff?text=RYAA'">
+                <span class="font-extrabold text-xl text-gray-900 tracking-wider">RYAA</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <!-- Search Toggle Button -->
+                <button id="search-toggle" class="text-gray-800 focus:outline-none">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <!-- Menu Toggle Button -->
+                <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
-        <h1>Rohingya Youth Advocacy Alliance (RYAA)</h1>
-        <p>Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.</p>
-        
-        <!-- Navigation Buttons -->
-        <div class="nav-buttons">
-            <a href="#about" class="nav-btn">About Us</a>
-            <a href="#departments" class="nav-btn">Explore Departments</a>
-            <a href="#works" class="nav-btn">Recent Works & Photos</a>
-            <a href="#leadership" class="nav-btn">View Leadership</a>
-            <a href="#contact" class="nav-btn" style="background: var(--accent-orange); color: white;">Contact Us</a>
+
+        <!-- Interactive Search Input Bar -->
+        <div id="search-bar" class="hidden absolute top-full left-0 w-full bg-amber-300 p-3 shadow-md z-40 border-t border-amber-400">
+            <div class="container mx-auto flex items-center bg-white rounded px-3 py-1 border border-gray-400">
+                <i class="fa-solid fa-magnifying-glass text-gray-500 mr-2"></i>
+                <input type="text" id="search-input" placeholder="Search page content or work..." class="w-full bg-transparent focus:outline-none text-sm text-gray-800 font-medium py-1">
+                <button id="search-close" class="text-gray-500 ml-2 hover:text-gray-800">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
         </div>
+
+        <!-- Dropdown Mobile Menu -->
+        <nav id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-amber-400 shadow-xl border-t border-amber-300 py-4 px-6 z-50">
+            <ul class="flex flex-col space-y-3 font-bold text-gray-900 text-base">
+                <li><a href="#home" class="block hover:opacity-75">Home</a></li>
+                <li><a href="#about" class="block hover:opacity-75">About Us</a></li>
+                <li><a href="#departments" class="block hover:opacity-75">Departments</a></li>
+                <li><a href="#work" class="block hover:opacity-75">Recent Works</a></li>
+                <li><a href="#leadership" class="block hover:opacity-75">Leadership</a></li>
+                <li><a href="#involved" class="block hover:opacity-75">Get Involved</a></li>
+                <li><a href="#contact" class="block hover:opacity-75">Contact Us</a></li>
+            </ul>
+            <div class="mt-4 pt-2 border-t border-amber-300">
+                <button onclick="openDonateModal()" class="w-full bg-custom-dark text-white text-center font-extrabold uppercase py-3 rounded shadow hover:bg-opacity-90">
+                    DONATE
+                </button>
+            </div>
+        </nav>
     </header>
 
-    <div class="container">
-        
-        <!-- About Us Section Added Here -->
-        <section id="about">
-            <div class="section-title">
-                <h2>About Us</h2>
-                <p>Learn more about our mission, vision, and core objectives.</p>
+    <!-- Main Content Container -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="bg-custom-dark text-white text-center py-12 px-4 relative searchable-section">
+            <div class="max-w-2xl mx-auto">
+                <h1 class="text-2xl md:text-4xl font-extrabold uppercase tracking-wide leading-snug mb-4">
+                    Rohingya Youth Advocacy Alliance<br>
+                    <span class="text-amber-300">AMPLIFYING VOICES, FOSTERING RESILIENCE</span>
+                </h1>
+                <p class="text-gray-200 text-sm md:text-base mb-6 max-w-xl mx-auto">
+                    Amplifying Rohingya voices and fostering a resilient, peaceful, and just future for all.
+                </p>
+                <button onclick="openDonateModal()" class="bg-amber-400 text-gray-900 font-bold uppercase py-2 px-6 rounded inline-block text-lg shadow-md hover:bg-amber-500">
+                    SUPPORT OUR WORK
+                </button>
             </div>
+        </section>
 
-            <!-- Introduction Card -->
-            <div class="card about-content">
-                <h3>Introduction</h3>
-                <p>The Rohingya Youth Advocacy Alliance (RYAA) is a youth-led, non-profit, non-political, community-based organisation operating in the Rohingya refugee camps of Cox’s Bazar, Bangladesh. RYAA is committed to empowering Rohingya youth and vulnerable community members through advocacy, education, humanitarian assistance, leadership development and community-centred initiatives.</p>
-                <p>RYAA seeks to strengthen community resilience, promote human dignity and social justice, advance the protection of human rights and create meaningful opportunities for youth participation and sustainable community development. Its programmes are implemented through participatory and volunteer-driven approaches in collaboration with community members, leaders, volunteers, and partner organisations.</p>
+        <!-- Dynamic Recent Activities & Work Section -->
+        <section id="work" class="bg-custom-dark text-white py-8 px-4 border-t border-emerald-800 searchable-section">
+            <div class="container mx-auto max-w-2xl">
+                <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-center text-amber-300">Recent Activities & Work</h2>
+                
+                <div id="activities-loader" class="text-center py-8">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-amber-400"></i>
+                    <p class="text-gray-300 text-sm mt-2">Loading recent activities...</p>
+                </div>
+
+                <div id="activities-container" class="space-y-6"></div>
+
+                <div class="text-center mt-8">
+                    <button onclick="openDonateModal()" class="bg-emerald-400 hover:bg-emerald-500 text-gray-900 font-extrabold uppercase py-3 px-8 rounded shadow transition inline-block">
+                        DONATE NOW
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Preamble Section -->
+        <section id="about" class="py-12 px-6 max-w-2xl mx-auto searchable-section">
+            <h2 class="text-2xl font-black uppercase text-gray-900 mb-4 text-center tracking-wide">ABOUT RYAA</h2>
+            
+            <div class="space-y-4 text-gray-700 leading-relaxed font-medium mb-8 text-justify">
+                <p>
+                    The Rohingya Youth Advocacy Alliance (RYAA) is a youth-led, non-profit, non-political, community-based organisation operating in the Rohingya refugee camps of Cox’s Bazar, Bangladesh. RYAA is committed to empowering Rohingya youth and vulnerable community members through advocacy, education, humanitarian assistance, leadership development and community-centred initiatives.
+                </p>
+                <p>
+                    RYAA seeks to strengthen community resilience, promote human dignity and social justice, advance the protection of human rights and create meaningful opportunities for youth participation and sustainable community development.
+                </p>
             </div>
 
             <!-- Vision Card -->
-            <div class="card about-content">
-                <h3>Vision</h3>
-                <p>To contribute to a dignified, peaceful, and sustainable future in which the Rohingya community enjoys fundamental human rights, equitable access to education, and meaningful opportunities for sustainable social and economic development.</p>
+            <div class="border-2 border-gray-800 p-6 rounded-none text-left mb-6 searchable-section">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Our Vision</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    To contribute to a dignified, peaceful, and sustainable future in which the Rohingya community enjoys fundamental human rights, equitable access to education, and meaningful opportunities for sustainable social and economic development.
+                </p>
             </div>
 
             <!-- Mission Card -->
-            <div class="card about-content">
-                <h3>Mission</h3>
-                <p>To empower Rohingya youth and vulnerable populations through advocacy, education, leadership development, humanitarian assistance and community-based initiatives that promote dignity, resilience and social justice.</p>
+            <div class="border-2 border-gray-800 p-6 rounded-none text-left mb-6 searchable-section">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Our Mission</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    To empower Rohingya youth and vulnerable populations through advocacy, education, leadership development, humanitarian assistance and community-based initiatives that promote dignity, resilience and social justice.
+                </p>
             </div>
 
-            <!-- Objectives Card -->
-            <div class="card">
-                <h3>Objectives</h3>
-                <p style="margin-bottom: 10px; color: var(--text-muted); font-size: 0.85rem;">The objectives of the Rohingya Youth Advocacy Alliance are to:</p>
-                <ol class="about-list">
+            <!-- Core Objectives Card -->
+            <div class="border border-gray-300 bg-gray-50 p-6 rounded-lg text-left searchable-section">
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Our Core Objectives</h3>
+                <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700">
                     <li>Promote and protect human rights and uphold the dignity and fundamental rights of the Rohingya community.</li>
-                    <li>Empower Rohingya youth by strengthening their leadership, skills, capacity, participation and contribution to community development.</li>
-                    <li>Promote access to education and support learning opportunities, mentorship and educational initiatives for Rohingya children and youth.</li>
-                    <li>Provide humanitarian assistance to vulnerable individuals and families through relief, essential supplies, emergency assistance, and other community-based support.</li>
-                    <li>Strengthen community participation by promoting inclusive dialogue, volunteerism, collaboration and meaningful participation in community initiatives.</li>
-                    <li>Advance youth-led advocacy by creating platforms through which Rohingya youth can raise awareness and advocate for their rights, dignity, and aspirations.</li>
-                    <li>Preserve Rohingya culture and identity by promoting cultural heritage, traditions, storytelling and social cohesion.</li>
-                    <li>Promote environmental protection and sustainability through environmental awareness, tree planting, community clean-up, waste management and sanitation initiatives.</li>
-                    <li>Develop strategic partnerships with humanitarian and development organisations, donor agencies, youth networks and community-based organisations to strengthen programme effectiveness and sustainability.</li>
-                    <li>Ensure transparency and accountability through proper documentation, responsible financial management, monitoring, reporting and evaluation of organisational activities.</li>
+                    <li>Empower Rohingya youth by strengthening leadership, skills, capacity, and participation.</li>
+                    <li>Promote access to education, learning opportunities, and mentorship.</li>
+                    <li>Provide humanitarian assistance to vulnerable individuals and families.</li>
+                    <li>Strengthen community participation, volunteerism, and social cohesion.</li>
+                    <li>Advance youth-led advocacy through dedicated awareness platforms.</li>
+                    <li>Preserve Rohingya culture, heritage, storytelling, and identity.</li>
+                    <li>Promote environmental protection, clean-up drives, and sanitation initiatives.</li>
+                    <li>Develop strategic partnerships with humanitarian agencies and development organisations.</li>
+                    <li>Ensure transparency, responsible financial management, and accountability.</li>
                 </ol>
             </div>
-
-            <!-- Strategic Areas Card -->
-            <div class="card">
-                <h3>Strategic Areas</h3>
-                <p style="margin-top: 5px; font-weight: 600; color: var(--primary-green);">Refugee Affairs | Foreign Affairs | Programme | Finance | Community Engagement | Youth Empowerment | Education | Culture | Media | Environment</p>
-            </div>
         </section>
 
-        <!-- Departments Section -->
-        <section id="departments">
-            <div class="section-title">
-                <h2>Our Departments & Activities</h2>
-                <p>Working across multiple fronts for community development and advocacy.</p>
-            </div>
-            <div id="departments-list">
-                <div class="card">
-                    <h3>01. Foreign Affairs</h3>
-                    <p>Building international partnerships and diplomatic engagement with global human rights bodies.</p>
-                </div>
-                <div class="card">
-                    <h3>02. Programme</h3>
-                    <p>Designing and executing community welfare programs and strategic initiatives.</p>
-                </div>
-                <div class="card">
-                    <h3>03. Finance</h3>
-                    <p>Managing financial planning, transparency, budgets, and resource allocation.</p>
-                </div>
-                <div class="card">
-                    <h3>04. Community Engagement</h3>
-                    <p>Fostering strong community ties, social cohesion, and grassroots participation.</p>
-                </div>
-                <div class="card">
-                    <h3>05. Education</h3>
-                    <p>Promoting learning opportunities, skill development, and educational support for youth.</p>
-                </div>
-                <div class="card">
-                    <h3>06. Youth Empowerment</h3>
-                    <p>Empowering young minds through leadership training, advocacy platforms, and capacity building.</p>
-                </div>
-                <div class="card">
-                    <h3>07. Culture</h3>
-                    <p>Preserving and promoting Rohingya heritage, arts, literature, and cultural identity.</p>
-                </div>
-                <div class="card">
-                    <h3>08. Refugee Affairs</h3>
-                    <p>Addressing core protection issues, human rights monitoring, and welfare support for refugees.</p>
-                </div>
-                <div class="card">
-                    <h3>09. Media</h3>
-                    <p>Amplifying community stories, handling public relations, and managing digital advocacy content.</p>
-                </div>
-                <div class="card">
-                    <h3>10. Environment</h3>
-                    <p>Advocating for environmental sustainability, green initiatives, and climate awareness in camps.</p>
-                </div>
-            </div>
-        </section>
+        <!-- OUR DEPARTMENTS SECTION -->
+        <section id="departments" class="bg-gray-50 py-12 px-6 searchable-section border-t border-b border-gray-200">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-2xl font-black uppercase text-gray-900 mb-2 text-center tracking-wide">OUR DEPARTMENTS</h2>
+                <p class="text-sm text-gray-600 text-center mb-8">Working across multiple strategic areas for community development and advocacy</p>
 
-        <!-- Recent Works Section -->
-        <section id="works">
-            <div class="section-title">
-                <h2>Recent Works & Events</h2>
-                <p>A glimpse into our recent community initiatives and programs.</p>
-            </div>
-            <div id="works-container">
-                <p style="text-align: center; color: var(--text-muted);">Loading recent works...</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-globe text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">1. Foreign Affairs</h4>
+                            <p class="text-xs text-gray-600">Diplomatic engagement & global partners.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-list-check text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">2. Programme</h4>
+                            <p class="text-xs text-gray-600">Executing community welfare initiatives.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-calculator text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">3. Finance</h4>
+                            <p class="text-xs text-gray-600">Financial planning & resource management.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-handshake text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">4. Community Engagement</h4>
+                            <p class="text-xs text-gray-600">Grassroots participation & social cohesion.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-graduation-cap text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">5. Education</h4>
+                            <p class="text-xs text-gray-600">Educational support & skill development.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-users text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">6. Youth Empowerment</h4>
+                            <p class="text-xs text-gray-600">Leadership training & capacity building.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-landmark text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">7. Culture</h4>
+                            <p class="text-xs text-gray-600">Preserving heritage, arts, & literature.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-shield-halved text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">8. Refugee Affairs</h4>
+                            <p class="text-xs text-gray-600">Human rights & protection monitoring.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-bullhorn text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">9. Media</h4>
+                            <p class="text-xs text-gray-600">Digital advocacy & public relations.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
+                        <i class="fa-solid fa-leaf text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-800">10. Environment</h4>
+                            <p class="text-xs text-gray-600">Green initiatives & climate awareness.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Leadership Section -->
-        <section id="leadership">
-            <div class="section-title">
-                <h2>Our Leadership Team</h2>
-                <p>Dedicated individuals driving our mission forward.</p>
-            </div>
-            <div id="team-container">
-                <div class="card">
-                    <h3>01. Mohammad Zubair</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Executive Director</p>
-                    <p style="margin-top:5px;">Mobile: +8801859202408</p>
-                </div>
-                <div class="card">
-                    <h3>02. Engr Farid Alam</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Foreign Affairs</p>
-                    <p style="margin-top:5px;">Mobile: +44 7469 655278</p>
-                </div>
-                <div class="card">
-                    <h3>03. Saddam Hossain</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Programme</p>
-                    <p style="margin-top:5px;">Mobile: +8801820122040</p>
-                </div>
-                <div class="card">
-                    <h3>04. Mohammed Jubair</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Finance</p>
-                    <p style="margin-top:5px;">Mobile: +8801856892207</p>
-                </div>
-                <div class="card">
-                    <h3>05. Hasan Ali</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Community Engagement</p>
-                    <p style="margin-top:5px;">Mobile: +8801849511527</p>
-                </div>
-                <div class="card">
-                    <h3>06. Azizur Rahman</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Education</p>
-                    <p style="margin-top:5px;">Mobile: +8801878539771</p>
-                </div>
-                <div class="card">
-                    <h3>07. Hashmatullah</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Youth Empowerment</p>
-                    <p style="margin-top:5px;">Mobile: +8801305252465</p>
-                </div>
-                <div class="card">
-                    <h3>08. Nurul Hoque</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Culture</p>
-                    <p style="margin-top:5px;">Mobile: +8801868809651</p>
-                </div>
-                <div class="card">
-                    <h3>09. Abdul Munaf</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Refugee Affairs</p>
-                    <p style="margin-top:5px;">Mobile: +8801309700681</p>
-                </div>
-                <div class="card">
-                    <h3>10. Kafayet Ullah</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Media</p>
-                    <p style="margin-top:5px;">Mobile: +8801752641575</p>
-                </div>
-                <div class="card">
-                    <h3>11. Abdul Hamid</h3>
-                    <p style="font-weight:600; color:var(--accent-orange); font-size:0.85rem;">Director of Environment</p>
-                    <p style="margin-top:5px;">Mobile: +8801995131095</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Us Section -->
-        <section id="contact">
-            <div class="contact-box">
-                <h3>Contact Us</h3>
-                <p>If organizations, donors, and partners wishing to connect with us, please reach out via official email, phone or social channels below:</p>
+        <section id="leadership" class="py-12 px-6 searchable-section">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-2xl font-black uppercase text-gray-900 mb-8 text-center tracking-wide">OUR LEADERSHIP TEAM</h2>
                 
-                <div class="contact-info" style="margin-bottom: 15px;">
-                    <strong>Official Email</strong>
-                    <a href="mailto:ryaalliance@gmail.com" style="color: var(--primary-green); text-decoration: none; font-weight: bold;">ryaalliance@gmail.com</a>
+                <div id="leaders-loader" class="text-center py-4 hidden">
+                    <i class="fa-solid fa-circle-notch fa-spin text-2xl text-emerald-800"></i>
                 </div>
 
-                <div class="contact-info">
-                    <strong>Phone / WhatsApp</strong>
-                    <span>+8801859202408</span>
-                </div>
+                <div id="leaders-container" class="grid md:grid-cols-2 gap-4">
+                    <!-- RYAA Leadership Static List -->
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">01. Mohammad Zubair</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Executive Director</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801859202408
+                        </p>
+                    </div>
 
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/ryaalliance" target="_blank">f</a>
-                    <a href="https://www.instagram.com/ryaalliance" target="_blank">in</a>
-                    <a href="https://www.x.com/ryaalliance" target="_blank">x</a>
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">02. Engr Farid Alam</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Foreign Affairs</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +44 7469 655278
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">03. Saddam Hossain</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Programme</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801820122040
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">04. Mohammed Jubair</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Finance</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801856892207
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">05. Hasan Ali</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Community Engagement</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801849511527
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">06. Azizur Rahman</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Education</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801878539771
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">07. Hashmatullah</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Youth Empowerment</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801305252465
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">08. Nurul Hoque</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Culture</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801868809651
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">09. Abdul Munaf</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Refugee Affairs</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801309700681
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200">
+                        <h3 class="text-base font-bold text-gray-900">10. Kafayet Ullah</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Media</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801752641575
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg shadow border border-gray-200 md:col-span-2">
+                        <h3 class="text-base font-bold text-gray-900">11. Abdul Hamid</h3>
+                        <p class="text-xs uppercase font-bold text-emerald-700 mb-1">Director of Environment</p>
+                        <p class="text-xs text-gray-600 flex items-center gap-1">
+                            <i class="fa-solid fa-phone text-amber-500"></i> +8801995131095
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- Join Our Cause Section -->
+        <section id="involved" class="py-12 px-6 max-w-2xl mx-auto searchable-section">
+            <div class="border-l-4 border-custom-dark pl-6 py-2">
+                <h2 class="text-2xl font-black uppercase text-gray-900 mb-4">JOIN OUR CAUSE</h2>
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    Be a part of our mission to bring hope and positive change to the Rohingya community. Whether through volunteering, partnership, or supporting our programs, your involvement makes a real difference.
+                </p>
+                <div class="flex flex-col gap-3">
+                    <button onclick="openDonateModal()" class="bg-custom-dark text-white font-bold uppercase py-3 px-6 rounded text-left hover:bg-opacity-90">
+                        GET INVOLVED / VOLUNTEER
+                    </button>
+                    <button onclick="openDonateModal()" class="bg-amber-400 text-gray-900 font-bold uppercase py-3 px-6 rounded text-left hover:bg-amber-500">
+                        DONATE NOW
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Custom Donation Form Modal (Pop-up) -->
+    <div id="donate-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-md rounded-xl shadow-2xl p-6 relative my-8">
+            <button onclick="closeDonateModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-extrabold text-gray-900">Support RYAA</h3>
+                <p class="text-xs text-gray-500 mt-1">Fill up the form to pledge or send your donation</p>
+            </div>
+
+            <!-- Donation Form -->
+            <form id="donation-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Full Name *</label>
+                    <input type="text" id="donor-name" required placeholder="John Doe" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Email *</label>
+                        <input type="email" id="donor-email" required placeholder="email@example.com" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">WhatsApp / Phone *</label>
+                        <input type="tel" id="donor-phone" required placeholder="+88018..." class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Amount *</label>
+                        <input type="number" id="donor-amount" required placeholder="e.g. 500" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Currency *</label>
+                        <select id="donor-currency" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm bg-white">
+                            <option value="USD">USD ($)</option>
+                            <option value="BDT">BDT (৳)</option>
+                            <option value="EUR">EUR (€)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Preferred Payment Method</label>
+                    <select id="donor-method" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm bg-white">
+                        <option value="bKash/Nagad">bKash / Nagad / Rocket</option>
+                        <option value="Bank Transfer">Direct Bank Transfer</option>
+                        <option value="Contact Me">Contact me for transfer details</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Message / Note (Optional)</label>
+                    <textarea id="donor-message" rows="2" placeholder="Write any comment..." class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-amber-400 hover:bg-amber-500 text-gray-900 font-extrabold py-3 rounded uppercase text-sm tracking-wider shadow transition">
+                    Submit Donation Request
+                </button>
+            </form>
+
+            <!-- Success Alert State -->
+            <div id="form-success" class="hidden text-center py-6">
+                <i class="fa-solid fa-circle-check text-5xl text-green-500 mb-3"></i>
+                <h4 class="text-xl font-bold text-gray-900">Thank You!</h4>
+                <p class="text-sm text-gray-600 mt-2">Your response has been submitted successfully. Our team will contact you shortly via Email/WhatsApp.</p>
+                <button onclick="closeDonateModal()" class="mt-5 bg-gray-900 text-white font-bold py-2 px-6 rounded text-sm">Close</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Image Modal Popup for Big View -->
-    <div id="imageModal">
-        <span id="closeModal">&times;</span>
-        <img id="modalImg" src="" alt="Zoomed Work Image">
-    </div>
+    <!-- Contact & Footer Section -->
+    <footer id="contact" class="bg-custom-dark text-white pt-10 pb-20 px-6 border-t border-emerald-800">
+        <div class="max-w-2xl mx-auto space-y-8">
+            <div>
+                <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                <p class="flex items-center space-x-3 mb-3">
+                    <i class="fa-brands fa-whatsapp text-amber-400 text-lg"></i>
+                    <span>+8801859202408</span>
+                </p>
+                <p class="flex items-center space-x-3 mb-4">
+                    <i class="fa-solid fa-envelope text-amber-400 text-lg"></i>
+                    <a href="mailto:ryaalliance@gmail.com" class="hover:underline">ryaalliance@gmail.com</a>
+                </p>
+                
+                <!-- Social Media Links -->
+                <h4 class="text-sm font-bold uppercase mb-3 text-amber-300">Follow Us</h4>
+                <div class="flex space-x-4 text-2xl">
+                    <a href="https://www.facebook.com/ryaalliance" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.x.com/ryaalliance" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/ryaalliance" target="_blank" class="text-white hover:text-amber-400"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
 
-    <footer>
-        <p>&copy; 2026 RYAA Digital Hub. All Rights Reserved.</p>
+            <!-- Subscribe Card -->
+            <div class="bg-white text-gray-900 p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-black uppercase mb-4 text-center">SUBSCRIBE</h3>
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Name</label>
+                        <input type="text" placeholder="Your name" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-emerald-700">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Email</label>
+                        <input type="email" placeholder="your.email@example.com" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:border-emerald-700">
+                    </div>
+                    <button type="button" class="w-full bg-black text-white font-bold uppercase py-3 rounded hover:bg-gray-800">Submit</button>
+                </form>
+            </div>
+        </div>
     </footer>
 
-    <!-- Firebase Script for Recent Works -->
+    <!-- Fixed Bottom Sticky Bar -->
+    <div class="fixed bottom-0 left-0 right-0 bg-red-700 text-white px-4 py-3 flex justify-between items-center z-30 shadow-2xl">
+        <span class="font-bold text-sm md:text-base">Support Rohingya Youth</span>
+        <button onclick="openDonateModal()" class="bg-white text-gray-900 font-bold px-4 py-2 rounded text-sm hover:bg-gray-100 transition">
+            Donate Now
+        </button>
+    </div>
+
+    <!-- UI Scripts -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBar = document.getElementById('search-bar');
+        const searchClose = document.getElementById('search-close');
+        const searchInput = document.getElementById('search-input');
+        const donateModal = document.getElementById('donate-modal');
+
+        menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        searchToggle.addEventListener('click', () => searchBar.classList.toggle('hidden'));
+        searchClose.addEventListener('click', () => searchBar.classList.add('hidden'));
+
+        function openDonateModal() {
+            donateModal.classList.remove('hidden');
+            document.getElementById('form-success').classList.add('hidden');
+            document.getElementById('donation-form').classList.remove('hidden');
+        }
+
+        function closeDonateModal() {
+            donateModal.classList.add('hidden');
+        }
+
+        // Search Filter
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const sections = document.querySelectorAll('.searchable-section');
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                section.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+
+    <!-- Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc,
+            onSnapshot, 
+            query, 
+            orderBy,
+            serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // RYAA Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
             authDomain: "ryaa-digital-hub.firebaseapp.com",
@@ -479,69 +545,127 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Modal Elements
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImg');
-        const closeModal = document.getElementById('closeModal');
+        // Submit Form Data to Firestore
+        const donationForm = document.getElementById('donation-form');
+        const submitBtn = document.getElementById('submit-btn');
 
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        }
-        modal.onclick = function(e) {
-            if(e.target === modal) {
-                modal.style.display = "none";
-            }
-        }
+        donationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Submitting...";
 
-        // Load Works
-        async function loadWorks() {
-            const container = document.getElementById('works-container');
             try {
-                const querySnapshot = await getDocs(collection(db, "works"));
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No works published yet.</p>';
-                    return;
-                }
-                container.innerHTML = '';
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    let imageHtml = '';
-                    if (data.image) {
-                        if (Array.isArray(data.image)) {
-                            data.image.forEach(imgUrl => {
-                                imageHtml += `<img src="${imgUrl}" class="work-img" alt="Work Image">`;
-                            });
-                        } else {
-                            imageHtml = `<img src="${data.image}" class="work-img" alt="Work Image">`;
-                        }
-                    }
-
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <span style="font-size:0.75rem; background:#e2e8f0; padding:2px 6px; border-radius:4px; color:var(--primary-green); font-weight:bold;">${data.category || ''}</span>
-                        <h3 style="margin-top:6px;">${data.title}</h3>
-                        <p>${data.description || ''}</p>
-                        ${imageHtml}
-                        ${data.link ? `<a href="${data.link}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--accent-orange); font-size:0.9rem; text-decoration:none; font-weight:bold;">Learn More &rarr;</a>` : ''}
-                    `;
-                    container.appendChild(card);
+                await addDoc(collection(db, "donations"), {
+                    name: document.getElementById('donor-name').value,
+                    email: document.getElementById('donor-email').value,
+                    phone: document.getElementById('donor-phone').value,
+                    amount: document.getElementById('donor-amount').value,
+                    currency: document.getElementById('donor-currency').value,
+                    paymentMethod: document.getElementById('donor-method').value,
+                    message: document.getElementById('donor-message').value,
+                    createdAt: serverTimestamp()
                 });
 
-                // Attach click event to all dynamically loaded work images for big view
-                document.querySelectorAll('.work-img').forEach(img => {
-                    img.onclick = function() {
-                        modal.style.display = "flex";
-                        modalImg.src = this.src;
-                    }
-                });
-
-            } catch (err) {
-                container.innerHTML = '<p style="text-align: center; color: red;">Failed to load works.</p>';
+                donationForm.reset();
+                donationForm.classList.add('hidden');
+                document.getElementById('form-success').classList.remove('hidden');
+            } catch (error) {
+                alert("Error submitting request: " + error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Donation Request";
             }
-        }
+        });
 
-        loadWorks();
+        // Load Recent Works / Activities Dynamically from RYAA Firestore
+        const activitiesContainer = document.getElementById('activities-container');
+        const activitiesLoader = document.getElementById('activities-loader');
+
+        const qWorks = query(collection(db, "works"));
+        onSnapshot(qWorks, (snapshot) => {
+            activitiesLoader.classList.add('hidden');
+            activitiesContainer.innerHTML = '';
+
+            if (snapshot.docs.length === 0) {
+                activitiesContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No recent works published yet.</p>`;
+                return;
+            }
+
+            snapshot.docs.forEach((docSnap) => {
+                const data = docSnap.data();
+                
+                let imagesArr = [];
+                if (Array.isArray(data.image)) {
+                    imagesArr = data.image;
+                } else if (typeof data.image === 'string' && data.image.trim() !== '') {
+                    imagesArr = data.image.split(',').map(url => url.trim()).filter(url => url !== '');
+                }
+
+                let galleryHTML = '';
+                if (imagesArr.length === 1) {
+                    galleryHTML = `<img src="${imagesArr[0]}" alt="${data.title}" class="w-full h-64 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Work+Image'">`;
+                } else if (imagesArr.length > 1) {
+                    const gridCols = imagesArr.length === 2 ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3';
+                    galleryHTML = `
+                        <div class="grid ${gridCols} gap-2 p-2 bg-gray-900 rounded-t-lg">
+                            ${imagesArr.map(url => `
+                                <div class="relative group h-40 overflow-hidden rounded bg-gray-800">
+                                    <img src="${url}" alt="${data.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Error'">
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+
+                const card = document.createElement('div');
+                card.className = "bg-white text-gray-900 rounded-lg overflow-hidden shadow-md border border-gray-200";
+                card.innerHTML = `
+                    ${galleryHTML}
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">${data.category || 'Event'}</span>
+                            ${imagesArr.length > 1 ? `<span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded"><i class="fa-solid fa-images mr-1"></i>${imagesArr.length} Photos</span>` : ''}
+                        </div>
+                        <h3 class="font-extrabold text-lg leading-snug text-gray-900 mb-2">${data.title}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">${data.description || ''}</p>
+                    </div>
+                `;
+                activitiesContainer.appendChild(card);
+            });
+        }, (error) => {
+            console.error("Error fetching works:", error);
+            activitiesLoader.classList.add('hidden');
+            activitiesContainer.innerHTML = `<p class="text-center text-gray-300 py-4">Failed to load works.</p>`;
+        });
+
+        // Load Leaders dynamically if available in Firestore
+        const leadersContainer = document.getElementById('leaders-container');
+        const qLeaders = query(collection(db, "leaders"));
+        
+        onSnapshot(qLeaders, (snapshot) => {
+            if (snapshot.docs.length > 0) {
+                leadersContainer.innerHTML = '';
+                snapshot.docs.forEach((docSnap) => {
+                    const leader = docSnap.data();
+                    const photo = leader.image || 'https://via.placeholder.com/150';
+
+                    leadersContainer.innerHTML += `
+                        <div class="bg-white p-5 rounded-lg shadow border border-gray-200 flex items-center gap-4">
+                            <img src="${photo}" alt="${leader.name}" class="w-16 h-16 rounded-full object-cover bg-gray-100 flex-shrink-0" onerror="this.src='https://via.placeholder.com/150'">
+                            <div>
+                                <h3 class="text-base font-bold text-gray-900">${leader.name}</h3>
+                                <p class="text-xs uppercase font-bold text-emerald-700 mb-1">${leader.role}</p>
+                                <p class="text-xs text-gray-600 flex items-center gap-1">
+                                    <i class="fa-solid fa-phone text-amber-500"></i> ${leader.phone || leader.email || 'N/A'}
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }, (error) => {
+            console.error("Error fetching leaders:", error);
+        });
     </script>
 </body>
 </html>
