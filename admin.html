@@ -3,232 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RYAA Admin Panel</title>
+    <title>Admin Dashboard - RYAA</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-green: #115e39;
-            --light-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-orange: #f97316;
-            --accent-red: #ef4444;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-light);
-            padding: 20px;
-            line-height: 1.5;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: var(--accent-orange);
-            font-size: 1.8rem;
-        }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .card h3 {
-            margin-bottom: 15px;
-            color: var(--accent-orange);
-            font-size: 1.2rem;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 8px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-            color: var(--text-muted);
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: white;
-            font-size: 0.95rem;
-        }
-        textarea {
-            resize: vertical;
-            height: 90px;
-        }
-        button {
-            background: var(--accent-orange);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-            transition: background 0.2s;
-        }
-        button:hover {
-            opacity: 0.9;
-        }
-        .item-list {
-            margin-top: 15px;
-        }
-        .item-row {
-            background: #0f172a;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .item-info h4 {
-            font-size: 1rem;
-            color: white;
-        }
-        .item-info p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        #logout-btn {
-            background: var(--accent-red);
-            width: auto;
-            padding: 6px 12px;
-            font-size: 0.85rem;
-            float: right;
-        }
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+        .bg-custom-dark { background-color: #115e39; }
+        .text-custom-dark { color: #115e39; }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen">
 
-    <div class="container">
-        <div class="header">
-            <h1>RYAA Admin Panel</h1>
-        </div>
-
-        <!-- Login Card (Shown when logged out) -->
-        <div id="login-section" class="card" style="display: none;">
-            <h3>Admin Login</h3>
-            <form id="login-form">
-                <div class="form-group">
-                    <label>Admin Email</label>
-                    <input type="email" id="login-email" required placeholder="admin@example.com">
+    <!-- Auth Container (Login Form) -->
+    <div id="auth-container" class="flex items-center justify-center min-h-screen px-4">
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-200">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold text-custom-dark">RYAA Admin Login</h1>
+                <p class="text-sm text-gray-500 mt-1">Please login to access control panel</p>
+            </div>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="login-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="login-password" required placeholder="********">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="login-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
-                <button type="submit">Login to Panel</button>
+                <button type="submit" id="login-btn" class="w-full bg-custom-dark text-white font-bold py-2.5 rounded-lg hover:bg-opacity-90 transition">Login</button>
             </form>
-        </div>
-
-        <!-- Main Admin Content (Hidden until logged in) -->
-        <div id="admin-content" style="display: none;">
-            
-            <div class="top-bar">
-                <span id="user-email-display" style="color: var(--text-muted); font-size: 0.9rem;"></span>
-                <button id="logout-btn">Logout</button>
-            </div>
-
-            <!-- Add / Edit Work -->
-            <div class="card">
-                <h3 id="form-heading">Add New Work / Event</h3>
-                <form id="work-form">
-                    <input type="hidden" id="edit-work-id">
-                    <div class="form-group">
-                        <label>Title</label>
-                        <input type="text" id="work-title" required placeholder="e.g. Community Engagement Program">
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" id="work-category" required placeholder="e.g. Social Work">
-                    </div>
-                    <div class="form-group">
-                        <label>Image URLs (One URL per line for multiple images)</label>
-                        <textarea id="work-image" placeholder="Paste image links here (each on a new line)"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="work-desc" placeholder="Write description..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>External Link (Optional)</label>
-                        <input type="url" id="work-link" placeholder="https://...">
-                    </div>
-                    <button type="submit" id="work-submit-btn">Publish Work</button>
-                </form>
-            </div>
-
-            <!-- Manage Existing Works -->
-            <div class="card">
-                <h3>Manage Existing Works</h3>
-                <div id="works-list" class="item-list">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Loading works...</p>
-                </div>
-            </div>
-
-            <!-- Add Leadership Member -->
-            <div class="card">
-                <h3>Add Leadership Member</h3>
-                <form id="team-form">
-                    <div class="form-group">
-                        <label>Member Name</label>
-                        <input type="text" id="team-name" required placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <label>Role / Position</label>
-                        <input type="text" id="team-role" required placeholder="e.g. President / Director">
-                    </div>
-                    <div class="form-group">
-                        <label>Short Bio (Optional)</label>
-                        <textarea id="team-bio" placeholder="Brief info about member..."></textarea>
-                    </div>
-                    <button type="submit">Add Member</button>
-                </form>
-            </div>
-
-            <!-- Manage Leadership Team -->
-            <div class="card">
-                <h3>Manage Leadership Team</h3>
-                <div id="team-list" class="item-list">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">Loading team members...</p>
-                </div>
-            </div>
-
+            <p id="login-error" class="text-red-500 text-sm mt-3 text-center hidden"></p>
         </div>
     </div>
 
-    <!-- Firebase Script with Authentication -->
+    <!-- Main Dashboard -->
+    <div id="dashboard-container" class="hidden">
+        <!-- Top Navbar -->
+        <header class="bg-custom-dark text-white shadow-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-amber-400 text-gray-900 text-xs font-bold px-2.5 py-1 rounded">ADMIN PANEL</span>
+                    <h1 class="text-xl font-extrabold tracking-wide">RYAA Control Panel</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="user-email-display" class="text-sm text-amber-300 hidden md:inline"></span>
+                    <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="bg-white border-b sticky top-[68px] z-30 shadow-sm">
+            <div class="container mx-auto px-4 flex space-x-4 overflow-x-auto">
+                <button onclick="switchTab('activities')" id="tab-btn-activities" class="tab-btn border-b-2 border-custom-dark text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-newspaper"></i> Recent Works / Activities
+                </button>
+                <button onclick="switchTab('leadership')" id="tab-btn-leadership" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-users"></i> Leadership Team
+                </button>
+                <button onclick="switchTab('donations')" id="tab-btn-donations" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap relative">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Donations List
+                    <span id="donation-count-badge" class="bg-amber-500 text-xs text-gray-900 font-black px-2 py-0.5 rounded-full hidden">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <main class="container mx-auto px-4 py-8">
+
+            <!-- 1. RECENT ACTIVITIES / WORKS TAB -->
+            <div id="tab-activities" class="tab-content grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
+                        <h2 id="activity-form-title" class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
+                            <i class="fa-solid fa-plus-circle text-custom-dark mr-2"></i> Add New Work / Event
+                        </h2>
+                        <form id="activity-form" class="space-y-4">
+                            <input type="hidden" id="activity-edit-id">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Title *</label>
+                                <input type="text" id="activity-title" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Category *</label>
+                                <input type="text" id="activity-category" placeholder="e.g. Advocacy, Youth, Welfare" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URLs *</label>
+                                <textarea id="activity-image-urls" rows="3" placeholder="https://image1.jpg&#10;https://image2.jpg" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+                                <span class="text-[10px] text-gray-500">Enter image links line by line or separated by commas.</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Description *</label>
+                                <textarea id="activity-desc" rows="3" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="activity-submit-btn" class="w-full bg-custom-dark hover:bg-opacity-90 text-white font-bold py-2 rounded-lg shadow-sm transition">Publish Work</button>
+                                <button type="button" onclick="resetActivityForm()" id="activity-cancel-btn" class="hidden w-1/3 bg-gray-300 text-gray-800 font-bold py-2 rounded-lg">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">Manage Existing Works</h2>
+                        <div id="activities-list" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. LEADERSHIP TAB -->
+            <div id="tab-leadership" class="tab-content hidden grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
+                        <h2 id="leader-form-title" class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
+                            <i class="fa-solid fa-plus-circle text-custom-dark mr-2"></i> Add Leader Member
+                        </h2>
+                        <form id="leader-form" class="space-y-4">
+                            <input type="hidden" id="leader-edit-id">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Full Name *</label>
+                                <input type="text" id="leader-name" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Role / Designation *</label>
+                                <input type="text" id="leader-role" required placeholder="e.g. Director of Foreign Affairs" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Phone / Contact *</label>
+                                <input type="text" id="leader-phone" placeholder="+88018..." class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URL (Optional)</label>
+                                <input type="url" id="leader-image" placeholder="https://..." class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="leader-submit-btn" class="w-full bg-custom-dark hover:bg-opacity-90 text-white font-bold py-2 rounded-lg shadow-sm transition">Save Member</button>
+                                <button type="button" onclick="resetLeaderForm()" id="leader-cancel-btn" class="hidden w-1/3 bg-gray-300 text-gray-800 font-bold py-2 rounded-lg">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">Leadership Team List</h2>
+                        <div id="leadership-list" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. DONATIONS TAB -->
+            <div id="tab-donations" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex justify-between items-center mb-6 pb-2 border-b">
+                        <div>
+                            <h2 class="text-lg font-bold text-gray-800">Donation Requests & Backers</h2>
+                            <p class="text-xs text-gray-500">Manage incoming donation forms submitted from the RYAA website</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-600">
+                            <thead class="text-xs uppercase bg-custom-dark text-white rounded-lg">
+                                <tr>
+                                    <th class="p-3">Donor Name</th>
+                                    <th class="p-3">Contact</th>
+                                    <th class="p-3">Amount</th>
+                                    <th class="p-3">Method</th>
+                                    <th class="p-3">Message</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donations-list-table">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Firebase v10 Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // RYAA Firebase Credentials
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
             authDomain: "ryaa-digital-hub.firebaseapp.com",
@@ -239,244 +205,316 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        const loginSection = document.getElementById('login-section');
-        const adminContent = document.getElementById('admin-content');
-        const loginForm = document.getElementById('login-form');
-        const logoutBtn = document.getElementById('logout-btn');
-        const userEmailDisplay = document.getElementById('user-email-display');
+        const activitiesCache = {};
+        const leadersCache = {};
 
-        // Check Auth State
+        // Tab Switching Logic
+        window.switchTab = (tabName) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('border-custom-dark', 'text-custom-dark');
+                el.classList.add('border-transparent', 'text-gray-600');
+            });
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.classList.add('border-custom-dark', 'text-custom-dark');
+            activeBtn.classList.remove('border-transparent', 'text-gray-600');
+        };
+
+        // Auth Listener
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // User is signed in
-                loginSection.style.display = 'none';
-                adminContent.style.display = 'block';
-                userEmailDisplay.innerText = `Logged in as: ${user.email}`;
-                loadExistingWorks();
-                loadTeamMembers();
+                document.getElementById('auth-container').classList.add('hidden');
+                document.getElementById('dashboard-container').classList.remove('hidden');
+                document.getElementById('user-email-display').textContent = user.email;
+                loadActivities();
+                loadLeadership();
+                loadDonations();
             } else {
-                // User is signed out
-                loginSection.style.display = 'block';
-                adminContent.style.display = 'none';
+                document.getElementById('auth-container').classList.remove('hidden');
+                document.getElementById('dashboard-container').classList.add('hidden');
             }
         });
 
-        // Handle Login Form Submit
-        loginForm.addEventListener('submit', async (e) => {
+        // Authentication Methods
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const loginBtn = document.getElementById('login-btn');
+            const errorElement = document.getElementById('login-error');
+
+            errorElement.classList.add('hidden');
+            loginBtn.disabled = true;
+            loginBtn.innerText = "Logging in...";
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
-                loginForm.reset();
             } catch (err) {
-                alert('Login Failed: ' + err.message);
+                errorElement.textContent = err.message;
+                errorElement.classList.remove('hidden');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerText = "Login";
             }
         });
 
-        // Handle Logout
-        logoutBtn.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-            } catch (err) {
-                alert('Logout Failed: ' + err.message);
-            }
-        });
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Load Existing Works
-        async function loadExistingWorks() {
-            const worksListDiv = document.getElementById('works-list');
-            try {
-                const querySnapshot = await getDocs(collection(db, "works"));
-                if (querySnapshot.empty) {
-                    worksListDiv.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No works found.</p>';
-                    return;
-                }
-                worksListDiv.innerHTML = '';
-                querySnapshot.forEach((documentSnap) => {
-                    const data = documentSnap.data();
-                    const workId = documentSnap.id;
-
-                    const row = document.createElement('div');
-                    row.className = 'item-row';
-                    row.innerHTML = `
-                        <div class="item-info">
-                            <span style="font-size: 0.75rem; background: #334155; padding: 2px 6px; border-radius: 4px; color: #f97316;">${data.category || ''}</span>
-                            <h4 style="margin-top: 4px;">${data.title}</h4>
-                        </div>
-                        <div style="display: flex; gap: 6px;">
-                            <button class="btn-edit-work" data-id="${workId}" style="background: #3b82f6; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Edit</button>
-                            <button class="btn-delete-work" data-id="${workId}" style="background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Delete</button>
-                        </div>
-                    `;
-                    worksListDiv.appendChild(row);
-                });
-
-                // Delete Work
-                document.querySelectorAll('.btn-delete-work').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
-                        const id = e.target.getAttribute('data-id');
-                        if (confirm('Are you sure you want to delete this work?')) {
-                            try {
-                                await deleteDoc(doc(db, "works", id));
-                                alert('Work deleted successfully!');
-                                loadExistingWorks();
-                            } catch (err) {
-                                alert('Failed to delete: ' + err.message);
-                            }
-                        }
-                    });
-                });
-
-                // Edit Work
-                document.querySelectorAll('.btn-edit-work').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
-                        const id = e.target.getAttribute('data-id');
-                        const querySnapshot = await getDocs(collection(db, "works"));
-                        querySnapshot.forEach((documentSnap) => {
-                            if (documentSnap.id === id) {
-                                const data = documentSnap.data();
-                                document.getElementById('edit-work-id').value = id;
-                                document.getElementById('work-title').value = data.title || '';
-                                document.getElementById('work-category').value = data.category || '';
-                                
-                                if (Array.isArray(data.image)) {
-                                    document.getElementById('work-image').value = data.image.join('\n');
-                                } else {
-                                    document.getElementById('work-image').value = data.image || '';
-                                }
-
-                                document.getElementById('work-desc').value = data.description || '';
-                                document.getElementById('work-link').value = data.link || '';
-
-                                document.getElementById('form-heading').innerText = 'Edit Work / Event';
-                                document.getElementById('work-submit-btn').innerText = 'Update Work';
-                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }
-                        });
-                    });
-                });
-
-            } catch (err) {
-                worksListDiv.innerHTML = '<p style="color: var(--accent-red);">Failed to load works.</p>';
-            }
+        function parseUrls(rawText) {
+            if (!rawText) return [];
+            if (Array.isArray(rawText)) return rawText;
+            return rawText
+                .split(/[\n,]+/)
+                .map(url => url.trim())
+                .filter(url => url.length > 0);
         }
 
-        // Handle Work Form Submit (Add / Update)
-        document.getElementById('work-form').addEventListener('submit', async (e) => {
+        // ================= 1. WORKS / ACTIVITIES MODULE =================
+        const activityForm = document.getElementById('activity-form');
+        activityForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const editId = document.getElementById('edit-work-id').value;
-            const title = document.getElementById('work-title').value;
-            const category = document.getElementById('work-category').value;
-            const imageRaw = document.getElementById('work-image').value;
-            const description = document.getElementById('work-desc').value;
-            const link = document.getElementById('work-link').value;
+            const editId = document.getElementById('activity-edit-id').value;
+            const submitBtn = document.getElementById('activity-submit-btn');
+            const rawUrls = document.getElementById('activity-image-urls').value;
+            const imageUrls = parseUrls(rawUrls);
 
-            const images = imageRaw.split('\n').map(url => url.trim()).filter(url => url.length > 0);
-            const imagePayload = images.length > 1 ? images : (images[0] || '');
+            submitBtn.disabled = true; 
+            submitBtn.innerText = "Saving...";
 
             try {
+                let data = {
+                    title: document.getElementById('activity-title').value,
+                    category: document.getElementById('activity-category').value,
+                    image: imageUrls.length > 1 ? imageUrls : (imageUrls[0] || ''),
+                    description: document.getElementById('activity-desc').value,
+                };
+
                 if (editId) {
-                    await updateDoc(doc(db, "works", editId), {
-                        title,
-                        category,
-                        image: imagePayload,
-                        description,
-                        link
-                    });
-                    alert('Work updated successfully!');
+                    await updateDoc(doc(db, "works", editId), data);
                 } else {
-                    await addDoc(collection(db, "works"), {
-                        title,
-                        category,
-                        image: imagePayload,
-                        description,
-                        link,
-                        createdAt: new Date()
-                    });
-                    alert('Work published successfully!');
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "works"), data);
                 }
-                document.getElementById('work-form').reset();
-                document.getElementById('edit-work-id').value = '';
-                document.getElementById('form-heading').innerText = 'Add New Work / Event';
-                document.getElementById('work-submit-btn').innerText = 'Publish Work';
-                loadExistingWorks();
-            } catch (err) {
-                alert('Error: ' + err.message);
+                resetActivityForm();
+                alert("Work saved successfully!");
+            } catch (err) { 
+                alert("Error: " + err.message); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerText = "Publish Work"; 
             }
         });
 
-        // Add Leadership Member
-        document.getElementById('team-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('team-name').value;
-            const role = document.getElementById('team-role').value;
-            const bio = document.getElementById('team-bio').value;
-
-            try {
-                await addDoc(collection(db, "team"), {
-                    name,
-                    role,
-                    bio
-                });
-                alert('Team member added successfully!');
-                document.getElementById('team-form').reset();
-                loadTeamMembers();
-            } catch (err) {
-                alert('Error: ' + err.message);
-            }
-        });
-
-        // Load Leadership Members
-        async function loadTeamMembers() {
-            const teamListDiv = document.getElementById('team-list');
-            try {
-                const querySnapshot = await getDocs(collection(db, "team"));
-                if (querySnapshot.empty) {
-                    teamListDiv.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No team members found.</p>';
+        function loadActivities() {
+            const q = query(collection(db, "works"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('activities-list');
+                list.innerHTML = '';
+                if (snapshot.docs.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-4">No works published yet.</p>';
                     return;
                 }
-                teamListDiv.innerHTML = '';
-                querySnapshot.forEach((documentSnap) => {
-                    const data = documentSnap.data();
-                    const memberId = documentSnap.id;
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data(); 
+                    const id = docSnap.id;
+                    activitiesCache[id] = d;
+                    
+                    let imagesArr = parseUrls(d.image);
+                    const primaryImg = imagesArr[0] || 'https://via.placeholder.com/150';
 
-                    const row = document.createElement('div');
-                    row.className = 'item-row';
-                    row.innerHTML = `
-                        <div class="item-info">
-                            <h4>${data.name}</h4>
-                            <p>${data.role}</p>
-                        </div>
-                        <button class="btn-delete-team" data-id="${memberId}" style="background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;">Delete</button>
-                    `;
-                    teamListDiv.appendChild(row);
+                    list.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="${primaryImg}" class="w-16 h-12 object-cover rounded bg-gray-200" onerror="this.src='https://via.placeholder.com/150'">
+                                <div>
+                                    <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">${d.category || 'General'}</span>
+                                    <h4 class="font-bold text-sm text-gray-800 mt-1">${d.title}</h4>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="editActivity('${id}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border">Edit</button>
+                                <button onclick="deleteDocItem('works', '${id}')" class="text-red-600 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border">Delete</button>
+                            </div>
+                        </div>`;
                 });
-
-                // Delete Team Member
-                document.querySelectorAll('.btn-delete-team').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
-                        const id = e.target.getAttribute('data-id');
-                        if (confirm('Are you sure you want to delete this member?')) {
-                            try {
-                                await deleteDoc(doc(db, "team", id));
-                                alert('Member deleted successfully!');
-                                loadTeamMembers();
-                            } catch (err) {
-                                alert('Failed to delete: ' + err.message);
-                            }
-                        }
-                    });
-                });
-
-            } catch (err) {
-                teamListDiv.innerHTML = '<p style="color: var(--accent-red);">Failed to load team members.</p>';
-            }
+            });
         }
+
+        window.editActivity = (id) => {
+            const data = activitiesCache[id]; if (!data) return;
+            let imagesArr = parseUrls(data.image);
+            document.getElementById('activity-edit-id').value = id;
+            document.getElementById('activity-title').value = data.title || '';
+            document.getElementById('activity-category').value = data.category || '';
+            document.getElementById('activity-image-urls').value = imagesArr.join('\n');
+            document.getElementById('activity-desc').value = data.description || '';
+            document.getElementById('activity-form-title').innerText = "Edit Work";
+            document.getElementById('activity-submit-btn').innerText = "Update Work";
+            document.getElementById('activity-cancel-btn').classList.remove('hidden');
+        };
+
+        window.resetActivityForm = () => {
+            activityForm.reset();
+            document.getElementById('activity-edit-id').value = '';
+            document.getElementById('activity-form-title').innerText = "Add New Work / Event";
+            document.getElementById('activity-submit-btn').innerText = "Publish Work";
+            document.getElementById('activity-cancel-btn').classList.add('hidden');
+        };
+
+        // ================= 2. LEADERSHIP MODULE =================
+        const leaderForm = document.getElementById('leader-form');
+        leaderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('leader-edit-id').value;
+            const submitBtn = document.getElementById('leader-submit-btn');
+            submitBtn.disabled = true; 
+            submitBtn.innerText = "Saving...";
+
+            try {
+                let data = {
+                    name: document.getElementById('leader-name').value,
+                    role: document.getElementById('leader-role').value,
+                    phone: document.getElementById('leader-phone').value,
+                    image: document.getElementById('leader-image').value
+                };
+                if (editId) {
+                    await updateDoc(doc(db, "leaders", editId), data);
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "leaders"), data);
+                }
+                resetLeaderForm();
+                alert("Team member saved successfully!");
+            } catch (err) { 
+                alert("Error: " + err.message); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerText = "Save Member"; 
+            }
+        });
+
+        function loadLeadership() {
+            const q = query(collection(db, "leaders"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('leadership-list');
+                list.innerHTML = '';
+                if (snapshot.docs.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-4">No dynamic leaders found (Showing static layout on main site).</p>';
+                    return;
+                }
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data(); 
+                    const id = docSnap.id;
+                    leadersCache[id] = d;
+                    list.innerHTML += `
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <img src="${d.image || 'https://via.placeholder.com/150'}" class="w-10 h-10 rounded-full object-cover bg-gray-200" onerror="this.src='https://via.placeholder.com/150'">
+                                <div>
+                                    <h4 class="font-bold text-sm">${d.name}</h4>
+                                    <p class="text-xs text-emerald-700 font-semibold">${d.role}</p>
+                                    <p class="text-[11px] text-gray-500">${d.phone || ''}</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="editLeader('${id}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border">Edit</button>
+                                <button onclick="deleteDocItem('leaders', '${id}')" class="text-red-600 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border">Delete</button>
+                            </div>
+                        </div>`;
+                });
+            });
+        }
+
+        window.editLeader = (id) => {
+            const data = leadersCache[id]; if (!data) return;
+            document.getElementById('leader-edit-id').value = id;
+            document.getElementById('leader-name').value = data.name || '';
+            document.getElementById('leader-role').value = data.role || '';
+            document.getElementById('leader-phone').value = data.phone || '';
+            document.getElementById('leader-image').value = data.image || '';
+            document.getElementById('leader-form-title').innerText = "Edit Member";
+            document.getElementById('leader-cancel-btn').classList.remove('hidden');
+        };
+
+        window.resetLeaderForm = () => {
+            leaderForm.reset();
+            document.getElementById('leader-edit-id').value = '';
+            document.getElementById('leader-form-title').innerText = "Add Leader Member";
+            document.getElementById('leader-cancel-btn').classList.add('hidden');
+        };
+
+        // ================= 3. DONATIONS MODULE =================
+        function loadDonations() {
+            const q = query(collection(db, "donations"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const tableBody = document.getElementById('donations-list-table');
+                const badge = document.getElementById('donation-count-badge');
+                tableBody.innerHTML = '';
+
+                if (snapshot.docs.length > 0) {
+                    badge.innerText = snapshot.docs.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-gray-500">No donation requests received yet.</td></tr>';
+                    return;
+                }
+
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data();
+                    const id = docSnap.id;
+                    const status = d.status || 'Pending';
+                    const statusBg = status === 'Verified' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800';
+
+                    tableBody.innerHTML += `
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-3 font-bold text-gray-900">${d.name || 'Anonymous'}</td>
+                            <td class="p-3">
+                                <div class="text-xs font-medium">${d.email || ''}</div>
+                                <div class="text-xs text-gray-500 font-semibold">${d.phone || ''}</div>
+                            </td>
+                            <td class="p-3 font-extrabold text-emerald-800">${d.amount || 0} ${d.currency || 'USD'}</td>
+                            <td class="p-3 text-xs">${d.paymentMethod || 'N/A'}</td>
+                            <td class="p-3 text-xs italic max-w-xs truncate">${d.message || '-'}</td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 rounded text-xs font-bold ${statusBg}">${status}</span>
+                            </td>
+                            <td class="p-3 text-center space-x-1">
+                                <button onclick="toggleDonationStatus('${id}', '${status}')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded border font-semibold">
+                                    ${status === 'Verified' ? 'Mark Pending' : 'Verify'}
+                                </button>
+                                <button onclick="deleteDocItem('donations', '${id}')" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs px-2 py-1 rounded border font-semibold">Delete</button>
+                            </td>
+                        </tr>`;
+                });
+            });
+        }
+
+        window.toggleDonationStatus = async (id, currentStatus) => {
+            const newStatus = currentStatus === 'Verified' ? 'Pending' : 'Verified';
+            try {
+                await updateDoc(doc(db, "donations", id), { status: newStatus });
+            } catch (err) { 
+                alert("Error updating status: " + err.message); 
+            }
+        };
+
+        window.deleteDocItem = async (collectionName, id) => {
+            if (confirm("Are you sure you want to delete this item?")) {
+                try {
+                    await deleteDoc(doc(db, collectionName, id));
+                } catch (err) { 
+                    alert("Error deleting: " + err.message); 
+                }
+            }
+        };
+
+        window.resetActivityForm = resetActivityForm;
+        window.resetLeaderForm = resetLeaderForm;
     </script>
 </body>
 </html>
