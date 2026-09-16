@@ -158,89 +158,89 @@
             </div>
         </section>
 
-        <!-- OUR DEPARTMENTS SECTION -->
+        <!-- OUR DEPARTMENTS SECTION (Interactive Click Enabled) -->
         <section id="departments" class="bg-gray-50 py-12 px-6 searchable-section border-t border-b border-gray-200">
             <div class="max-w-2xl mx-auto">
                 <h2 class="text-2xl font-black uppercase text-gray-900 mb-2 text-center tracking-wide">OUR DEPARTMENTS</h2>
-                <p class="text-sm text-gray-600 text-center mb-8">Working across multiple strategic areas for community development and advocacy</p>
+                <p class="text-sm text-gray-600 text-center mb-8">Click on any department to view its specific works & activities</p>
 
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-globe text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Foreign Affairs')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-globe text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">1. Foreign Affairs</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">1. Foreign Affairs</h4>
                             <p class="text-xs text-gray-600">Diplomatic engagement & global partners.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-list-check text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Programme')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-list-check text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">2. Programme</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">2. Programme</h4>
                             <p class="text-xs text-gray-600">Executing community welfare initiatives.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-calculator text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Finance')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-calculator text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">3. Finance</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">3. Finance</h4>
                             <p class="text-xs text-gray-600">Financial planning & resource management.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-handshake text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Community Engagement')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-handshake text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">4. Community Engagement</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">4. Community Engagement</h4>
                             <p class="text-xs text-gray-600">Grassroots participation & social cohesion.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-graduation-cap text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Education')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-graduation-cap text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">5. Education</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">5. Education</h4>
                             <p class="text-xs text-gray-600">Educational support & skill development.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-users text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Youth Empowerment')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-users text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">6. Youth Empowerment</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">6. Youth Empowerment</h4>
                             <p class="text-xs text-gray-600">Leadership training & capacity building.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-landmark text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Culture')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-landmark text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">7. Culture</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">7. Culture</h4>
                             <p class="text-xs text-gray-600">Preserving heritage, arts, & literature.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-shield-halved text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Refugee Affairs')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-shield-halved text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">8. Refugee Affairs</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">8. Refugee Affairs</h4>
                             <p class="text-xs text-gray-600">Human rights & protection monitoring.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-bullhorn text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Media')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-bullhorn text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">9. Media</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">9. Media</h4>
                             <p class="text-xs text-gray-600">Digital advocacy & public relations.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3">
-                        <i class="fa-solid fa-leaf text-emerald-800 text-xl w-6 mt-1 text-center"></i>
+                    <div onclick="openDepartmentModal('Environment')" class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-400 flex items-start space-x-3 cursor-pointer hover:shadow-md transition group">
+                        <i class="fa-solid fa-leaf text-emerald-800 text-xl w-6 mt-1 text-center group-hover:scale-110 transition"></i>
                         <div>
-                            <h4 class="font-bold text-gray-800">10. Environment</h4>
+                            <h4 class="font-bold text-gray-800 group-hover:text-emerald-800">10. Environment</h4>
                             <p class="text-xs text-gray-600">Green initiatives & climate awareness.</p>
                         </div>
                     </div>
@@ -370,6 +370,25 @@
             </div>
         </section>
     </main>
+
+    <!-- Department Works View Modal -->
+    <div id="department-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-2xl rounded-xl shadow-2xl p-6 relative my-8 max-h-[85vh] flex flex-col">
+            <button onclick="closeDepartmentModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl font-bold z-10 bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="mb-4 pb-3 border-b border-gray-200">
+                <span class="text-xs font-bold uppercase text-amber-600 bg-amber-100 px-2.5 py-1 rounded">Department Activities</span>
+                <h3 id="dept-modal-title" class="text-2xl font-extrabold text-gray-900 mt-1">Department Name</h3>
+            </div>
+
+            <!-- Scrollable Content Area -->
+            <div id="dept-works-container" class="overflow-y-auto flex-1 space-y-6 pr-1">
+                <!-- Works will be injected dynamically -->
+            </div>
+        </div>
+    </div>
 
     <!-- Volunteer Application Form Modal -->
     <div id="volunteer-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 overflow-y-auto">
@@ -581,6 +600,7 @@
         const searchInput = document.getElementById('search-input');
         const donateModal = document.getElementById('donate-modal');
         const volunteerModal = document.getElementById('volunteer-modal');
+        const departmentModal = document.getElementById('department-modal');
 
         menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         searchToggle.addEventListener('click', () => searchBar.classList.toggle('hidden'));
@@ -604,6 +624,10 @@
 
         function closeVolunteerModal() {
             volunteerModal.classList.add('hidden');
+        }
+
+        function closeDepartmentModal() {
+            departmentModal.classList.add('hidden');
         }
 
         // Search Filter
@@ -642,6 +666,9 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // Store fetched works in memory for quick filtering
+        let allWorksList = [];
 
         // Submit Form Data to Firestore (Donations)
         const donationForm = document.getElementById('donation-form');
@@ -707,6 +734,79 @@
             }
         });
 
+        // Function to helper-build HTML for work cards
+        function renderWorkCard(data) {
+            let imagesArr = [];
+            if (Array.isArray(data.image)) {
+                imagesArr = data.image;
+            } else if (typeof data.image === 'string' && data.image.trim() !== '') {
+                imagesArr = data.image.split(',').map(url => url.trim()).filter(url => url !== '');
+            }
+
+            let galleryHTML = '';
+            if (imagesArr.length === 1) {
+                galleryHTML = `<img src="${imagesArr[0]}" alt="${data.title}" class="w-full h-56 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Work+Image'">`;
+            } else if (imagesArr.length > 1) {
+                const gridCols = imagesArr.length === 2 ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3';
+                galleryHTML = `
+                    <div class="grid ${gridCols} gap-2 p-2 bg-gray-900 rounded-t-lg">
+                        ${imagesArr.map(url => `
+                            <div class="relative group h-36 overflow-hidden rounded bg-gray-800">
+                                <img src="${url}" alt="${data.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Error'">
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="bg-white text-gray-900 rounded-lg overflow-hidden shadow-md border border-gray-200 mb-4">
+                    ${galleryHTML}
+                    <div class="p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">${data.category || 'Event'}</span>
+                            ${imagesArr.length > 1 ? `<span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded"><i class="fa-solid fa-images mr-1"></i>${imagesArr.length} Photos</span>` : ''}
+                        </div>
+                        <h3 class="font-extrabold text-base leading-snug text-gray-900 mb-2">${data.title}</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">${data.description || ''}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Open Department Popup & Filter Activities
+        window.openDepartmentModal = (departmentName) => {
+            const modal = document.getElementById('department-modal');
+            const title = document.getElementById('dept-modal-title');
+            const container = document.getElementById('dept-works-container');
+
+            title.innerText = departmentName;
+            container.innerHTML = '';
+
+            // Filter works matching department name (case insensitive)
+            const filteredWorks = allWorksList.filter(work => {
+                const cat = (work.category || '').toLowerCase();
+                const target = departmentName.toLowerCase();
+                return cat.includes(target) || target.includes(cat);
+            });
+
+            if (filteredWorks.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-10">
+                        <i class="fa-solid fa-folder-open text-4xl text-gray-300 mb-3"></i>
+                        <h4 class="text-base font-bold text-gray-700">No activities recorded yet</h4>
+                        <p class="text-xs text-gray-500 mt-1">Activities under the ${departmentName} department will appear here once published.</p>
+                    </div>
+                `;
+            } else {
+                filteredWorks.forEach(work => {
+                    container.innerHTML += renderWorkCard(work);
+                });
+            }
+
+            modal.classList.remove('hidden');
+        };
+
         // Load Recent Works / Activities Dynamically from RYAA Firestore
         const activitiesContainer = document.getElementById('activities-container');
         const activitiesLoader = document.getElementById('activities-loader');
@@ -715,6 +815,7 @@
         onSnapshot(qWorks, (snapshot) => {
             activitiesLoader.classList.add('hidden');
             activitiesContainer.innerHTML = '';
+            allWorksList = [];
 
             if (snapshot.docs.length === 0) {
                 activitiesContainer.innerHTML = `<p class="text-center text-gray-300 py-4">No recent works published yet.</p>`;
@@ -723,44 +824,8 @@
 
             snapshot.docs.forEach((docSnap) => {
                 const data = docSnap.data();
-                
-                let imagesArr = [];
-                if (Array.isArray(data.image)) {
-                    imagesArr = data.image;
-                } else if (typeof data.image === 'string' && data.image.trim() !== '') {
-                    imagesArr = data.image.split(',').map(url => url.trim()).filter(url => url !== '');
-                }
-
-                let galleryHTML = '';
-                if (imagesArr.length === 1) {
-                    galleryHTML = `<img src="${imagesArr[0]}" alt="${data.title}" class="w-full h-64 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/500x300?text=Work+Image'">`;
-                } else if (imagesArr.length > 1) {
-                    const gridCols = imagesArr.length === 2 ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3';
-                    galleryHTML = `
-                        <div class="grid ${gridCols} gap-2 p-2 bg-gray-900 rounded-t-lg">
-                            ${imagesArr.map(url => `
-                                <div class="relative group h-40 overflow-hidden rounded bg-gray-800">
-                                    <img src="${url}" alt="${data.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Error'">
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-                }
-
-                const card = document.createElement('div');
-                card.className = "bg-white text-gray-900 rounded-lg overflow-hidden shadow-md border border-gray-200";
-                card.innerHTML = `
-                    ${galleryHTML}
-                    <div class="p-5">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded">${data.category || 'Event'}</span>
-                            ${imagesArr.length > 1 ? `<span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-0.5 rounded"><i class="fa-solid fa-images mr-1"></i>${imagesArr.length} Photos</span>` : ''}
-                        </div>
-                        <h3 class="font-extrabold text-lg leading-snug text-gray-900 mb-2">${data.title}</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed">${data.description || ''}</p>
-                    </div>
-                `;
-                activitiesContainer.appendChild(card);
+                allWorksList.push(data);
+                activitiesContainer.innerHTML += renderWorkCard(data);
             });
         }, (error) => {
             console.error("Error fetching works:", error);
