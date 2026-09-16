@@ -67,6 +67,11 @@
                     <i class="fa-solid fa-hand-holding-dollar"></i> Donations List
                     <span id="donation-count-badge" class="bg-amber-500 text-xs text-gray-900 font-black px-2 py-0.5 rounded-full hidden">0</span>
                 </button>
+                <!-- Volunteer Tab Added -->
+                <button onclick="switchTab('volunteers')" id="tab-btn-volunteers" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap relative">
+                    <i class="fa-solid fa-user-plus"></i> Volunteers List
+                    <span id="volunteer-count-badge" class="bg-emerald-500 text-xs text-white font-black px-2 py-0.5 rounded-full hidden">0</span>
+                </button>
             </div>
         </div>
 
@@ -204,6 +209,37 @@
                 </div>
             </div>
 
+            <!-- 4. VOLUNTEERS TAB (NEWLY ADDED) -->
+            <div id="tab-volunteers" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex justify-between items-center mb-6 pb-2 border-b">
+                        <div>
+                            <h2 class="text-lg font-bold text-gray-800">Volunteer Applications</h2>
+                            <p class="text-xs text-gray-500">Manage incoming volunteer forms submitted from the RYAA website</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-600">
+                            <thead class="text-xs uppercase bg-custom-dark text-white rounded-lg">
+                                <tr>
+                                    <th class="p-3">Applicant Name</th>
+                                    <th class="p-3">Contact Info</th>
+                                    <th class="p-3">Department / Interest</th>
+                                    <th class="p-3">Address / Location</th>
+                                    <th class="p-3">Experience / Note</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="volunteers-list-table">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -252,6 +288,7 @@
                 loadActivities();
                 loadLeadership();
                 loadDonations();
+                loadVolunteers();
             } else {
                 document.getElementById('auth-container').classList.remove('hidden');
                 document.getElementById('dashboard-container').classList.add('hidden');
@@ -529,6 +566,71 @@
                 await updateDoc(doc(db, "donations", id), { status: newStatus });
             } catch (err) { 
                 alert("Error updating status: " + err.message); 
+            }
+        };
+
+        // ================= 4. VOLUNTEERS MODULE (NEWLY ADDED) =================
+        function loadVolunteers() {
+            const q = query(collection(db, "volunteers"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const tableBody = document.getElementById('volunteers-list-table');
+                const badge = document.getElementById('volunteer-count-badge');
+                tableBody.innerHTML = '';
+
+                if (snapshot.docs.length > 0) {
+                    badge.innerText = snapshot.docs.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-gray-500">No volunteer applications received yet.</td></tr>';
+                    return;
+                }
+
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data();
+                    const id = docSnap.id;
+                    const status = d.status || 'Pending';
+                    
+                    let statusBg = 'bg-amber-100 text-amber-800';
+                    if (status === 'Approved') statusBg = 'bg-green-100 text-green-800';
+                    if (status === 'Rejected') statusBg = 'bg-red-100 text-red-800';
+
+                    tableBody.innerHTML += `
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-3 font-bold text-gray-900">${d.name || 'N/A'}</td>
+                            <td class="p-3">
+                                <div class="text-xs font-medium">${d.email || ''}</div>
+                                <div class="text-xs text-gray-500 font-semibold">${d.phone || ''}</div>
+                            </td>
+                            <td class="p-3 text-xs font-semibold text-emerald-800">${d.department || d.interest || 'General'}</td>
+                            <td class="p-3 text-xs">${d.address || d.location || '-'}</td>
+                            <td class="p-3 text-xs italic max-w-xs truncate">${d.experience || d.note || '-'}</td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 rounded text-xs font-bold ${statusBg}">${status}</span>
+                            </td>
+                            <td class="p-3 text-center space-x-1">
+                                <button onclick="updateVolunteerStatus('${id}', 'Approved')" class="bg-green-50 hover:bg-green-100 text-green-700 text-xs px-2 py-1 rounded border font-semibold">
+                                    Approve
+                                </button>
+                                <button onclick="updateVolunteerStatus('${id}', 'Rejected')" class="bg-amber-50 hover:bg-amber-100 text-amber-700 text-xs px-2 py-1 rounded border font-semibold">
+                                    Reject
+                                </button>
+                                <button onclick="deleteDocItem('volunteers', '${id}')" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs px-2 py-1 rounded border font-semibold">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>`;
+                });
+            }, (error) => {
+                console.error("Volunteers loading error:", error);
+            });
+        }
+
+        window.updateVolunteerStatus = async (id, newStatus) => {
+            try {
+                await updateDoc(doc(db, "volunteers", id), { status: newStatus });
+            } catch (err) { 
+                alert("Error updating volunteer status: " + err.message); 
             }
         };
 
