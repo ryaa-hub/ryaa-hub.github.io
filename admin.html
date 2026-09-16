@@ -108,8 +108,8 @@
 
                         <div>
                             <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">PHOTO URL(S) *</label>
-                            <input type="text" id="work-image" required placeholder="https://image1.jpg, https://image2.jpg" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
-                            <p class="text-[10px] text-gray-400 mt-0.5">Enter image links separated by comma for multiple images.</p>
+                            <textarea id="work-image" rows="3" required placeholder="https://image1.jpg&#10;https://image2.jpg&#10;https://image3.jpg" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none font-mono"></textarea>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Enter each image URL on a new line (or separated by comma/space).</p>
                         </div>
 
                         <div>
@@ -189,7 +189,7 @@
         <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full space-y-4">
             <div class="flex justify-between items-center border-b pb-2">
                 <h3 class="text-sm font-bold text-gray-800">Edit Work / Activity</h3>
-                <button id="close-modal" class="text-gray-500 hover:text-black font-bold">✕</button>
+                <button id="close-modal" type="button" class="text-gray-500 hover:text-black font-bold">✕</button>
             </div>
             <form id="edit-work-form" class="space-y-3">
                 <input type="hidden" id="edit-doc-id">
@@ -219,7 +219,7 @@
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">PHOTO URL(S)</label>
-                    <input type="text" id="edit-image" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                    <textarea id="edit-image" rows="3" required class="w-full border border-gray-300 p-2 rounded text-xs font-mono"></textarea>
                 </div>
                 <div>
                     <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">DESCRIPTION</label>
@@ -251,7 +251,6 @@
             updateDoc,
             getDoc,
             onSnapshot, 
-            query, 
             serverTimestamp 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -341,18 +340,30 @@
         // Logout
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
+        // Helper to format image URLs from multiline string
+        function processImageUrls(rawInput) {
+            return rawInput
+                .split(/[\n,]/)
+                .map(url => url.trim())
+                .filter(url => url.length > 0)
+                .join(', ');
+        }
+
         // Add New Work
         document.getElementById('add-work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('add-work-btn');
             btn.disabled = true;
 
+            const rawImages = document.getElementById('work-image').value;
+            const formattedImages = processImageUrls(rawImages);
+
             try {
                 await addDoc(collection(db, "works"), {
                     title: document.getElementById('work-title').value,
                     department: document.getElementById('work-department').value || '',
                     category: document.getElementById('work-category').value,
-                    image: document.getElementById('work-image').value,
+                    image: formattedImages,
                     description: document.getElementById('work-desc').value,
                     createdAt: serverTimestamp()
                 });
@@ -387,7 +398,11 @@
                     document.getElementById('edit-title').value = data.title || '';
                     document.getElementById('edit-department').value = data.department || '';
                     document.getElementById('edit-category').value = data.category || '';
-                    document.getElementById('edit-image').value = data.image || '';
+                    
+                    // Convert stored comma-separated URLs into newline separated URLs for textarea
+                    const multilineImages = data.image ? data.image.split(',').map(s => s.trim()).join('\n') : '';
+                    document.getElementById('edit-image').value = multilineImages;
+                    
                     document.getElementById('edit-desc').value = data.description || '';
                     document.getElementById('edit-modal').classList.remove('hidden');
                 }
@@ -405,12 +420,16 @@
         document.getElementById('edit-work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const id = document.getElementById('edit-doc-id').value;
+            
+            const rawImages = document.getElementById('edit-image').value;
+            const formattedImages = processImageUrls(rawImages);
+
             try {
                 await updateDoc(doc(db, "works", id), {
                     title: document.getElementById('edit-title').value,
                     department: document.getElementById('edit-department').value || '',
                     category: document.getElementById('edit-category').value,
-                    image: document.getElementById('edit-image').value,
+                    image: formattedImages,
                     description: document.getElementById('edit-desc').value
                 });
                 document.getElementById('edit-modal').classList.add('hidden');
@@ -420,14 +439,13 @@
             }
         });
 
-        // Load Published Works (Design Exactly Like Image 3 with Edit and Delete Options)
+        // Load Published Works (Design Exactly Like Image 2 with Edit & Delete Options)
         function loadWorks() {
             const list = document.getElementById('admin-works-list');
-            const q = query(collection(db, "works"));
 
-            onSnapshot(q, (snapshot) => {
+            onSnapshot(collection(db, "works"), (snapshot) => {
                 list.innerHTML = '';
-                if (snapshot.docs.length === 0) {
+                if (snapshot.empty) {
                     list.innerHTML = `<p class="text-xs text-gray-500">No published works found.</p>`;
                     return;
                 }
@@ -439,33 +457,36 @@
                     const firstImg = images[0].trim();
 
                     list.innerHTML += `
-                        <div class="border border-gray-100 bg-gray-50/50 p-2 rounded flex items-center justify-between hover:bg-gray-50 transition">
+                        <div class="border border-gray-100 bg-gray-50/50 p-2.5 rounded flex items-center justify-between hover:bg-gray-50 transition">
                             <div class="flex items-center space-x-3">
-                                <img src="${firstImg}" class="w-10 h-9 object-cover rounded border border-gray-200" onerror="this.src='https://via.placeholder.com/50'">
+                                <img src="${firstImg}" class="w-12 h-10 object-cover rounded border border-gray-200" onerror="this.src='https://via.placeholder.com/50'">
                                 <div>
-                                    <span class="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded">${data.category}</span>
-                                    ${data.department ? `<span class="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded ml-1">${data.department}</span>` : ''}
-                                    <h4 class="text-xs font-bold text-gray-800 line-clamp-1 mt-0.5">${data.title}</h4>
+                                    <div class="flex items-center gap-1">
+                                        <span class="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded font-semibold">${data.category || 'General'}</span>
+                                        ${data.department ? `<span class="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded font-semibold">${data.department}</span>` : ''}
+                                    </div>
+                                    <h4 class="text-xs font-bold text-gray-800 line-clamp-1 mt-0.5">${data.title || 'Untitled Work'}</h4>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-2 text-xs">
+                            <div class="flex items-center space-x-3 text-xs">
                                 <button onclick="openEditModal('${id}')" class="text-blue-600 hover:text-blue-800 font-semibold px-1">Edit</button>
                                 <button onclick="deleteWork('${id}')" class="text-red-500 hover:text-red-700 font-semibold px-1">Delete</button>
                             </div>
                         </div>
                     `;
                 });
+            }, (error) => {
+                list.innerHTML = `<p class="text-xs text-red-500">Error loading data: ${error.message}</p>`;
             });
         }
 
         // Load Volunteers
         function loadVolunteers() {
             const list = document.getElementById('volunteers-list');
-            const q = query(collection(db, "volunteers"));
 
-            onSnapshot(q, (snapshot) => {
+            onSnapshot(collection(db, "volunteers"), (snapshot) => {
                 list.innerHTML = '';
-                if (snapshot.docs.length === 0) {
+                if (snapshot.empty) {
                     list.innerHTML = `<p class="text-xs text-gray-500">No applications found.</p>`;
                     return;
                 }
@@ -488,11 +509,10 @@
         // Load Donations
         function loadDonations() {
             const list = document.getElementById('donations-list');
-            const q = query(collection(db, "donations"));
 
-            onSnapshot(q, (snapshot) => {
+            onSnapshot(collection(db, "donations"), (snapshot) => {
                 list.innerHTML = '';
-                if (snapshot.docs.length === 0) {
+                if (snapshot.empty) {
                     list.innerHTML = `<p class="text-xs text-gray-500">No donation requests found.</p>`;
                     return;
                 }
