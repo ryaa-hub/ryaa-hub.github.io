@@ -13,21 +13,18 @@
 
     <!-- Login View -->
     <div id="login-view" class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-200">
-            <div class="text-center mb-6">
-                <img src="logo.jpg" alt="RYAA Logo" class="h-16 w-16 mx-auto rounded-full object-cover mb-2" onerror="this.src='https://via.placeholder.com/60/115e39/ffffff?text=RYAA'">
-                <h1 class="text-2xl font-black text-gray-900">RYAA ADMIN</h1>
-                <p class="text-xs text-gray-500 mt-1">Sign in to manage website content</p>
-            </div>
-            
-            <form id="login-form" class="space-y-4">
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-200 text-center">
+            <h1 class="text-2xl font-black text-emerald-900 mb-1">RYAA ADMIN</h1>
+            <p class="text-xs text-gray-500 mb-6">Sign in to manage website content</p>
+
+            <form id="login-form" class="space-y-4 text-left">
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Email</label>
-                    <input type="email" id="login-email" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
+                    <input type="email" id="login-email" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Password</label>
-                    <input type="password" id="login-password" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
+                    <input type="password" id="login-password" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm">
                 </div>
                 <button type="submit" id="login-btn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3 rounded uppercase text-sm tracking-wider shadow transition">
                     Sign In
@@ -39,93 +36,147 @@
     <!-- Dashboard View (Protected) -->
     <div id="dashboard-view" class="hidden min-h-screen flex flex-col">
         <!-- Admin Header -->
-        <header class="bg-emerald-900 text-white px-6 py-4 flex justify-between items-center shadow">
+        <header class="bg-emerald-900 text-white px-6 py-2.5 flex justify-between items-center shadow">
             <div class="flex items-center space-x-3">
-                <span class="font-black text-xl tracking-wider text-amber-400">RYAA DASHBOARD</span>
+                <span class="bg-amber-400 text-emerald-950 font-bold text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider">ADMIN PANEL</span>
+                <span class="font-bold text-base text-white tracking-wide">RYAA Control Panel</span>
             </div>
-            <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded uppercase tracking-wider transition">
-                <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
-            </button>
+            <div class="flex items-center space-x-4">
+                <span id="user-email-display" class="text-xs text-emerald-200"></span>
+                <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-1 rounded transition flex items-center gap-1">
+                    <i class="fa-solid fa-right-from-bracket text-xs"></i> Logout
+                </button>
+            </div>
         </header>
 
-        <!-- Admin Content -->
-        <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full space-y-8">
-            
-            <!-- Section 1: Add Recent Work / Activity -->
-            <div class="bg-white p-6 rounded-xl shadow border border-gray-200">
-                <h2 class="text-lg font-black text-gray-900 mb-4 uppercase tracking-wide flex items-center gap-2">
-                    <i class="fa-solid fa-plus-circle text-emerald-700"></i> Add New Activity / Work
-                </h2>
-                
-                <form id="add-work-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Title *</label>
-                        <input type="text" id="work-title" required placeholder="Event or activity title" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
-                    </div>
+        <!-- Navigation Tabs -->
+        <div class="bg-white border-b border-gray-200 px-6 py-2 shadow-sm">
+            <div class="max-w-5xl mx-auto flex space-x-6 text-xs font-bold text-gray-600">
+                <button id="tab-works-btn" class="text-emerald-800 border-b-2 border-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                    <i class="fa-solid fa-briefcase"></i> Recent Works / Activities
+                </button>
+                <button id="tab-volunteers-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                    <i class="fa-solid fa-users"></i> Volunteers Applications
+                </button>
+                <button id="tab-donations-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                    <i class="fa-solid fa-hand-holding-dollar"></i> Donations List
+                </button>
+                <button id="tab-settings-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                    <i class="fa-solid fa-sliders"></i> Site & Popup Controls
+                </button>
+            </div>
+        </div>
 
-                    <!-- Department Category Selector (আপডেট করা নতুন ড্রপডাউন) -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Department / Category *</label>
-                        <select id="work-category" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm bg-white">
-                            <option value="">Select Department</option>
-                            <option value="Foreign Affairs">1. Foreign Affairs</option>
-                            <option value="Programme">2. Programme</option>
-                            <option value="Finance">3. Finance</option>
-                            <option value="Community Engagement">4. Community Engagement</option>
-                            <option value="Education">5. Education</option>
-                            <option value="Youth Empowerment">6. Youth Empowerment</option>
-                            <option value="Culture">7. Culture</option>
-                            <option value="Refugee Affairs">8. Refugee Affairs</option>
-                            <option value="Media">9. Media</option>
-                            <option value="Environment">10. Environment</option>
+        <!-- Main Content Body -->
+        <main class="flex-1 p-4 md:p-6 max-w-4xl mx-auto w-full space-y-6">
+
+            <!-- TAB 1: WORKS / ACTIVITIES SECTION -->
+            <div id="tab-works" class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide mb-4 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-plus text-emerald-800"></i> Add New Work / Event
+                    </h3>
+
+                    <form id="add-work-form" class="space-y-4">
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">TITLE *</label>
+                            <input type="text" id="work-title" required placeholder="Event or activity title" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">DEPARTMENT (Optional - Select if related to a department)</label>
+                            <select id="work-department" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none bg-white">
+                                <option value="">None (General Recent Work)</option>
+                                <option value="Foreign Affairs">Foreign Affairs</option>
+                                <option value="Programme">Programme</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Community Engagement">Community Engagement</option>
+                                <option value="Education">Education</option>
+                                <option value="Youth Empowerment">Youth Empowerment</option>
+                                <option value="Culture">Culture</option>
+                                <option value="Refugee Affairs">Refugee Affairs</option>
+                                <option value="Media">Media</option>
+                                <option value="Environment">Environment</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">CATEGORY *</label>
+                            <input type="text" id="work-category" required placeholder="e.g. Advocacy, Youth Welfare, Social Work" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">PHOTO URL(S) *</label>
+                            <input type="text" id="work-image" required placeholder="https://image1.jpg, https://image2.jpg" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                            <p class="text-[10px] text-gray-400 mt-0.5">Enter image links separated by comma for multiple images.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">DESCRIPTION *</label>
+                            <textarea id="work-desc" rows="3" required placeholder="Write activity details..." class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"></textarea>
+                        </div>
+
+                        <button type="submit" id="add-work-btn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded text-xs uppercase tracking-wider transition">
+                            Publish Work
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-800 mb-4">Manage Existing Works</h3>
+                    <div id="admin-works-list" class="space-y-3">
+                        <p class="text-xs text-gray-500">Loading works...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: VOLUNTEERS SECTION -->
+            <div id="tab-volunteers" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-sm font-bold text-gray-800 mb-4">Volunteer Applications Received</h3>
+                <div id="volunteers-list" class="space-y-3">
+                    <p class="text-xs text-gray-500">Loading Applications...</p>
+                </div>
+            </div>
+
+            <!-- TAB 3: DONATIONS SECTION -->
+            <div id="tab-donations" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-sm font-bold text-gray-800 mb-4">Donation Requests</h3>
+                <div id="donations-list" class="space-y-3">
+                    <p class="text-xs text-gray-500">Loading Donations...</p>
+                </div>
+            </div>
+
+            <!-- TAB 4: SITE & POPUP CONTROLS (নতুন অপশন) -->
+            <div id="tab-settings" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <h3 class="text-sm font-bold text-gray-800 mb-4">Website & Popup Controls</h3>
+                
+                <form id="site-settings-form" class="space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-800">Volunteer Application Form Status</h4>
+                            <p class="text-[11px] text-gray-500">Enable or disable volunteer popup form on website</p>
+                        </div>
+                        <select id="volunteer-form-status" class="border border-gray-300 p-1.5 rounded text-xs font-bold bg-white">
+                            <option value="enabled">Enabled (Active)</option>
+                            <option value="disabled">Disabled (Closed)</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Image URL(s) *</label>
-                        <input type="text" id="work-image" required placeholder="https://image-link.com/pic1.jpg, https://image-link.com/pic2.jpg" class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm">
-                        <p class="text-[11px] text-gray-500 mt-1">কমা (,) দিয়ে আলাদা করে একাধিক ছবির লিঙ্ক বসাতে পারবেন।</p>
+                    <div class="flex items-center justify-between border-b pb-3">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-800">Donation Button Status</h4>
+                            <p class="text-[11px] text-gray-500">Show or hide donation option on Navigation Bar</p>
+                        </div>
+                        <select id="donation-status" class="border border-gray-300 p-1.5 rounded text-xs font-bold bg-white">
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Description *</label>
-                        <textarea id="work-desc" rows="3" required placeholder="Write activity details..." class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-amber-400 focus:outline-none text-sm"></textarea>
-                    </div>
-
-                    <button type="submit" id="add-work-btn" class="bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-2.5 px-6 rounded uppercase text-xs tracking-wider shadow transition">
-                        Publish Activity
+                    <button type="submit" id="save-settings-btn" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded text-xs uppercase transition">
+                        Save Controls Settings
                     </button>
                 </form>
-            </div>
-
-            <!-- Section 2: Manage Existing Works -->
-            <div class="bg-white p-6 rounded-xl shadow border border-gray-200">
-                <h2 class="text-lg font-black text-gray-900 mb-4 uppercase tracking-wide flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-emerald-700"></i> Manage Published Activities
-                </h2>
-                <div id="admin-works-list" class="space-y-4">
-                    <p class="text-gray-500 text-sm">Loading activities...</p>
-                </div>
-            </div>
-
-            <!-- Section 3: Volunteer Applications List -->
-            <div class="bg-white p-6 rounded-xl shadow border border-gray-200">
-                <h2 class="text-lg font-black text-gray-900 mb-4 uppercase tracking-wide flex items-center gap-2">
-                    <i class="fa-solid fa-users text-emerald-700"></i> Volunteer Applications
-                </h2>
-                <div id="volunteers-list" class="space-y-3">
-                    <p class="text-gray-500 text-sm">Loading applications...</p>
-                </div>
-            </div>
-
-            <!-- Section 4: Donation Requests List -->
-            <div class="bg-white p-6 rounded-xl shadow border border-gray-200">
-                <h2 class="text-lg font-black text-gray-900 mb-4 uppercase tracking-wide flex items-center gap-2">
-                    <i class="fa-solid fa-hand-holding-dollar text-emerald-700"></i> Donation Requests
-                </h2>
-                <div id="donations-list" class="space-y-3">
-                    <p class="text-gray-500 text-sm">Loading donations...</p>
-                </div>
             </div>
 
         </main>
@@ -146,9 +197,10 @@
             addDoc, 
             deleteDoc, 
             doc, 
+            setDoc,
+            getDoc,
             onSnapshot, 
             query, 
-            orderBy, 
             serverTimestamp 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
@@ -165,18 +217,62 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Authentication State Listener
+        // Authentication State
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('login-view').classList.add('hidden');
                 document.getElementById('dashboard-view').classList.remove('hidden');
+                document.getElementById('user-email-display').innerText = user.email;
                 loadWorks();
                 loadVolunteers();
                 loadDonations();
+                loadSettings();
             } else {
                 document.getElementById('login-view').classList.remove('hidden');
                 document.getElementById('dashboard-view').classList.add('hidden');
             }
+        });
+
+        // Tab Navigation
+        const tabWorksBtn = document.getElementById('tab-works-btn');
+        const tabVolunteersBtn = document.getElementById('tab-volunteers-btn');
+        const tabDonationsBtn = document.getElementById('tab-donations-btn');
+        const tabSettingsBtn = document.getElementById('tab-settings-btn');
+
+        const tabWorks = document.getElementById('tab-works');
+        const tabVolunteers = document.getElementById('tab-volunteers');
+        const tabDonations = document.getElementById('tab-donations');
+        const tabSettings = document.getElementById('tab-settings');
+
+        function resetTabs() {
+            [tabWorks, tabVolunteers, tabDonations, tabSettings].forEach(el => el.classList.add('hidden'));
+            [tabWorksBtn, tabVolunteersBtn, tabDonationsBtn, tabSettingsBtn].forEach(el => {
+                el.classList.remove('text-emerald-800', 'border-b-2', 'border-emerald-800');
+            });
+        }
+
+        tabWorksBtn.addEventListener('click', () => {
+            resetTabs();
+            tabWorks.classList.remove('hidden');
+            tabWorksBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
+        });
+
+        tabVolunteersBtn.addEventListener('click', () => {
+            resetTabs();
+            tabVolunteers.classList.remove('hidden');
+            tabVolunteersBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
+        });
+
+        tabDonationsBtn.addEventListener('click', () => {
+            resetTabs();
+            tabDonations.classList.remove('hidden');
+            tabDonationsBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
+        });
+
+        tabSettingsBtn.addEventListener('click', () => {
+            resetTabs();
+            tabSettings.classList.remove('hidden');
+            tabSettingsBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
         });
 
         // Login Handler
@@ -184,27 +280,17 @@
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-            const btn = document.getElementById('login-btn');
-
-            btn.disabled = true;
-            btn.innerText = "Authenticating...";
-
             try {
                 await signInWithEmailAndPassword(auth, email, password);
             } catch (err) {
                 alert("Login Failed: " + err.message);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "Sign In";
             }
         });
 
-        // Logout Handler
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            signOut(auth);
-        });
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Add Activity / Work
+        // Add Work
         document.getElementById('add-work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('add-work-btn');
@@ -214,6 +300,7 @@
             try {
                 await addDoc(collection(db, "works"), {
                     title: document.getElementById('work-title').value,
+                    department: document.getElementById('work-department').value || '',
                     category: document.getElementById('work-category').value,
                     image: document.getElementById('work-image').value,
                     description: document.getElementById('work-desc').value,
@@ -221,18 +308,18 @@
                 });
 
                 document.getElementById('add-work-form').reset();
-                alert("Activity published successfully!");
+                alert("Published successfully!");
             } catch (err) {
-                alert("Error adding activity: " + err.message);
+                alert("Error: " + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Publish Activity";
+                btn.innerText = "Publish Work";
             }
         });
 
         // Delete Work
         window.deleteWork = async (id) => {
-            if (confirm("Are you sure you want to delete this activity?")) {
+            if (confirm("Are you sure you want to delete this?")) {
                 try {
                     await deleteDoc(doc(db, "works", id));
                 } catch (err) {
@@ -249,31 +336,36 @@
             onSnapshot(q, (snapshot) => {
                 list.innerHTML = '';
                 if (snapshot.docs.length === 0) {
-                    list.innerHTML = `<p class="text-gray-500 text-sm">No published activities found.</p>`;
+                    list.innerHTML = `<p class="text-xs text-gray-500">No published works found.</p>`;
                     return;
                 }
 
                 snapshot.docs.forEach((docSnap) => {
                     const data = docSnap.data();
                     const id = docSnap.id;
+                    const images = data.image ? data.image.split(',') : ['https://via.placeholder.com/80'];
+                    const firstImg = images[0].trim();
 
                     list.innerHTML += `
-                        <div class="border border-gray-200 p-4 rounded-lg flex justify-between items-start bg-gray-50">
-                            <div>
-                                <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">${data.category || 'General'}</span>
-                                <h4 class="font-bold text-gray-900 mt-1">${data.title}</h4>
-                                <p class="text-xs text-gray-600 mt-1">${data.description}</p>
+                        <div class="border border-gray-100 bg-gray-50/50 p-2.5 rounded flex items-center justify-between hover:bg-gray-50 transition">
+                            <div class="flex items-center space-x-3">
+                                <img src="${firstImg}" class="w-12 h-10 object-cover rounded border border-gray-200" onerror="this.src='https://via.placeholder.com/50'">
+                                <div>
+                                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">${data.category}</span>
+                                    ${data.department ? `<span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded ml-1">${data.department}</span>` : ''}
+                                    <h4 class="text-xs font-bold text-gray-800 mt-0.5 line-clamp-1">${data.title}</h4>
+                                </div>
                             </div>
-                            <button onclick="deleteWork('${id}')" class="text-red-600 hover:text-red-800 text-sm font-bold ml-4">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                            <div class="flex items-center space-x-3 text-xs">
+                                <button onclick="deleteWork('${id}')" class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
+                            </div>
                         </div>
                     `;
                 });
             });
         }
 
-        // Load Volunteer Requests
+        // Load Volunteers
         function loadVolunteers() {
             const list = document.getElementById('volunteers-list');
             const q = query(collection(db, "volunteers"));
@@ -281,27 +373,26 @@
             onSnapshot(q, (snapshot) => {
                 list.innerHTML = '';
                 if (snapshot.docs.length === 0) {
-                    list.innerHTML = `<p class="text-gray-500 text-sm">No volunteer applications received yet.</p>`;
+                    list.innerHTML = `<p class="text-xs text-gray-500">No applications found.</p>`;
                     return;
                 }
 
                 snapshot.docs.forEach((docSnap) => {
                     const v = docSnap.data();
                     list.innerHTML += `
-                        <div class="border border-gray-200 p-3 rounded-lg bg-gray-50 text-xs text-gray-700 space-y-1">
-                            <div class="flex justify-between font-bold text-gray-900 text-sm">
-                                <span>${v.name} (${v.department})</span>
-                                <span class="text-emerald-700">${v.phone}</span>
+                        <div class="border border-gray-200 p-3 rounded bg-gray-50 text-xs text-gray-700 space-y-1">
+                            <div class="flex justify-between font-bold text-gray-900">
+                                <span>${v.name} (${v.department || 'N/A'})</span>
+                                <span class="text-emerald-700">${v.phone || ''}</span>
                             </div>
-                            <p><strong>Email:</strong> ${v.email} | <strong>Location:</strong> ${v.location}</p>
-                            ${v.skills ? `<p><strong>Skills:</strong> ${v.skills}</p>` : ''}
+                            <p>Email: ${v.email} | Location: ${v.location || 'N/A'}</p>
                         </div>
                     `;
                 });
             });
         }
 
-        // Load Donation Requests
+        // Load Donations
         function loadDonations() {
             const list = document.getElementById('donations-list');
             const q = query(collection(db, "donations"));
@@ -309,25 +400,52 @@
             onSnapshot(q, (snapshot) => {
                 list.innerHTML = '';
                 if (snapshot.docs.length === 0) {
-                    list.innerHTML = `<p class="text-gray-500 text-sm">No donation requests received yet.</p>`;
+                    list.innerHTML = `<p class="text-xs text-gray-500">No donation requests found.</p>`;
                     return;
                 }
 
                 snapshot.docs.forEach((docSnap) => {
                     const d = docSnap.data();
                     list.innerHTML += `
-                        <div class="border border-gray-200 p-3 rounded-lg bg-gray-50 text-xs text-gray-700 space-y-1">
-                            <div class="flex justify-between font-bold text-gray-900 text-sm">
+                        <div class="border border-gray-200 p-3 rounded bg-gray-50 text-xs text-gray-700 space-y-1">
+                            <div class="flex justify-between font-bold text-gray-900">
                                 <span>${d.name}</span>
-                                <span class="text-amber-600 font-extrabold">${d.amount} ${d.currency}</span>
+                                <span class="text-amber-600 font-bold">${d.amount} ${d.currency}</span>
                             </div>
-                            <p><strong>Phone:</strong> ${d.phone} | <strong>Email:</strong> ${d.email}</p>
-                            <p><strong>Method:</strong> ${d.paymentMethod}</p>
-                            ${d.message ? `<p><strong>Message:</strong> ${d.message}</p>` : ''}
+                            <p>Phone: ${d.phone} | Email: ${d.email}</p>
                         </div>
                     `;
                 });
             });
+        }
+
+        // Save Control Settings
+        document.getElementById('site-settings-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await setDoc(doc(db, "settings", "controls"), {
+                    volunteerFormStatus: document.getElementById('volunteer-form-status').value,
+                    donationStatus: document.getElementById('donation-status').value,
+                    updatedAt: serverTimestamp()
+                });
+                alert("Site controls updated successfully!");
+            } catch (err) {
+                alert("Error saving settings: " + err.message);
+            }
+        });
+
+        // Load Settings
+        async function loadSettings() {
+            try {
+                const docSnap = await getDoc(doc(db, "settings", "controls"));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if(data.volunteerFormStatus) document.getElementById('volunteer-form-status').value = data.volunteerFormStatus;
+                    if(data.donationStatus) document.getElementById('donation-status').value = data.donationStatus;
+                }
+            } catch (err) {
+                console.error("Error loading settings:", err);
+            }
         }
     </script>
 </body>
