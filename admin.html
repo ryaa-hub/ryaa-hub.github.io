@@ -327,6 +327,8 @@
             setDoc,
             updateDoc,
             getDoc,
+            query,
+            orderBy,
             onSnapshot, 
             serverTimestamp 
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -524,20 +526,26 @@
             }
         });
 
-        // Load Published Works
+        // Load Published Works Safely Without Index Errors
         function loadWorks() {
             const list = document.getElementById('admin-works-list');
 
-            onSnapshot(collection(db, "works"), (snapshot) => {
+            // Simplified query to prevent Firestore indexing issues
+            const q = query(collection(db, "works"));
+
+            onSnapshot(q, (snapshot) => {
                 list.innerHTML = '';
                 if (snapshot.empty) {
                     list.innerHTML = `<p class="text-xs text-gray-500">No published works found.</p>`;
                     return;
                 }
 
-                snapshot.docs.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const id = docSnap.id;
+                // Sort client-side by createdAt if available
+                const docs = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+                docs.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
+
+                docs.forEach((data) => {
+                    const id = data.id;
                     const images = data.image ? data.image.split(',') : ['https://via.placeholder.com/80'];
                     const firstImg = images[0].trim();
 
@@ -561,6 +569,7 @@
                     `;
                 });
             }, (error) => {
+                console.error("Firestore Works Load Error:", error);
                 list.innerHTML = `<p class="text-xs text-red-500">Error loading data: ${error.message}</p>`;
             });
         }
