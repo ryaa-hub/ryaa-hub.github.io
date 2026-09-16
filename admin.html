@@ -72,6 +72,7 @@
 
             <!-- TAB 1: WORKS / ACTIVITIES SECTION -->
             <div id="tab-works" class="space-y-6">
+                <!-- Add New Work Form -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide mb-4 flex items-center gap-1.5">
                         <i class="fa-solid fa-circle-plus text-emerald-800"></i> Add New Work / Event
@@ -122,6 +123,7 @@
                     </form>
                 </div>
 
+                <!-- Manage Existing Works List -->
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <h3 class="text-sm font-bold text-gray-800 mb-4">Manage Existing Works</h3>
                     <div id="admin-works-list" class="space-y-3">
@@ -146,7 +148,7 @@
                 </div>
             </div>
 
-            <!-- TAB 4: SITE & POPUP CONTROLS (নতুন অপশন) -->
+            <!-- TAB 4: SITE & POPUP CONTROLS -->
             <div id="tab-settings" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                 <h3 class="text-sm font-bold text-gray-800 mb-4">Website & Popup Controls</h3>
                 
@@ -182,6 +184,54 @@
         </main>
     </div>
 
+    <!-- Edit Work Modal Popup -->
+    <div id="edit-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full space-y-4">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="text-sm font-bold text-gray-800">Edit Work / Activity</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-black font-bold">✕</button>
+            </div>
+            <form id="edit-work-form" class="space-y-3">
+                <input type="hidden" id="edit-doc-id">
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">TITLE</label>
+                    <input type="text" id="edit-title" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">DEPARTMENT</label>
+                    <select id="edit-department" class="w-full border border-gray-300 p-2 rounded text-xs bg-white">
+                        <option value="">None (General Recent Work)</option>
+                        <option value="Foreign Affairs">Foreign Affairs</option>
+                        <option value="Programme">Programme</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Community Engagement">Community Engagement</option>
+                        <option value="Education">Education</option>
+                        <option value="Youth Empowerment">Youth Empowerment</option>
+                        <option value="Culture">Culture</option>
+                        <option value="Refugee Affairs">Refugee Affairs</option>
+                        <option value="Media">Media</option>
+                        <option value="Environment">Environment</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">CATEGORY</label>
+                    <input type="text" id="edit-category" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">PHOTO URL(S)</label>
+                    <input type="text" id="edit-image" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">DESCRIPTION</label>
+                    <textarea id="edit-desc" rows="3" required class="w-full border border-gray-300 p-2 rounded text-xs"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded text-xs uppercase">
+                    Update Work
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -198,6 +248,7 @@
             deleteDoc, 
             doc, 
             setDoc,
+            updateDoc,
             getDoc,
             onSnapshot, 
             query, 
@@ -233,7 +284,7 @@
             }
         });
 
-        // Tab Navigation
+        // Navigation Switch
         const tabWorksBtn = document.getElementById('tab-works-btn');
         const tabVolunteersBtn = document.getElementById('tab-volunteers-btn');
         const tabDonationsBtn = document.getElementById('tab-donations-btn');
@@ -290,12 +341,11 @@
         // Logout
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Add Work
+        // Add New Work
         document.getElementById('add-work-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('add-work-btn');
             btn.disabled = true;
-            btn.innerText = "Publishing...";
 
             try {
                 await addDoc(collection(db, "works"), {
@@ -313,13 +363,12 @@
                 alert("Error: " + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Publish Work";
             }
         });
 
         // Delete Work
         window.deleteWork = async (id) => {
-            if (confirm("Are you sure you want to delete this?")) {
+            if (confirm("Are you sure you want to delete this item?")) {
                 try {
                     await deleteDoc(doc(db, "works", id));
                 } catch (err) {
@@ -328,7 +377,50 @@
             }
         };
 
-        // Load Published Works
+        // Open Edit Modal with Data
+        window.openEditModal = async (id) => {
+            try {
+                const docSnap = await getDoc(doc(db, "works", id));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.getElementById('edit-doc-id').value = id;
+                    document.getElementById('edit-title').value = data.title || '';
+                    document.getElementById('edit-department').value = data.department || '';
+                    document.getElementById('edit-category').value = data.category || '';
+                    document.getElementById('edit-image').value = data.image || '';
+                    document.getElementById('edit-desc').value = data.description || '';
+                    document.getElementById('edit-modal').classList.remove('hidden');
+                }
+            } catch (err) {
+                alert("Error getting item: " + err.message);
+            }
+        };
+
+        // Close Modal
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('edit-modal').classList.add('hidden');
+        });
+
+        // Update Work Form Submission
+        document.getElementById('edit-work-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('edit-doc-id').value;
+            try {
+                await updateDoc(doc(db, "works", id), {
+                    title: document.getElementById('edit-title').value,
+                    department: document.getElementById('edit-department').value || '',
+                    category: document.getElementById('edit-category').value,
+                    image: document.getElementById('edit-image').value,
+                    description: document.getElementById('edit-desc').value
+                });
+                document.getElementById('edit-modal').classList.add('hidden');
+                alert("Updated successfully!");
+            } catch (err) {
+                alert("Update failed: " + err.message);
+            }
+        });
+
+        // Load Published Works (Design Exactly Like Image 3 with Edit and Delete Options)
         function loadWorks() {
             const list = document.getElementById('admin-works-list');
             const q = query(collection(db, "works"));
@@ -347,17 +439,18 @@
                     const firstImg = images[0].trim();
 
                     list.innerHTML += `
-                        <div class="border border-gray-100 bg-gray-50/50 p-2.5 rounded flex items-center justify-between hover:bg-gray-50 transition">
+                        <div class="border border-gray-100 bg-gray-50/50 p-2 rounded flex items-center justify-between hover:bg-gray-50 transition">
                             <div class="flex items-center space-x-3">
-                                <img src="${firstImg}" class="w-12 h-10 object-cover rounded border border-gray-200" onerror="this.src='https://via.placeholder.com/50'">
+                                <img src="${firstImg}" class="w-10 h-9 object-cover rounded border border-gray-200" onerror="this.src='https://via.placeholder.com/50'">
                                 <div>
-                                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">${data.category}</span>
-                                    ${data.department ? `<span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded ml-1">${data.department}</span>` : ''}
-                                    <h4 class="text-xs font-bold text-gray-800 mt-0.5 line-clamp-1">${data.title}</h4>
+                                    <span class="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded">${data.category}</span>
+                                    ${data.department ? `<span class="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded ml-1">${data.department}</span>` : ''}
+                                    <h4 class="text-xs font-bold text-gray-800 line-clamp-1 mt-0.5">${data.title}</h4>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-3 text-xs">
-                                <button onclick="deleteWork('${id}')" class="text-red-500 hover:text-red-700 font-semibold">Delete</button>
+                            <div class="flex items-center space-x-2 text-xs">
+                                <button onclick="openEditModal('${id}')" class="text-blue-600 hover:text-blue-800 font-semibold px-1">Edit</button>
+                                <button onclick="deleteWork('${id}')" class="text-red-500 hover:text-red-700 font-semibold px-1">Delete</button>
                             </div>
                         </div>
                     `;
@@ -419,7 +512,7 @@
             });
         }
 
-        // Save Control Settings
+        // Save Controls Settings
         document.getElementById('site-settings-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
@@ -434,7 +527,7 @@
             }
         });
 
-        // Load Settings
+        // Load Controls Settings
         async function loadSettings() {
             try {
                 const docSnap = await getDoc(doc(db, "settings", "controls"));
