@@ -51,17 +51,20 @@
 
         <!-- Navigation Tabs -->
         <div class="bg-white border-b border-gray-200 px-6 py-2 shadow-sm">
-            <div class="max-w-5xl mx-auto flex space-x-6 text-xs font-bold text-gray-600">
-                <button id="tab-works-btn" class="text-emerald-800 border-b-2 border-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+            <div class="max-w-5xl mx-auto flex space-x-6 text-xs font-bold text-gray-600 overflow-x-auto">
+                <button id="tab-works-btn" class="text-emerald-800 border-b-2 border-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
                     <i class="fa-solid fa-briefcase"></i> Recent Works / Activities
                 </button>
-                <button id="tab-volunteers-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                <button id="tab-leadership-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
+                    <i class="fa-solid fa-user-tie"></i> Leadership Team
+                </button>
+                <button id="tab-volunteers-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
                     <i class="fa-solid fa-users"></i> Volunteers Applications
                 </button>
-                <button id="tab-donations-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                <button id="tab-donations-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
                     <i class="fa-solid fa-hand-holding-dollar"></i> Donations List
                 </button>
-                <button id="tab-settings-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none">
+                <button id="tab-settings-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
                     <i class="fa-solid fa-sliders"></i> Site & Popup Controls
                 </button>
             </div>
@@ -132,23 +135,69 @@
                 </div>
             </div>
 
-            <!-- TAB 2: VOLUNTEERS SECTION -->
+            <!-- TAB 2: LEADERSHIP TEAM SECTION -->
+            <div id="tab-leadership" class="hidden space-y-6">
+                <!-- Add New Leader Form -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide mb-4 flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-plus text-emerald-800"></i> Add Leadership Member
+                    </h3>
+
+                    <form id="add-leader-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">LEADER NAME *</label>
+                                <input type="text" id="leader-name" required placeholder="Full Name" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">POSITION / ROLE *</label>
+                                <input type="text" id="leader-position" required placeholder="e.g. Executive Director, Coordinator" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">CONTACT EMAIL OR PHONE *</label>
+                            <input type="text" id="leader-contact" required placeholder="email@domain.com or +880..." class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                        </div>
+
+                        <button type="submit" id="add-leader-btn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded text-xs uppercase tracking-wider transition">
+                            Add Leader
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Manage Existing Leadership List -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-800 mb-4">Manage Leadership Team</h3>
+                    <div id="admin-leadership-list" class="space-y-3">
+                        <p class="text-xs text-gray-500">Loading leaders...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: VOLUNTEERS SECTION -->
             <div id="tab-volunteers" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-sm font-bold text-gray-800 mb-4">Volunteer Applications Received</h3>
+                <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center justify-between">
+                    <span>Volunteer Applications Received</span>
+                    <span class="text-xs font-normal text-gray-500">Manage & Approve Applicants</span>
+                </h3>
                 <div id="volunteers-list" class="space-y-3">
                     <p class="text-xs text-gray-500">Loading Applications...</p>
                 </div>
             </div>
 
-            <!-- TAB 3: DONATIONS SECTION -->
+            <!-- TAB 4: DONATIONS SECTION -->
             <div id="tab-donations" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-sm font-bold text-gray-800 mb-4">Donation Requests</h3>
+                <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center justify-between">
+                    <span>Donation Requests</span>
+                    <span class="text-xs font-normal text-gray-500">Track & Verify Contributions</span>
+                </h3>
                 <div id="donations-list" class="space-y-3">
                     <p class="text-xs text-gray-500">Loading Donations...</p>
                 </div>
             </div>
 
-            <!-- TAB 4: SITE & POPUP CONTROLS -->
+            <!-- TAB 5: SITE & POPUP CONTROLS -->
             <div id="tab-settings" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                 <h3 class="text-sm font-bold text-gray-800 mb-4">Website & Popup Controls</h3>
                 
@@ -232,6 +281,34 @@
         </div>
     </div>
 
+    <!-- Edit Leader Modal Popup -->
+    <div id="edit-leader-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full space-y-4">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="text-sm font-bold text-gray-800">Edit Leadership Member</h3>
+                <button id="close-leader-modal" type="button" class="text-gray-500 hover:text-black font-bold">✕</button>
+            </div>
+            <form id="edit-leader-form" class="space-y-3">
+                <input type="hidden" id="edit-leader-doc-id">
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">LEADER NAME</label>
+                    <input type="text" id="edit-leader-name" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">POSITION / ROLE</label>
+                    <input type="text" id="edit-leader-position" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">CONTACT EMAIL OR PHONE</label>
+                    <input type="text" id="edit-leader-contact" required class="w-full border border-gray-300 p-2 rounded text-xs">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded text-xs uppercase">
+                    Update Leader
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Firebase Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -274,6 +351,7 @@
                 document.getElementById('dashboard-view').classList.remove('hidden');
                 document.getElementById('user-email-display').innerText = user.email;
                 loadWorks();
+                loadLeadership();
                 loadVolunteers();
                 loadDonations();
                 loadSettings();
@@ -285,18 +363,20 @@
 
         // Navigation Switch
         const tabWorksBtn = document.getElementById('tab-works-btn');
+        const tabLeadershipBtn = document.getElementById('tab-leadership-btn');
         const tabVolunteersBtn = document.getElementById('tab-volunteers-btn');
         const tabDonationsBtn = document.getElementById('tab-donations-btn');
         const tabSettingsBtn = document.getElementById('tab-settings-btn');
 
         const tabWorks = document.getElementById('tab-works');
+        const tabLeadership = document.getElementById('tab-leadership');
         const tabVolunteers = document.getElementById('tab-volunteers');
         const tabDonations = document.getElementById('tab-donations');
         const tabSettings = document.getElementById('tab-settings');
 
         function resetTabs() {
-            [tabWorks, tabVolunteers, tabDonations, tabSettings].forEach(el => el.classList.add('hidden'));
-            [tabWorksBtn, tabVolunteersBtn, tabDonationsBtn, tabSettingsBtn].forEach(el => {
+            [tabWorks, tabLeadership, tabVolunteers, tabDonations, tabSettings].forEach(el => el.classList.add('hidden'));
+            [tabWorksBtn, tabLeadershipBtn, tabVolunteersBtn, tabDonationsBtn, tabSettingsBtn].forEach(el => {
                 el.classList.remove('text-emerald-800', 'border-b-2', 'border-emerald-800');
             });
         }
@@ -305,6 +385,12 @@
             resetTabs();
             tabWorks.classList.remove('hidden');
             tabWorksBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
+        });
+
+        tabLeadershipBtn.addEventListener('click', () => {
+            resetTabs();
+            tabLeadership.classList.remove('hidden');
+            tabLeadershipBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
         });
 
         tabVolunteersBtn.addEventListener('click', () => {
@@ -399,7 +485,6 @@
                     document.getElementById('edit-department').value = data.department || '';
                     document.getElementById('edit-category').value = data.category || '';
                     
-                    // Convert stored comma-separated URLs into newline separated URLs for textarea
                     const multilineImages = data.image ? data.image.split(',').map(s => s.trim()).join('\n') : '';
                     document.getElementById('edit-image').value = multilineImages;
                     
@@ -439,7 +524,7 @@
             }
         });
 
-        // Load Published Works (Design Exactly Like Image 2 with Edit & Delete Options)
+        // Load Published Works
         function loadWorks() {
             const list = document.getElementById('admin-works-list');
 
@@ -480,7 +565,132 @@
             });
         }
 
-        // Load Volunteers
+        // --- LEADERSHIP SECTION CODE ---
+
+        // Add New Leader
+        document.getElementById('add-leader-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('add-leader-btn');
+            btn.disabled = true;
+
+            try {
+                await addDoc(collection(db, "leadership"), {
+                    name: document.getElementById('leader-name').value,
+                    position: document.getElementById('leader-position').value,
+                    contact: document.getElementById('leader-contact').value,
+                    createdAt: serverTimestamp()
+                });
+
+                document.getElementById('add-leader-form').reset();
+                alert("Leader added successfully!");
+            } catch (err) {
+                alert("Error adding leader: " + err.message);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        // Load Leadership Team
+        function loadLeadership() {
+            const list = document.getElementById('admin-leadership-list');
+
+            onSnapshot(collection(db, "leadership"), (snapshot) => {
+                list.innerHTML = '';
+                if (snapshot.empty) {
+                    list.innerHTML = `<p class="text-xs text-gray-500">No leadership members added yet.</p>`;
+                    return;
+                }
+
+                snapshot.docs.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+
+                    list.innerHTML += `
+                        <div class="border border-gray-100 bg-gray-50/50 p-2.5 rounded flex items-center justify-between hover:bg-gray-50 transition">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-gray-800">${data.name || 'N/A'}</h4>
+                                    <p class="text-[10px] text-emerald-700 font-semibold">${data.position || 'N/A'}</p>
+                                    <p class="text-[10px] text-gray-500">${data.contact || ''}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 text-xs">
+                                <button onclick="openEditLeaderModal('${id}')" class="text-blue-600 hover:text-blue-800 font-semibold px-1">Edit</button>
+                                <button onclick="deleteLeader('${id}')" class="text-red-500 hover:text-red-700 font-semibold px-1">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }, (error) => {
+                list.innerHTML = `<p class="text-xs text-red-500">Error loading leaders: ${error.message}</p>`;
+            });
+        }
+
+        // Delete Leader
+        window.deleteLeader = async (id) => {
+            if (confirm("Are you sure you want to delete this leader?")) {
+                try {
+                    await deleteDoc(doc(db, "leadership", id));
+                } catch (err) {
+                    alert("Delete failed: " + err.message);
+                }
+            }
+        };
+
+        // Open Leader Edit Modal
+        window.openEditLeaderModal = async (id) => {
+            try {
+                const docSnap = await getDoc(doc(db, "leadership", id));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.getElementById('edit-leader-doc-id').value = id;
+                    document.getElementById('edit-leader-name').value = data.name || '';
+                    document.getElementById('edit-leader-position').value = data.position || '';
+                    document.getElementById('edit-leader-contact').value = data.contact || '';
+                    document.getElementById('edit-leader-modal').classList.remove('hidden');
+                }
+            } catch (err) {
+                alert("Error getting leader details: " + err.message);
+            }
+        };
+
+        // Close Leader Modal
+        document.getElementById('close-leader-modal').addEventListener('click', () => {
+            document.getElementById('edit-leader-modal').classList.add('hidden');
+        });
+
+        // Submit Edit Leader Form
+        document.getElementById('edit-leader-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('edit-leader-doc-id').value;
+
+            try {
+                await updateDoc(doc(db, "leadership", id), {
+                    name: document.getElementById('edit-leader-name').value,
+                    position: document.getElementById('edit-leader-position').value,
+                    contact: document.getElementById('edit-leader-contact').value
+                });
+                document.getElementById('edit-leader-modal').classList.add('hidden');
+                alert("Leader updated successfully!");
+            } catch (err) {
+                alert("Update failed: " + err.message);
+            }
+        });
+
+        // --- VOLUNTEERS STATUS MANAGEMENT ---
+
+        window.updateVolunteerStatus = async (id, newStatus) => {
+            try {
+                await updateDoc(doc(db, "volunteers", id), { status: newStatus });
+            } catch (err) {
+                alert("Failed to update status: " + err.message);
+            }
+        };
+
+        // Load Volunteers with Status and Action Buttons
         function loadVolunteers() {
             const list = document.getElementById('volunteers-list');
 
@@ -493,20 +703,52 @@
 
                 snapshot.docs.forEach((docSnap) => {
                     const v = docSnap.data();
+                    const id = docSnap.id;
+                    const status = v.status || 'Pending';
+
+                    let badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
+                    if(status === 'Approved') badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+                    if(status === 'Rejected') badgeColor = 'bg-red-100 text-red-800 border-red-300';
+
                     list.innerHTML += `
-                        <div class="border border-gray-200 p-3 rounded bg-gray-50 text-xs text-gray-700 space-y-1">
-                            <div class="flex justify-between font-bold text-gray-900">
-                                <span>${v.name} (${v.department || 'N/A'})</span>
-                                <span class="text-emerald-700">${v.phone || ''}</span>
+                        <div class="border border-gray-200 p-3.5 rounded-lg bg-gray-50/50 hover:bg-gray-50 transition space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="font-bold text-xs text-gray-900">${v.name || 'Anonymous'}</span>
+                                    ${v.department ? `<span class="ml-2 text-[10px] bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded font-semibold">${v.department}</span>` : ''}
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}">${status}</span>
                             </div>
-                            <p>Email: ${v.email} | Location: ${v.location || 'N/A'}</p>
+                            <div class="text-[11px] text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-1">
+                                <div><i class="fa-regular fa-envelope text-gray-400 mr-1"></i> ${v.email || 'N/A'}</div>
+                                <div><i class="fa-solid fa-phone text-gray-400 mr-1"></i> ${v.phone || 'N/A'}</div>
+                                <div class="col-span-1 md:col-span-2"><i class="fa-solid fa-location-dot text-gray-400 mr-1"></i> ${v.location || 'N/A'}</div>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-1 border-t border-gray-200/60">
+                                <button onclick="updateVolunteerStatus('${id}', 'Approved')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
+                                    <i class="fa-solid fa-check"></i> Approve
+                                </button>
+                                <button onclick="updateVolunteerStatus('${id}', 'Rejected')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
+                                    <i class="fa-solid fa-xmark"></i> Reject
+                                </button>
+                            </div>
                         </div>
                     `;
                 });
             });
         }
 
-        // Load Donations
+        // --- DONATIONS STATUS MANAGEMENT ---
+
+        window.updateDonationStatus = async (id, newStatus) => {
+            try {
+                await updateDoc(doc(db, "donations", id), { status: newStatus });
+            } catch (err) {
+                alert("Failed to update status: " + err.message);
+            }
+        };
+
+        // Load Donations with Status and Action Buttons
         function loadDonations() {
             const list = document.getElementById('donations-list');
 
@@ -519,13 +761,34 @@
 
                 snapshot.docs.forEach((docSnap) => {
                     const d = docSnap.data();
+                    const id = docSnap.id;
+                    const status = d.status || 'Pending';
+
+                    let badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
+                    if(status === 'Approved') badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+                    if(status === 'Rejected') badgeColor = 'bg-red-100 text-red-800 border-red-300';
+
                     list.innerHTML += `
-                        <div class="border border-gray-200 p-3 rounded bg-gray-50 text-xs text-gray-700 space-y-1">
-                            <div class="flex justify-between font-bold text-gray-900">
-                                <span>${d.name}</span>
-                                <span class="text-amber-600 font-bold">${d.amount} ${d.currency}</span>
+                        <div class="border border-gray-200 p-3.5 rounded-lg bg-gray-50/50 hover:bg-gray-50 transition space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-gray-900">${d.name || 'Anonymous Donor'}</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">${d.amount || 0} ${d.currency || 'USD'}</span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}">${status}</span>
+                                </div>
                             </div>
-                            <p>Phone: ${d.phone} | Email: ${d.email}</p>
+                            <div class="text-[11px] text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-1">
+                                <div><i class="fa-regular fa-envelope text-gray-400 mr-1"></i> ${d.email || 'N/A'}</div>
+                                <div><i class="fa-solid fa-phone text-gray-400 mr-1"></i> ${d.phone || 'N/A'}</div>
+                            </div>
+                            <div class="flex justify-end gap-2 pt-1 border-t border-gray-200/60">
+                                <button onclick="updateDonationStatus('${id}', 'Approved')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
+                                    <i class="fa-solid fa-check"></i> Approve
+                                </button>
+                                <button onclick="updateDonationStatus('${id}', 'Rejected')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
+                                    <i class="fa-solid fa-xmark"></i> Reject
+                                </button>
+                            </div>
                         </div>
                     `;
                 });
