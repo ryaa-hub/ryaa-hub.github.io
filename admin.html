@@ -3,336 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RYAA Admin Dashboard</title>
+    <title>Admin Dashboard - RYAA</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .bg-custom-dark { background-color: #115e39; }
+        .text-custom-dark { color: #115e39; }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen">
 
-    <!-- Login View -->
-    <div id="login-view" class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-200 text-center">
-            <h1 class="text-2xl font-black text-emerald-900 mb-1">RYAA ADMIN</h1>
-            <p class="text-xs text-gray-500 mb-6">Sign in to manage website content</p>
-
-            <form id="login-form" class="space-y-4 text-left">
+    <!-- Auth Container (Login Form) -->
+    <div id="auth-container" class="flex items-center justify-center min-h-screen px-4">
+        <div class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full border border-gray-200">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold text-custom-dark">RYAA Admin Login</h1>
+                <p class="text-sm text-gray-500 mt-1">Please login to access control panel</p>
+            </div>
+            <form id="login-form" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Email</label>
-                    <input type="email" id="login-email" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="login-email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Password</label>
-                    <input type="password" id="login-password" required class="w-full border border-gray-300 p-2.5 rounded focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="login-password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
-                <button type="submit" id="login-btn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3 rounded uppercase text-sm tracking-wider shadow transition">
-                    Sign In
-                </button>
+                <button type="submit" id="login-btn" class="w-full bg-custom-dark text-white font-bold py-2.5 rounded-lg hover:bg-opacity-90 transition">Login</button>
             </form>
+            <p id="login-error" class="text-red-500 text-sm mt-3 text-center hidden"></p>
         </div>
     </div>
 
-    <!-- Dashboard View (Protected) -->
-    <div id="dashboard-view" class="hidden min-h-screen flex flex-col">
-        <!-- Admin Header -->
-        <header class="bg-emerald-900 text-white px-6 py-2.5 flex justify-between items-center shadow">
-            <div class="flex items-center space-x-3">
-                <span class="bg-amber-400 text-emerald-950 font-bold text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider">ADMIN PANEL</span>
-                <span class="font-bold text-base text-white tracking-wide">RYAA Control Panel</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <span id="user-email-display" class="text-xs text-emerald-200"></span>
-                <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-1 rounded transition flex items-center gap-1">
-                    <i class="fa-solid fa-right-from-bracket text-xs"></i> Logout
-                </button>
+    <!-- Main Dashboard -->
+    <div id="dashboard-container" class="hidden">
+        <!-- Top Navbar -->
+        <header class="bg-custom-dark text-white shadow-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-amber-400 text-gray-900 text-xs font-bold px-2.5 py-1 rounded">ADMIN PANEL</span>
+                    <h1 class="text-xl font-extrabold tracking-wide">RYAA Control Panel</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="user-email-display" class="text-sm text-amber-300 hidden md:inline"></span>
+                    <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition">
+                        <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                    </button>
+                </div>
             </div>
         </header>
 
         <!-- Navigation Tabs -->
-        <div class="bg-white border-b border-gray-200 px-6 py-2 shadow-sm">
-            <div class="max-w-5xl mx-auto flex space-x-6 text-xs font-bold text-gray-600 overflow-x-auto">
-                <button id="tab-works-btn" class="text-emerald-800 border-b-2 border-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
-                    <i class="fa-solid fa-briefcase"></i> Recent Works / Activities
+        <div class="bg-white border-b sticky top-[68px] z-30 shadow-sm">
+            <div class="container mx-auto px-4 flex space-x-4 overflow-x-auto">
+                <button onclick="switchTab('activities')" id="tab-btn-activities" class="tab-btn border-b-2 border-custom-dark text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-newspaper"></i> Recent Works / Activities
                 </button>
-                <button id="tab-leadership-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
-                    <i class="fa-solid fa-user-tie"></i> Leadership Team
+                <button onclick="switchTab('leadership')" id="tab-btn-leadership" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-users"></i> Leadership Team
                 </button>
-                <button id="tab-volunteers-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
-                    <i class="fa-solid fa-users"></i> Volunteers Applications
-                </button>
-                <button id="tab-donations-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
+                <button onclick="switchTab('donations')" id="tab-btn-donations" class="tab-btn border-b-2 border-transparent text-gray-600 hover:text-custom-dark font-bold py-3 px-4 flex items-center gap-2 whitespace-nowrap relative">
                     <i class="fa-solid fa-hand-holding-dollar"></i> Donations List
-                </button>
-                <button id="tab-settings-btn" class="hover:text-emerald-800 pb-1 flex items-center gap-1.5 focus:outline-none whitespace-nowrap">
-                    <i class="fa-solid fa-sliders"></i> Site & Popup Controls
+                    <span id="donation-count-badge" class="bg-amber-500 text-xs text-gray-900 font-black px-2 py-0.5 rounded-full hidden">0</span>
                 </button>
             </div>
         </div>
 
-        <!-- Main Content Body -->
-        <main class="flex-1 p-4 md:p-6 max-w-4xl mx-auto w-full space-y-6">
+        <!-- Dashboard Content -->
+        <main class="container mx-auto px-4 py-8">
 
-            <!-- TAB 1: WORKS / ACTIVITIES SECTION -->
-            <div id="tab-works" class="space-y-6">
-                <!-- Add New Work Form -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide mb-4 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-plus text-emerald-800"></i> Add New Work / Event
-                    </h3>
-
-                    <form id="add-work-form" class="space-y-4">
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">TITLE *</label>
-                            <input type="text" id="work-title" required placeholder="Event or activity title" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">DEPARTMENT (Optional - Select if related to a department)</label>
-                            <select id="work-department" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none bg-white">
-                                <option value="">None (General Recent Work)</option>
-                                <option value="Foreign Affairs">Foreign Affairs</option>
-                                <option value="Programme">Programme</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Community Engagement">Community Engagement</option>
-                                <option value="Education">Education</option>
-                                <option value="Youth Empowerment">Youth Empowerment</option>
-                                <option value="Culture">Culture</option>
-                                <option value="Refugee Affairs">Refugee Affairs</option>
-                                <option value="Media">Media</option>
-                                <option value="Environment">Environment</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">CATEGORY *</label>
-                            <input type="text" id="work-category" required placeholder="e.g. Advocacy, Youth Welfare, Social Work" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">PHOTO URL(S) *</label>
-                            <textarea id="work-image" rows="3" required placeholder="https://image1.jpg&#10;https://image2.jpg&#10;https://image3.jpg" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none font-mono"></textarea>
-                            <p class="text-[10px] text-gray-400 mt-0.5">Enter each image URL on a new line (or separated by comma/space).</p>
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">DESCRIPTION *</label>
-                            <textarea id="work-desc" rows="3" required placeholder="Write activity details..." class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"></textarea>
-                        </div>
-
-                        <button type="submit" id="add-work-btn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded text-xs uppercase tracking-wider transition">
-                            Publish Work
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Manage Existing Works List -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-sm font-bold text-gray-800 mb-4">Manage Existing Works</h3>
-                    <div id="admin-works-list" class="space-y-3">
-                        <p class="text-xs text-gray-500">Loading works...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 2: LEADERSHIP TEAM SECTION -->
-            <div id="tab-leadership" class="hidden space-y-6">
-                <!-- Add New Leader Form -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wide mb-4 flex items-center gap-1.5">
-                        <i class="fa-solid fa-user-plus text-emerald-800"></i> Add Leadership Member
-                    </h3>
-
-                    <form id="add-leader-form" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- 1. RECENT ACTIVITIES / WORKS TAB -->
+            <div id="tab-activities" class="tab-content grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
+                        <h2 id="activity-form-title" class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
+                            <i class="fa-solid fa-plus-circle text-custom-dark mr-2"></i> Add New Work / Event
+                        </h2>
+                        <form id="activity-form" class="space-y-4">
+                            <input type="hidden" id="activity-edit-id">
                             <div>
-                                <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">LEADER NAME *</label>
-                                <input type="text" id="leader-name" required placeholder="Full Name" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Title *</label>
+                                <input type="text" id="activity-title" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            
+                            <!-- Department Field (Added) -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Department (Optional)</label>
+                                <select id="activity-department" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none bg-white">
+                                    <option value="">None (General Recent Work)</option>
+                                    <option value="Foreign Affairs">1. Foreign Affairs</option>
+                                    <option value="Programme">2. Programme</option>
+                                    <option value="Finance">3. Finance</option>
+                                    <option value="Community Engagement">4. Community Engagement</option>
+                                    <option value="Education">5. Education</option>
+                                    <option value="Youth Empowerment">6. Youth Empowerment</option>
+                                    <option value="Culture">7. Culture</option>
+                                    <option value="Refugee Affairs">8. Refugee Affairs</option>
+                                    <option value="Media">9. Media</option>
+                                    <option value="Environment">10. Environment</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Category *</label>
+                                <input type="text" id="activity-category" placeholder="e.g. Advocacy, Youth Welfare, Social Work" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">POSITION / ROLE *</label>
-                                <input type="text" id="leader-position" required placeholder="e.g. Executive Director, Coordinator" class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URLs *</label>
+                                <textarea id="activity-image-urls" rows="3" placeholder="https://image1.jpg&#10;https://image2.jpg" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+                                <span class="text-[10px] text-gray-500">Enter image links line by line or separated by commas.</span>
                             </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] font-bold uppercase text-gray-600 mb-1">CONTACT EMAIL OR PHONE *</label>
-                            <input type="text" id="leader-contact" required placeholder="email@domain.com or +880..." class="w-full border border-gray-300 p-2 rounded text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none">
-                        </div>
-
-                        <button type="submit" id="add-leader-btn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded text-xs uppercase tracking-wider transition">
-                            Add Leader
-                        </button>
-                    </form>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Description *</label>
+                                <textarea id="activity-desc" rows="3" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="activity-submit-btn" class="w-full bg-custom-dark hover:bg-opacity-90 text-white font-bold py-2 rounded-lg shadow-sm transition">Publish Work</button>
+                                <button type="button" onclick="resetActivityForm()" id="activity-cancel-btn" class="hidden w-1/3 bg-gray-300 text-gray-800 font-bold py-2 rounded-lg">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <!-- Manage Existing Leadership List -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                    <h3 class="text-sm font-bold text-gray-800 mb-4">Manage Leadership Team</h3>
-                    <div id="admin-leadership-list" class="space-y-3">
-                        <p class="text-xs text-gray-500">Loading leaders...</p>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">Manage Existing Works</h2>
+                        <div id="activities-list" class="space-y-4"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 3: VOLUNTEERS SECTION -->
-            <div id="tab-volunteers" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center justify-between">
-                    <span>Volunteer Applications Received</span>
-                    <span class="text-xs font-normal text-gray-500">Manage & Approve Applicants</span>
-                </h3>
-                <div id="volunteers-list" class="space-y-3">
-                    <p class="text-xs text-gray-500">Loading Applications...</p>
+            <!-- 2. LEADERSHIP TAB -->
+            <div id="tab-leadership" class="tab-content hidden grid lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 sticky top-36">
+                        <h2 id="leader-form-title" class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b flex items-center">
+                            <i class="fa-solid fa-plus-circle text-custom-dark mr-2"></i> Add Leader Member
+                        </h2>
+                        <form id="leader-form" class="space-y-4">
+                            <input type="hidden" id="leader-edit-id">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Full Name *</label>
+                                <input type="text" id="leader-name" required class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Role / Designation *</label>
+                                <input type="text" id="leader-role" required placeholder="e.g. Director of Foreign Affairs" class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Phone / Contact *</label>
+                                <input type="text" id="leader-phone" placeholder="+88018..." class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Photo URL (Optional)</label>
+                                <input type="url" id="leader-image" placeholder="https://..." class="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="leader-submit-btn" class="w-full bg-custom-dark hover:bg-opacity-90 text-white font-bold py-2 rounded-lg shadow-sm transition">Save Member</button>
+                                <button type="button" onclick="resetLeaderForm()" id="leader-cancel-btn" class="hidden w-1/3 bg-gray-300 text-gray-800 font-bold py-2 rounded-lg">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">Leadership Team List</h2>
+                        <div id="leadership-list" class="space-y-4"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- TAB 4: DONATIONS SECTION -->
-            <div id="tab-donations" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center justify-between">
-                    <span>Donation Requests</span>
-                    <span class="text-xs font-normal text-gray-500">Track & Verify Contributions</span>
-                </h3>
-                <div id="donations-list" class="space-y-3">
-                    <p class="text-xs text-gray-500">Loading Donations...</p>
+            <!-- 3. DONATIONS TAB -->
+            <div id="tab-donations" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                    <div class="flex justify-between items-center mb-6 pb-2 border-b">
+                        <div>
+                            <h2 class="text-lg font-bold text-gray-800">Donation Requests & Backers</h2>
+                            <p class="text-xs text-gray-500">Manage incoming donation forms submitted from the RYAA website</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-600">
+                            <thead class="text-xs uppercase bg-custom-dark text-white rounded-lg">
+                                <tr>
+                                    <th class="p-3">Donor Name</th>
+                                    <th class="p-3">Contact</th>
+                                    <th class="p-3">Amount</th>
+                                    <th class="p-3">Method</th>
+                                    <th class="p-3">Message</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donations-list-table">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-            <!-- TAB 5: SITE & POPUP CONTROLS -->
-            <div id="tab-settings" class="hidden bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <h3 class="text-sm font-bold text-gray-800 mb-4">Website & Popup Controls</h3>
-                
-                <form id="site-settings-form" class="space-y-4">
-                    <div class="flex items-center justify-between border-b pb-3">
-                        <div>
-                            <h4 class="text-xs font-bold text-gray-800">Volunteer Application Form Status</h4>
-                            <p class="text-[11px] text-gray-500">Enable or disable volunteer popup form on website</p>
-                        </div>
-                        <select id="volunteer-form-status" class="border border-gray-300 p-1.5 rounded text-xs font-bold bg-white">
-                            <option value="enabled">Enabled (Active)</option>
-                            <option value="disabled">Disabled (Closed)</option>
-                        </select>
-                    </div>
-
-                    <div class="flex items-center justify-between border-b pb-3">
-                        <div>
-                            <h4 class="text-xs font-bold text-gray-800">Donation Button Status</h4>
-                            <p class="text-[11px] text-gray-500">Show or hide donation option on Navigation Bar</p>
-                        </div>
-                        <select id="donation-status" class="border border-gray-300 p-1.5 rounded text-xs font-bold bg-white">
-                            <option value="enabled">Enabled</option>
-                            <option value="disabled">Disabled</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" id="save-settings-btn" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded text-xs uppercase transition">
-                        Save Controls Settings
-                    </button>
-                </form>
             </div>
 
         </main>
     </div>
 
-    <!-- Edit Work Modal Popup -->
-    <div id="edit-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-                <h3 class="text-sm font-bold text-gray-800">Edit Work / Activity</h3>
-                <button id="close-modal" type="button" class="text-gray-500 hover:text-black font-bold">✕</button>
-            </div>
-            <form id="edit-work-form" class="space-y-3">
-                <input type="hidden" id="edit-doc-id">
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">TITLE</label>
-                    <input type="text" id="edit-title" required class="w-full border border-gray-300 p-2 rounded text-xs">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">DEPARTMENT</label>
-                    <select id="edit-department" class="w-full border border-gray-300 p-2 rounded text-xs bg-white">
-                        <option value="">None (General Recent Work)</option>
-                        <option value="Foreign Affairs">Foreign Affairs</option>
-                        <option value="Programme">Programme</option>
-                        <option value="Finance">Finance</option>
-                        <option value="Community Engagement">Community Engagement</option>
-                        <option value="Education">Education</option>
-                        <option value="Youth Empowerment">Youth Empowerment</option>
-                        <option value="Culture">Culture</option>
-                        <option value="Refugee Affairs">Refugee Affairs</option>
-                        <option value="Media">Media</option>
-                        <option value="Environment">Environment</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">CATEGORY</label>
-                    <input type="text" id="edit-category" required class="w-full border border-gray-300 p-2 rounded text-xs">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">PHOTO URL(S)</label>
-                    <textarea id="edit-image" rows="3" required class="w-full border border-gray-300 p-2 rounded text-xs font-mono"></textarea>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">DESCRIPTION</label>
-                    <textarea id="edit-desc" rows="3" required class="w-full border border-gray-300 p-2 rounded text-xs"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded text-xs uppercase">
-                    Update Work
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Edit Leader Modal Popup -->
-    <div id="edit-leader-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-                <h3 class="text-sm font-bold text-gray-800">Edit Leadership Member</h3>
-                <button id="close-leader-modal" type="button" class="text-gray-500 hover:text-black font-bold">✕</button>
-            </div>
-            <form id="edit-leader-form" class="space-y-3">
-                <input type="hidden" id="edit-leader-doc-id">
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">LEADER NAME</label>
-                    <input type="text" id="edit-leader-name" required class="w-full border border-gray-300 p-2 rounded text-xs">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">POSITION / ROLE</label>
-                    <input type="text" id="edit-leader-position" required class="w-full border border-gray-300 p-2 rounded text-xs">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase text-gray-600 mb-1">CONTACT EMAIL OR PHONE</label>
-                    <input type="text" id="edit-leader-contact" required class="w-full border border-gray-300 p-2 rounded text-xs">
-                </div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded text-xs uppercase">
-                    Update Leader
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Firebase Script -->
+    <!-- Firebase v10 Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, 
-            signInWithEmailAndPassword, 
-            signOut, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { 
-            getFirestore, 
-            collection, 
-            addDoc, 
-            deleteDoc, 
-            doc, 
-            setDoc,
-            updateDoc,
-            getDoc,
-            query,
-            orderBy,
-            onSnapshot, 
-            serverTimestamp 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // RYAA Firebase Credentials
         const firebaseConfig = {
             apiKey: "AIzaSyBmBhhZIxWN3GubuzM8VCL8tKX0F2JN2m8",
             authDomain: "ryaa-digital-hub.firebaseapp.com",
@@ -346,492 +227,323 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Authentication State
+        const activitiesCache = {};
+        const leadersCache = {};
+
+        // Tab Switching Logic
+        window.switchTab = (tabName) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('border-custom-dark', 'text-custom-dark');
+                el.classList.add('border-transparent', 'text-gray-600');
+            });
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.classList.add('border-custom-dark', 'text-custom-dark');
+            activeBtn.classList.remove('border-transparent', 'text-gray-600');
+        };
+
+        // Auth Listener
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('login-view').classList.add('hidden');
-                document.getElementById('dashboard-view').classList.remove('hidden');
-                document.getElementById('user-email-display').innerText = user.email;
-                loadWorks();
+                document.getElementById('auth-container').classList.add('hidden');
+                document.getElementById('dashboard-container').classList.remove('hidden');
+                document.getElementById('user-email-display').textContent = user.email;
+                loadActivities();
                 loadLeadership();
-                loadVolunteers();
                 loadDonations();
-                loadSettings();
             } else {
-                document.getElementById('login-view').classList.remove('hidden');
-                document.getElementById('dashboard-view').classList.add('hidden');
+                document.getElementById('auth-container').classList.remove('hidden');
+                document.getElementById('dashboard-container').classList.add('hidden');
             }
         });
 
-        // Navigation Switch
-        const tabWorksBtn = document.getElementById('tab-works-btn');
-        const tabLeadershipBtn = document.getElementById('tab-leadership-btn');
-        const tabVolunteersBtn = document.getElementById('tab-volunteers-btn');
-        const tabDonationsBtn = document.getElementById('tab-donations-btn');
-        const tabSettingsBtn = document.getElementById('tab-settings-btn');
-
-        const tabWorks = document.getElementById('tab-works');
-        const tabLeadership = document.getElementById('tab-leadership');
-        const tabVolunteers = document.getElementById('tab-volunteers');
-        const tabDonations = document.getElementById('tab-donations');
-        const tabSettings = document.getElementById('tab-settings');
-
-        function resetTabs() {
-            [tabWorks, tabLeadership, tabVolunteers, tabDonations, tabSettings].forEach(el => el.classList.add('hidden'));
-            [tabWorksBtn, tabLeadershipBtn, tabVolunteersBtn, tabDonationsBtn, tabSettingsBtn].forEach(el => {
-                el.classList.remove('text-emerald-800', 'border-b-2', 'border-emerald-800');
-            });
-        }
-
-        tabWorksBtn.addEventListener('click', () => {
-            resetTabs();
-            tabWorks.classList.remove('hidden');
-            tabWorksBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
-        });
-
-        tabLeadershipBtn.addEventListener('click', () => {
-            resetTabs();
-            tabLeadership.classList.remove('hidden');
-            tabLeadershipBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
-        });
-
-        tabVolunteersBtn.addEventListener('click', () => {
-            resetTabs();
-            tabVolunteers.classList.remove('hidden');
-            tabVolunteersBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
-        });
-
-        tabDonationsBtn.addEventListener('click', () => {
-            resetTabs();
-            tabDonations.classList.remove('hidden');
-            tabDonationsBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
-        });
-
-        tabSettingsBtn.addEventListener('click', () => {
-            resetTabs();
-            tabSettings.classList.remove('hidden');
-            tabSettingsBtn.classList.add('text-emerald-800', 'border-b-2', 'border-emerald-800');
-        });
-
-        // Login Handler
+        // Authentication Methods
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const loginBtn = document.getElementById('login-btn');
+            const errorElement = document.getElementById('login-error');
+
+            errorElement.classList.add('hidden');
+            loginBtn.disabled = true;
+            loginBtn.innerText = "Logging in...";
+
             try {
                 await signInWithEmailAndPassword(auth, email, password);
             } catch (err) {
-                alert("Login Failed: " + err.message);
+                errorElement.textContent = err.message;
+                errorElement.classList.remove('hidden');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.innerText = "Login";
             }
         });
 
-        // Logout
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Helper to format image URLs from multiline string
-        function processImageUrls(rawInput) {
-            return rawInput
-                .split(/[\n,]/)
+        function parseUrls(rawText) {
+            if (!rawText) return [];
+            if (Array.isArray(rawText)) return rawText;
+            return rawText
+                .split(/[\n,]+/)
                 .map(url => url.trim())
-                .filter(url => url.length > 0)
-                .join(', ');
+                .filter(url => url.length > 0);
         }
 
-        // Add New Work
-        document.getElementById('add-work-form').addEventListener('submit', async (e) => {
+        // ================= 1. WORKS / ACTIVITIES MODULE =================
+        const activityForm = document.getElementById('activity-form');
+        activityForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('add-work-btn');
-            btn.disabled = true;
+            const editId = document.getElementById('activity-edit-id').value;
+            const submitBtn = document.getElementById('activity-submit-btn');
+            const rawUrls = document.getElementById('activity-image-urls').value;
+            const imageUrls = parseUrls(rawUrls);
 
-            const rawImages = document.getElementById('work-image').value;
-            const formattedImages = processImageUrls(rawImages);
+            submitBtn.disabled = true; 
+            submitBtn.innerText = "Saving...";
 
             try {
-                await addDoc(collection(db, "works"), {
-                    title: document.getElementById('work-title').value,
-                    department: document.getElementById('work-department').value || '',
-                    category: document.getElementById('work-category').value,
-                    image: formattedImages,
-                    description: document.getElementById('work-desc').value,
-                    createdAt: serverTimestamp()
-                });
+                let data = {
+                    title: document.getElementById('activity-title').value,
+                    department: document.getElementById('activity-department').value || '',
+                    category: document.getElementById('activity-category').value,
+                    image: imageUrls.length > 1 ? imageUrls : (imageUrls[0] || ''),
+                    description: document.getElementById('activity-desc').value,
+                };
 
-                document.getElementById('add-work-form').reset();
-                alert("Published successfully!");
-            } catch (err) {
-                alert("Error: " + err.message);
-            } finally {
-                btn.disabled = false;
-            }
-        });
-
-        // Delete Work
-        window.deleteWork = async (id) => {
-            if (confirm("Are you sure you want to delete this item?")) {
-                try {
-                    await deleteDoc(doc(db, "works", id));
-                } catch (err) {
-                    alert("Delete failed: " + err.message);
+                if (editId) {
+                    await updateDoc(doc(db, "works", editId), data);
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "works"), data);
                 }
-            }
-        };
-
-        // Open Edit Modal with Data
-        window.openEditModal = async (id) => {
-            try {
-                const docSnap = await getDoc(doc(db, "works", id));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    document.getElementById('edit-doc-id').value = id;
-                    document.getElementById('edit-title').value = data.title || '';
-                    document.getElementById('edit-department').value = data.department || '';
-                    document.getElementById('edit-category').value = data.category || '';
-                    
-                    const multilineImages = data.image ? data.image.split(',').map(s => s.trim()).join('\n') : '';
-                    document.getElementById('edit-image').value = multilineImages;
-                    
-                    document.getElementById('edit-desc').value = data.description || '';
-                    document.getElementById('edit-modal').classList.remove('hidden');
-                }
-            } catch (err) {
-                alert("Error getting item: " + err.message);
-            }
-        };
-
-        // Close Modal
-        document.getElementById('close-modal').addEventListener('click', () => {
-            document.getElementById('edit-modal').classList.add('hidden');
-        });
-
-        // Update Work Form Submission
-        document.getElementById('edit-work-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('edit-doc-id').value;
-            
-            const rawImages = document.getElementById('edit-image').value;
-            const formattedImages = processImageUrls(rawImages);
-
-            try {
-                await updateDoc(doc(db, "works", id), {
-                    title: document.getElementById('edit-title').value,
-                    department: document.getElementById('edit-department').value || '',
-                    category: document.getElementById('edit-category').value,
-                    image: formattedImages,
-                    description: document.getElementById('edit-desc').value
-                });
-                document.getElementById('edit-modal').classList.add('hidden');
-                alert("Updated successfully!");
-            } catch (err) {
-                alert("Update failed: " + err.message);
+                resetActivityForm();
+                alert("Work saved successfully!");
+            } catch (err) { 
+                alert("Error: " + err.message); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerText = "Publish Work"; 
             }
         });
 
-        // Load Published Works Safely Without Index Errors
-        function loadWorks() {
-            const list = document.getElementById('admin-works-list');
-
-            // Simplified query to prevent Firestore indexing issues
-            const q = query(collection(db, "works"));
-
+        function loadActivities() {
+            // Simplified query to avoid index errors
+            const q = collection(db, "works");
             onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('activities-list');
                 list.innerHTML = '';
-                if (snapshot.empty) {
-                    list.innerHTML = `<p class="text-xs text-gray-500">No published works found.</p>`;
+                if (snapshot.docs.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-4">No works published yet.</p>';
                     return;
                 }
-
-                // Sort client-side by createdAt if available
-                const docs = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-                docs.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
-
-                docs.forEach((data) => {
-                    const id = data.id;
-                    const images = data.image ? data.image.split(',') : ['https://via.placeholder.com/80'];
-                    const firstImg = images[0].trim();
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data(); 
+                    const id = docSnap.id;
+                    activitiesCache[id] = d;
+                    
+                    let imagesArr = parseUrls(d.image);
+                    const primaryImg = imagesArr[0] || 'https://via.placeholder.com/150';
 
                     list.innerHTML += `
-                        <div class="border border-gray-100 bg-gray-50/50 p-2.5 rounded flex items-center justify-between hover:bg-gray-50 transition">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
                             <div class="flex items-center space-x-3">
-                                <img src="${firstImg}" class="w-12 h-10 object-cover rounded border border-gray-200" onerror="this.src='https://via.placeholder.com/50'">
+                                <img src="${primaryImg}" class="w-16 h-12 object-cover rounded bg-gray-200" onerror="this.src='https://via.placeholder.com/150'">
                                 <div>
                                     <div class="flex items-center gap-1">
-                                        <span class="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded font-semibold">${data.category || 'General'}</span>
-                                        ${data.department ? `<span class="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.2 rounded font-semibold">${data.department}</span>` : ''}
+                                        <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">${d.category || 'General'}</span>
+                                        ${d.department ? `<span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">${d.department}</span>` : ''}
                                     </div>
-                                    <h4 class="text-xs font-bold text-gray-800 line-clamp-1 mt-0.5">${data.title || 'Untitled Work'}</h4>
+                                    <h4 class="font-bold text-sm text-gray-800 mt-1">${d.title}</h4>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-3 text-xs">
-                                <button onclick="openEditModal('${id}')" class="text-blue-600 hover:text-blue-800 font-semibold px-1">Edit</button>
-                                <button onclick="deleteWork('${id}')" class="text-red-500 hover:text-red-700 font-semibold px-1">Delete</button>
+                            <div class="flex gap-2">
+                                <button onclick="editActivity('${id}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border hover:bg-blue-100">Edit</button>
+                                <button onclick="deleteDocItem('works', '${id}')" class="text-red-600 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border hover:bg-red-100">Delete</button>
                             </div>
-                        </div>
-                    `;
+                        </div>`;
                 });
             }, (error) => {
-                console.error("Firestore Works Load Error:", error);
-                list.innerHTML = `<p class="text-xs text-red-500">Error loading data: ${error.message}</p>`;
+                console.error("Firestore error:", error);
             });
         }
 
-        // --- LEADERSHIP SECTION CODE ---
+        window.editActivity = (id) => {
+            const data = activitiesCache[id]; if (!data) return;
+            let imagesArr = parseUrls(data.image);
+            document.getElementById('activity-edit-id').value = id;
+            document.getElementById('activity-title').value = data.title || '';
+            document.getElementById('activity-department').value = data.department || '';
+            document.getElementById('activity-category').value = data.category || '';
+            document.getElementById('activity-image-urls').value = imagesArr.join('\n');
+            document.getElementById('activity-desc').value = data.description || '';
+            document.getElementById('activity-form-title').innerText = "Edit Work";
+            document.getElementById('activity-submit-btn').innerText = "Update Work";
+            document.getElementById('activity-cancel-btn').classList.remove('hidden');
+        };
 
-        // Add New Leader
-        document.getElementById('add-leader-form').addEventListener('submit', async (e) => {
+        window.resetActivityForm = () => {
+            activityForm.reset();
+            document.getElementById('activity-edit-id').value = '';
+            document.getElementById('activity-form-title').innerText = "Add New Work / Event";
+            document.getElementById('activity-submit-btn').innerText = "Publish Work";
+            document.getElementById('activity-cancel-btn').classList.add('hidden');
+        };
+
+        // ================= 2. LEADERSHIP MODULE =================
+        const leaderForm = document.getElementById('leader-form');
+        leaderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('add-leader-btn');
-            btn.disabled = true;
+            const editId = document.getElementById('leader-edit-id').value;
+            const submitBtn = document.getElementById('leader-submit-btn');
+            submitBtn.disabled = true; 
+            submitBtn.innerText = "Saving...";
 
             try {
-                await addDoc(collection(db, "leadership"), {
+                let data = {
                     name: document.getElementById('leader-name').value,
-                    position: document.getElementById('leader-position').value,
-                    contact: document.getElementById('leader-contact').value,
-                    createdAt: serverTimestamp()
-                });
-
-                document.getElementById('add-leader-form').reset();
-                alert("Leader added successfully!");
-            } catch (err) {
-                alert("Error adding leader: " + err.message);
-            } finally {
-                btn.disabled = false;
+                    role: document.getElementById('leader-role').value,
+                    phone: document.getElementById('leader-phone').value,
+                    image: document.getElementById('leader-image').value
+                };
+                if (editId) {
+                    await updateDoc(doc(db, "leaders", editId), data);
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "leaders"), data);
+                }
+                resetLeaderForm();
+                alert("Team member saved successfully!");
+            } catch (err) { 
+                alert("Error: " + err.message); 
+            } finally { 
+                submitBtn.disabled = false; 
+                submitBtn.innerText = "Save Member"; 
             }
         });
 
-        // Load Leadership Team
         function loadLeadership() {
-            const list = document.getElementById('admin-leadership-list');
-
-            onSnapshot(collection(db, "leadership"), (snapshot) => {
+            const q = collection(db, "leaders");
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('leadership-list');
                 list.innerHTML = '';
-                if (snapshot.empty) {
-                    list.innerHTML = `<p class="text-xs text-gray-500">No leadership members added yet.</p>`;
+                if (snapshot.docs.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-4">No dynamic leaders found (Showing static layout on main site).</p>';
                     return;
                 }
-
-                snapshot.docs.forEach((docSnap) => {
-                    const data = docSnap.data();
+                snapshot.docs.forEach(docSnap => {
+                    const d = docSnap.data(); 
                     const id = docSnap.id;
-
+                    leadersCache[id] = d;
                     list.innerHTML += `
-                        <div class="border border-gray-100 bg-gray-50/50 p-2.5 rounded flex items-center justify-between hover:bg-gray-50 transition">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 border rounded-lg">
                             <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs">
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
+                                <img src="${d.image || 'https://via.placeholder.com/150'}" class="w-10 h-10 rounded-full object-cover bg-gray-200" onerror="this.src='https://via.placeholder.com/150'">
                                 <div>
-                                    <h4 class="text-xs font-bold text-gray-800">${data.name || 'N/A'}</h4>
-                                    <p class="text-[10px] text-emerald-700 font-semibold">${data.position || 'N/A'}</p>
-                                    <p class="text-[10px] text-gray-500">${data.contact || ''}</p>
+                                    <h4 class="font-bold text-sm">${d.name}</h4>
+                                    <p class="text-xs text-emerald-700 font-semibold">${d.role}</p>
+                                    <p class="text-[11px] text-gray-500">${d.phone || ''}</p>
                                 </div>
                             </div>
-                            <div class="flex items-center space-x-3 text-xs">
-                                <button onclick="openEditLeaderModal('${id}')" class="text-blue-600 hover:text-blue-800 font-semibold px-1">Edit</button>
-                                <button onclick="deleteLeader('${id}')" class="text-red-500 hover:text-red-700 font-semibold px-1">Delete</button>
+                            <div class="flex gap-2">
+                                <button onclick="editLeader('${id}')" class="text-blue-600 font-bold text-xs bg-blue-50 px-2.5 py-1 rounded border hover:bg-blue-100">Edit</button>
+                                <button onclick="deleteDocItem('leaders', '${id}')" class="text-red-600 font-bold text-xs bg-red-50 px-2.5 py-1 rounded border hover:bg-red-100">Delete</button>
                             </div>
-                        </div>
-                    `;
-                });
-            }, (error) => {
-                list.innerHTML = `<p class="text-xs text-red-500">Error loading leaders: ${error.message}</p>`;
-            });
-        }
-
-        // Delete Leader
-        window.deleteLeader = async (id) => {
-            if (confirm("Are you sure you want to delete this leader?")) {
-                try {
-                    await deleteDoc(doc(db, "leadership", id));
-                } catch (err) {
-                    alert("Delete failed: " + err.message);
-                }
-            }
-        };
-
-        // Open Leader Edit Modal
-        window.openEditLeaderModal = async (id) => {
-            try {
-                const docSnap = await getDoc(doc(db, "leadership", id));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    document.getElementById('edit-leader-doc-id').value = id;
-                    document.getElementById('edit-leader-name').value = data.name || '';
-                    document.getElementById('edit-leader-position').value = data.position || '';
-                    document.getElementById('edit-leader-contact').value = data.contact || '';
-                    document.getElementById('edit-leader-modal').classList.remove('hidden');
-                }
-            } catch (err) {
-                alert("Error getting leader details: " + err.message);
-            }
-        };
-
-        // Close Leader Modal
-        document.getElementById('close-leader-modal').addEventListener('click', () => {
-            document.getElementById('edit-leader-modal').classList.add('hidden');
-        });
-
-        // Submit Edit Leader Form
-        document.getElementById('edit-leader-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('edit-leader-doc-id').value;
-
-            try {
-                await updateDoc(doc(db, "leadership", id), {
-                    name: document.getElementById('edit-leader-name').value,
-                    position: document.getElementById('edit-leader-position').value,
-                    contact: document.getElementById('edit-leader-contact').value
-                });
-                document.getElementById('edit-leader-modal').classList.add('hidden');
-                alert("Leader updated successfully!");
-            } catch (err) {
-                alert("Update failed: " + err.message);
-            }
-        });
-
-        // --- VOLUNTEERS STATUS MANAGEMENT ---
-
-        window.updateVolunteerStatus = async (id, newStatus) => {
-            try {
-                await updateDoc(doc(db, "volunteers", id), { status: newStatus });
-            } catch (err) {
-                alert("Failed to update status: " + err.message);
-            }
-        };
-
-        // Load Volunteers with Status and Action Buttons
-        function loadVolunteers() {
-            const list = document.getElementById('volunteers-list');
-
-            onSnapshot(collection(db, "volunteers"), (snapshot) => {
-                list.innerHTML = '';
-                if (snapshot.empty) {
-                    list.innerHTML = `<p class="text-xs text-gray-500">No applications found.</p>`;
-                    return;
-                }
-
-                snapshot.docs.forEach((docSnap) => {
-                    const v = docSnap.data();
-                    const id = docSnap.id;
-                    const status = v.status || 'Pending';
-
-                    let badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
-                    if(status === 'Approved') badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-                    if(status === 'Rejected') badgeColor = 'bg-red-100 text-red-800 border-red-300';
-
-                    list.innerHTML += `
-                        <div class="border border-gray-200 p-3.5 rounded-lg bg-gray-50/50 hover:bg-gray-50 transition space-y-2">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <span class="font-bold text-xs text-gray-900">${v.name || 'Anonymous'}</span>
-                                    ${v.department ? `<span class="ml-2 text-[10px] bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded font-semibold">${v.department}</span>` : ''}
-                                </div>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}">${status}</span>
-                            </div>
-                            <div class="text-[11px] text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-1">
-                                <div><i class="fa-regular fa-envelope text-gray-400 mr-1"></i> ${v.email || 'N/A'}</div>
-                                <div><i class="fa-solid fa-phone text-gray-400 mr-1"></i> ${v.phone || 'N/A'}</div>
-                                <div class="col-span-1 md:col-span-2"><i class="fa-solid fa-location-dot text-gray-400 mr-1"></i> ${v.location || 'N/A'}</div>
-                            </div>
-                            <div class="flex justify-end gap-2 pt-1 border-t border-gray-200/60">
-                                <button onclick="updateVolunteerStatus('${id}', 'Approved')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
-                                    <i class="fa-solid fa-check"></i> Approve
-                                </button>
-                                <button onclick="updateVolunteerStatus('${id}', 'Rejected')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
-                                    <i class="fa-solid fa-xmark"></i> Reject
-                                </button>
-                            </div>
-                        </div>
-                    `;
+                        </div>`;
                 });
             });
         }
 
-        // --- DONATIONS STATUS MANAGEMENT ---
-
-        window.updateDonationStatus = async (id, newStatus) => {
-            try {
-                await updateDoc(doc(db, "donations", id), { status: newStatus });
-            } catch (err) {
-                alert("Failed to update status: " + err.message);
-            }
+        window.editLeader = (id) => {
+            const data = leadersCache[id]; if (!data) return;
+            document.getElementById('leader-edit-id').value = id;
+            document.getElementById('leader-name').value = data.name || '';
+            document.getElementById('leader-role').value = data.role || '';
+            document.getElementById('leader-phone').value = data.phone || '';
+            document.getElementById('leader-image').value = data.image || '';
+            document.getElementById('leader-form-title').innerText = "Edit Member";
+            document.getElementById('leader-cancel-btn').classList.remove('hidden');
         };
 
-        // Load Donations with Status and Action Buttons
+        window.resetLeaderForm = () => {
+            leaderForm.reset();
+            document.getElementById('leader-edit-id').value = '';
+            document.getElementById('leader-form-title').innerText = "Add Leader Member";
+            document.getElementById('leader-cancel-btn').classList.add('hidden');
+        };
+
+        // ================= 3. DONATIONS MODULE =================
         function loadDonations() {
-            const list = document.getElementById('donations-list');
+            const q = query(collection(db, "donations"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const tableBody = document.getElementById('donations-list-table');
+                const badge = document.getElementById('donation-count-badge');
+                tableBody.innerHTML = '';
 
-            onSnapshot(collection(db, "donations"), (snapshot) => {
-                list.innerHTML = '';
-                if (snapshot.empty) {
-                    list.innerHTML = `<p class="text-xs text-gray-500">No donation requests found.</p>`;
+                if (snapshot.docs.length > 0) {
+                    badge.innerText = snapshot.docs.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-6 text-gray-500">No donation requests received yet.</td></tr>';
                     return;
                 }
 
-                snapshot.docs.forEach((docSnap) => {
+                snapshot.docs.forEach(docSnap => {
                     const d = docSnap.data();
                     const id = docSnap.id;
                     const status = d.status || 'Pending';
+                    const statusBg = status === 'Verified' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800';
 
-                    let badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
-                    if(status === 'Approved') badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-                    if(status === 'Rejected') badgeColor = 'bg-red-100 text-red-800 border-red-300';
-
-                    list.innerHTML += `
-                        <div class="border border-gray-200 p-3.5 rounded-lg bg-gray-50/50 hover:bg-gray-50 transition space-y-2">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-xs text-gray-900">${d.name || 'Anonymous Donor'}</span>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xs font-black text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">${d.amount || 0} ${d.currency || 'USD'}</span>
-                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}">${status}</span>
-                                </div>
-                            </div>
-                            <div class="text-[11px] text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-1">
-                                <div><i class="fa-regular fa-envelope text-gray-400 mr-1"></i> ${d.email || 'N/A'}</div>
-                                <div><i class="fa-solid fa-phone text-gray-400 mr-1"></i> ${d.phone || 'N/A'}</div>
-                            </div>
-                            <div class="flex justify-end gap-2 pt-1 border-t border-gray-200/60">
-                                <button onclick="updateDonationStatus('${id}', 'Approved')" class="bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
-                                    <i class="fa-solid fa-check"></i> Approve
+                    tableBody.innerHTML += `
+                        <tr class="border-b hover:bg-gray-50 transition">
+                            <td class="p-3 font-bold text-gray-900">${d.name || 'Anonymous'}</td>
+                            <td class="p-3">
+                                <div class="text-xs font-medium">${d.email || ''}</div>
+                                <div class="text-xs text-gray-500 font-semibold">${d.phone || ''}</div>
+                            </td>
+                            <td class="p-3 font-extrabold text-emerald-800">${d.amount || 0} ${d.currency || 'USD'}</td>
+                            <td class="p-3 text-xs">${d.paymentMethod || 'N/A'}</td>
+                            <td class="p-3 text-xs italic max-w-xs truncate">${d.message || '-'}</td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 rounded text-xs font-bold ${statusBg}">${status}</span>
+                            </td>
+                            <td class="p-3 text-center space-x-1">
+                                <button onclick="toggleDonationStatus('${id}', '${status}')" class="bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded border font-semibold">
+                                    ${status === 'Verified' ? 'Mark Pending' : 'Verify'}
                                 </button>
-                                <button onclick="updateDonationStatus('${id}', 'Rejected')" class="bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1">
-                                    <i class="fa-solid fa-xmark"></i> Reject
-                                </button>
-                            </div>
-                        </div>
-                    `;
+                                <button onclick="deleteDocItem('donations', '${id}')" class="bg-red-50 hover:bg-red-100 text-red-600 text-xs px-2 py-1 rounded border font-semibold">Delete</button>
+                            </td>
+                        </tr>`;
                 });
+            }, (error) => {
+                console.error("Donations loading error:", error);
             });
         }
 
-        // Save Controls Settings
-        document.getElementById('site-settings-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        window.toggleDonationStatus = async (id, currentStatus) => {
+            const newStatus = currentStatus === 'Verified' ? 'Pending' : 'Verified';
             try {
-                await setDoc(doc(db, "settings", "controls"), {
-                    volunteerFormStatus: document.getElementById('volunteer-form-status').value,
-                    donationStatus: document.getElementById('donation-status').value,
-                    updatedAt: serverTimestamp()
-                });
-                alert("Site controls updated successfully!");
-            } catch (err) {
-                alert("Error saving settings: " + err.message);
+                await updateDoc(doc(db, "donations", id), { status: newStatus });
+            } catch (err) { 
+                alert("Error updating status: " + err.message); 
             }
-        });
+        };
 
-        // Load Controls Settings
-        async function loadSettings() {
-            try {
-                const docSnap = await getDoc(doc(db, "settings", "controls"));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    if(data.volunteerFormStatus) document.getElementById('volunteer-form-status').value = data.volunteerFormStatus;
-                    if(data.donationStatus) document.getElementById('donation-status').value = data.donationStatus;
+        window.deleteDocItem = async (collectionName, id) => {
+            if (confirm("Are you sure you want to delete this item?")) {
+                try {
+                    await deleteDoc(doc(db, collectionName, id));
+                } catch (err) { 
+                    alert("Error deleting: " + err.message); 
                 }
-            } catch (err) {
-                console.error("Error loading settings:", err);
             }
-        }
+        };
+
+        window.resetActivityForm = resetActivityForm;
+        window.resetLeaderForm = resetLeaderForm;
     </script>
 </body>
 </html>
